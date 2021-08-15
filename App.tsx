@@ -3,13 +3,11 @@ import { Provider as PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 
-import { appTheme, navigationTheme } from "./src/core/configs/theme";
-import MainNavigator from './src/views/navigations/MainNavigator';
+import { appTheme, navigationTheme } from "./app/src/core/configs/theme";
+import MainNavigator from './app/src/views/navigators/MainNavigator';
 
 const App: React.FC = () => {
   
-  
-
   return (
     <PaperProvider theme={appTheme}>
       <NavigationContainer theme={navigationTheme}>
