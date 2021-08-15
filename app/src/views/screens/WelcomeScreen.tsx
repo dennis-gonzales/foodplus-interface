@@ -1,47 +1,63 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Button, Caption, Headline, Subheading, Text } from 'react-native-paper';
+import { Button, Caption, Text } from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../core/configs/routes';
+import { store, RootState } from '../../store';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from '../../store/features/counterSlice';
 
 interface WelcomeScreenProps {
-  route: RouteProp<ScreenParamList, "WelcomeScreen">;
-  navigation: NavigationProp<ScreenParamList, "WelcomeScreen">;
+  route: RouteProp<ScreenParamList, 'WelcomeScreen'>;
+  navigation: NavigationProp<ScreenParamList, 'WelcomeScreen'>;
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
+  const count = useSelector((state: RootState) => state.counter.value);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      console.log(store.getState());
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
-
       <Image
         style={styles.image}
         source={{ uri: 'https://picsum.photos/1000' }}
       />
 
       <View style={styles.description}>
-        <Text>
-          Some intuitive title that'll pique customers interest
-        </Text>
-        <Caption>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla,
-          doloribus aliquid aliquam, necessitatibus minima ipsum mollitia fugit
-          maxime porro ratione eius. Laboriosam, ex iusto corrupti dolorum
-          tempore ut voluptates error?
-        </Caption>
+        <Text>Some intuitive title that'll pique customers interest</Text>
+        <Caption>Counter: {count}</Caption>
 
-        <Button
-          labelStyle={styles.button}
-          mode="contained"
-          onPress={() => {}}
-        >
-            Let's Continue
-        </Button>
+        <View>
+          <Button
+            labelStyle={styles.button}
+            mode="contained"
+            onPress={() => dispatch(increment())}
+          >
+            Increment
+          </Button>
+          <Button
+            labelStyle={styles.button}
+            mode="text"
+            onPress={() => dispatch(decrement())}
+          >
+            Decrement
+          </Button>
+        </View>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +69,7 @@ const styles = StyleSheet.create({
   description: {
     flex: 1,
     margin: 10,
-    justifyContent: "space-evenly",
+    justifyContent: 'space-evenly',
   },
   image: {
     height: 350,
