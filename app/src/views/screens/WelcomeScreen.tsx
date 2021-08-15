@@ -14,7 +14,7 @@ interface WelcomeScreenProps {
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
-  const count = useSelector((state: RootState) => state.counter.value);
+  const count = useSelector((state: RootState) => state.entities.counter.value);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
