@@ -5,8 +5,12 @@ import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../core/configs/routes';
 import { store } from '../../store';
-import { useAppDispatch } from '../../core/hooks/storeApi';
-import { decrement, increment, selectCount } from '../../store/features/counterSlice';
+import { useAppSelector, useAppDispatch } from '../../core/hooks/storeApi';
+import {
+  decrement,
+  increment,
+  selectCount,
+} from '../../store/features/counterSlice';
 
 interface WelcomeScreenProps {
   route: RouteProp<ScreenParamList, 'WelcomeScreen'>;
@@ -14,10 +18,8 @@ interface WelcomeScreenProps {
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
-  // const count = useAppSelector((state) => state.entities.counter.value)
-  const count = selectCount(store.getState().entities.counter);
-
-  const dispatch = useAppDispatch()
+  const count = useAppSelector(state => selectCount(state.entities.counter));
+  const dispatch = useAppDispatch();
 
   return (
     <View style={styles.container}>
