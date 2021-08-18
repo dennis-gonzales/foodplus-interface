@@ -4,8 +4,9 @@ import { Button, Caption, Text } from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../core/configs/routes';
-import { useAppSelector, useAppDispatch } from '../../core/hooks/storeApi';
-import { decrement, increment } from '../../store/features/counterSlice';
+import { store } from '../../store';
+import { useAppDispatch } from '../../core/hooks/storeApi';
+import { decrement, increment, selectCount } from '../../store/features/counterSlice';
 
 interface WelcomeScreenProps {
   route: RouteProp<ScreenParamList, 'WelcomeScreen'>;
@@ -13,7 +14,9 @@ interface WelcomeScreenProps {
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
-  const count = useAppSelector((state) => state.entities.counter.value)
+  // const count = useAppSelector((state) => state.entities.counter.value)
+  const count = selectCount(store.getState().entities.counter);
+
   const dispatch = useAppDispatch()
 
   return (
