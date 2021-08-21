@@ -10,7 +10,7 @@ import {
   increment,
   selectCount,
 } from '../../store/features/counterSlice';
-import { loadTodos } from '../../store/features/todosSlice';
+import { loadTodos, addTodo } from '../../store/features/todosSlice';
 
 interface WelcomeScreenProps {
   route: RouteProp<ScreenParamList, 'WelcomeScreen'>;
@@ -24,6 +24,13 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
   React.useEffect(() => {
 
     dispatch(loadTodos());
+
+    dispatch(addTodo({
+      userId: 88735454,
+      id: 754424,
+      title: 'Watch anime',
+      completed: false,
+    }));
 
   }, []);
 

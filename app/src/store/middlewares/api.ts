@@ -1,9 +1,10 @@
 import axios from "axios";
 import { MiddlewareAPI, Dispatch, Middleware } from "redux";
+import IRequest from "../../core/interfaces/IRequest";
 
 import * as actions from '../actions/requestApi';
 
-const api: Middleware = ({ dispatch }: MiddlewareAPI) => (next: Dispatch) => async (action: any) => {
+const api: Middleware = ({ dispatch }: MiddlewareAPI) => (next: Dispatch) => async (action: IAction<IRequest>) => {
   if (action.type !== actions.requestStarted.type) {
     return next(action);
   }

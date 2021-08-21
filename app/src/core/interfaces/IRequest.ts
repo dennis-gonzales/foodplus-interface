@@ -1,6 +1,9 @@
+import { Method } from "axios";
+
 interface IRequest {
   url: string;
-  method?: string;
+  method?: Method;
+  data?: any;
   onStart?: string;
   onSuccess?: string;
   onError?: string;
