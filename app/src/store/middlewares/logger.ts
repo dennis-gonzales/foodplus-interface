@@ -1,9 +1,7 @@
-import { MiddlewareAPI, Dispatch, Middleware } from "redux";
+import {  Middleware } from 'redux';
 
-const logger: Middleware = (api: MiddlewareAPI) => (next: Dispatch) => (action: any) => {
-  // console.log({ api });
-  // console.log({ next });
-  // console.log({ action });
+const logger: Middleware = api => next => action => {
+  console.log('dispatching', action);
   next(action);
 };
 
