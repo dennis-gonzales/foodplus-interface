@@ -30,7 +30,7 @@ type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>
 
 export const loadTodos = createAsyncThunk<Todo[], Partial<{ userId: number }>>(
   'todos/get',
-  async ({ userId }, { dispatch, requestId, rejectWithValue }) => {
+  async ({ userId }, { dispatch, requestId, }) => {
     try {
       const response = await axios.get(
         `https://jsonplaceholder.typicode.com/todos${
@@ -44,9 +44,9 @@ export const loadTodos = createAsyncThunk<Todo[], Partial<{ userId: number }>>(
   }
 );
 
-export const addTodo = createAsyncThunk<Todo, Required<{ todo: Todo }>>(
+export const addTodo = createAsyncThunk<Todo, Required<Todo>>(
   'todos/add',
-  async ({ todo }, { dispatch, requestId }) => {
+  async (todo, { dispatch, requestId }) => {
     try {
       const response = await axios.post(
         `https://jsonplaceholder.typicode.com/todos`,
@@ -66,27 +66,42 @@ export const todosSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(loadTodos.fulfilled, (todos, { payload }) => {
       todos.todoList = payload;
-      todos.isLoading = false;
     });
+
     builder.addCase(loadTodos.rejected, (todos, { error }) => {
       todos.error = error.message;
-      todos.isLoading = false;
     });
+
     builder.addCase(addTodo.fulfilled, (todos, { payload }) => {
       todos.todoList.push(payload);
-      todos.isLoading = false;
     });
+
     builder.addCase(addTodo.rejected, (todos, { error }) => {
       todos.error = error.message;
-      todos.isLoading = false;
     });
+
     builder.addMatcher<PendingAction>(
       action => action.type.endsWith('/pending'),
       (state, action) => {
         state.isLoading = true;
-        console.log(`type: ${action.type}`);
+        console.log(`action: ${action.meta.requestId}`);
       }
     );
+
+    builder.addMatcher<FulfilledAction>(
+      action => action.type.endsWith('/fulfilled'),
+      (state, action) => {
+        state.isLoading = false;
+      }
+    );
+
+    builder.addMatcher<RejectedAction>(
+      action => action.type.endsWith('/rejected'),
+      (state, action) => {
+        state.isLoading = false;
+      }
+    );
+    
   },
 });
 
