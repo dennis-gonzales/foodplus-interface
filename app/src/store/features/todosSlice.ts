@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 import { RootState } from '..';
-import { requestStarted } from '../actions/requestApi';
 
 type Todo = {
   userId: number;
@@ -13,6 +13,7 @@ type Todo = {
 export interface TodosState {
   todoList: Todo[];
   isLoading: boolean;
+  error?: string;
 }
 
 const initialState: TodosState = {
@@ -20,50 +21,71 @@ const initialState: TodosState = {
   isLoading: false,
 };
 
+export const loadTodos = createAsyncThunk<Todo[], Partial<{ userId: number }>>(
+  'todos/get',
+  async ({ userId }, { dispatch, requestId, rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `https://jsonplaceholder.typicode.com/todos${
+          userId ? `?userId=${userId}` : ''
+        }`
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+);
+
+export const addTodo = createAsyncThunk<Todo, Required<{ todo: Todo }>>(
+  'todos/add',
+  async ({ todo }, { dispatch, requestId }) => {
+    try {
+      const response = await axios.post(
+        `https://jsonplaceholder.typicode.com/todos`,
+        todo
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+);
+
 export const todosSlice = createSlice({
   name: 'todos',
   initialState,
-  reducers: {
-    todosRequested: (state, _) => {
-      state.isLoading = true;
-    },
-    todosReceived: (state, action: PayloadAction<Todo[]>) => {
-      console.log({ action });
-
-      state.todoList = action.payload;
-      state.isLoading = false;
-    },
-    todosRequestFailed: (state, _) => {
-      state.isLoading = false;
-    },
-    todoAdded: (state, action: PayloadAction<Todo>) => {
-      console.log({action});
-      
-      state.todoList.push(action.payload);
-    },
+  reducers: { },
+  extraReducers: builder => {
+    builder.addCase(loadTodos.pending, (todos, _) => {
+      todos.isLoading = true;
+    });
+    builder.addCase(loadTodos.fulfilled, (todos, { payload }) => {
+      todos.todoList = payload;
+      todos.isLoading = false;
+    });
+    builder.addCase(loadTodos.rejected, (todos, { payload, error }) => {
+      todos.error = error.message;
+      todos.isLoading = false;
+    });
+    builder.addCase(addTodo.pending, (todos, _) => {
+      todos.isLoading = true;
+    });
+    builder.addCase(addTodo.fulfilled, (todos, { payload }) => {
+      todos.todoList.push(payload);
+      todos.isLoading = false;
+    });
+    builder.addCase(addTodo.rejected, (todos, { error }) => {
+      todos.error = error.message;
+      todos.isLoading = false;
+    });
   },
 });
 
-export const { todosRequested, todosReceived, todosRequestFailed, todoAdded } = todosSlice.actions;
+export const {} = todosSlice.actions;
 export default todosSlice.reducer;
 
 export const selectTodos = (state: RootState) => state.entities.todos.todoList;
 
 export const selectIsLoading = (state: RootState) =>
   state.entities.todos.isLoading;
-
-export const loadTodos = () =>
-  requestStarted({
-    url: 'https://jsonplaceholder.typicode.com/todos',
-    onStart: todosRequested.type,
-    onSuccess: todosReceived.type,
-    onError: todosRequestFailed.type,
-  });
-
-export const addTodo = (todo: Todo) =>
-  requestStarted({
-    url: 'https://jsonplaceholder.typicode.com/todos',
-    method: 'POST',
-    data: todo,
-    onSuccess: todoAdded.type,
-  });
