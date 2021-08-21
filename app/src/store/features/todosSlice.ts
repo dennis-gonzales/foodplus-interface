@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { RootState } from '..';
@@ -20,6 +20,13 @@ const initialState: TodosState = {
   todoList: [],
   isLoading: false,
 };
+
+type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>
+
+type PendingAction = ReturnType<GenericAsyncThunk['pending']>
+type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>
+type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>
+
 
 export const loadTodos = createAsyncThunk<Todo[], Partial<{ userId: number }>>(
   'todos/get',
@@ -57,19 +64,13 @@ export const todosSlice = createSlice({
   initialState,
   reducers: { },
   extraReducers: builder => {
-    builder.addCase(loadTodos.pending, (todos, _) => {
-      todos.isLoading = true;
-    });
     builder.addCase(loadTodos.fulfilled, (todos, { payload }) => {
       todos.todoList = payload;
       todos.isLoading = false;
     });
-    builder.addCase(loadTodos.rejected, (todos, { payload, error }) => {
+    builder.addCase(loadTodos.rejected, (todos, { error }) => {
       todos.error = error.message;
       todos.isLoading = false;
-    });
-    builder.addCase(addTodo.pending, (todos, _) => {
-      todos.isLoading = true;
     });
     builder.addCase(addTodo.fulfilled, (todos, { payload }) => {
       todos.todoList.push(payload);
@@ -79,6 +80,13 @@ export const todosSlice = createSlice({
       todos.error = error.message;
       todos.isLoading = false;
     });
+    builder.addMatcher<PendingAction>(
+      action => action.type.endsWith('/pending'),
+      (state, action) => {
+        state.isLoading = true;
+        console.log(`type: ${action.type}`);
+      }
+    );
   },
 });
 
