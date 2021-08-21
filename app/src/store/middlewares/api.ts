@@ -3,12 +3,15 @@ import { MiddlewareAPI, Dispatch, Middleware } from "redux";
 
 import * as actions from '../actions/requestApi';
 
-const api: Middleware = (api: MiddlewareAPI) => (next: Dispatch) => async (action: any) => {
+const api: Middleware = ({ dispatch }: MiddlewareAPI) => (next: Dispatch) => async (action: any) => {
   if (action.type !== actions.requestStarted.type) {
     return next(action);
   }
 
-  const { url, method, data, onSuccess, onError } = action.payload;
+  const { url, method, data, onStart, onSuccess, onError } = action.payload;
+
+  if (onStart) dispatch({ type: onStart });
+  next(action);
 
   try {
     const response = await axios.request({
@@ -16,19 +19,26 @@ const api: Middleware = (api: MiddlewareAPI) => (next: Dispatch) => async (actio
       method,
       data,
     });
-
-    console.log(response.data);
     
-    return next({
-      type: onSuccess || actions.requestSuccess.type,
+    dispatch({ type: actions.requestSuccess.type });
+
+    if (onSuccess) {
+      dispatch({
+      type: onSuccess,
       payload: response.data,
     });
+    }
+
   } catch (error) {
 
-    return next({
-      type: onError || actions.requestFailed.type,
-      payload: error,
-    });
+    dispatch({ type: actions.requestFailed.type });
+
+    if (onError) {
+      dispatch({
+        type: onError,
+        payload: error.message,
+      });
+    }
   }
 };
 

@@ -10,7 +10,7 @@ import {
   increment,
   selectCount,
 } from '../../store/features/counterSlice';
-import { loadTodos } from '../../store/features/todoSlice';
+import { loadTodos } from '../../store/features/todosSlice';
 
 interface WelcomeScreenProps {
   route: RouteProp<ScreenParamList, 'WelcomeScreen'>;
