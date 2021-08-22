@@ -2,6 +2,7 @@ import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { RootState } from '..';
+import { selectIsLoggedIn } from './userSlice';
 
 type Todo = {
   userId: number;
@@ -9,6 +10,46 @@ type Todo = {
   title: string;
   completed: boolean;
 };
+
+export const loadTodos = createAsyncThunk<Todo[], Partial<{ userId: number }>, {state: RootState }>(
+  'todos/get',
+  async ({ userId }, { getState }) => {
+    if (selectIsLoggedIn(getState())) {
+      try {
+        const response = await axios.get(
+          `https://jsonplaceholder.typicode.com/todos${
+            userId ? `?userId=${userId}` : ''
+          }`
+        );
+        return response.data;
+      } catch (err) {
+        throw err;
+      }
+    }
+
+    throw 'You are not logged in!';
+  }
+);
+
+export const addTodo = createAsyncThunk<
+  Todo,
+  Required<Todo>,
+  { state: RootState }
+>('todos/add', async (todo, { getState }) => {
+  if (selectIsLoggedIn(getState())) {
+    try {
+      const response = await axios.post(
+        `https://jsonplaceholder.typicode.com/todos`,
+        todo
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  throw 'You are not logged in!';
+});
 
 export interface TodosState {
   todoList: Todo[];
@@ -27,37 +68,6 @@ type PendingAction = ReturnType<GenericAsyncThunk['pending']>
 type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>
 type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>
 
-
-export const loadTodos = createAsyncThunk<Todo[], Partial<{ userId: number }>>(
-  'todos/get',
-  async ({ userId }, { dispatch, requestId, }) => {
-    try {
-      const response = await axios.get(
-        `https://jsonplaceholder.typicode.com/todos${
-          userId ? `?userId=${userId}` : ''
-        }`
-      );
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
-  }
-);
-
-export const addTodo = createAsyncThunk<Todo, Required<Todo>>(
-  'todos/add',
-  async (todo, { dispatch, requestId }) => {
-    try {
-      const response = await axios.post(
-        `https://jsonplaceholder.typicode.com/todos`,
-        todo
-      );
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
-  }
-);
 
 export const todosSlice = createSlice({
   name: 'todos',
@@ -82,22 +92,21 @@ export const todosSlice = createSlice({
 
     builder.addMatcher<PendingAction>(
       action => action.type.endsWith('/pending'),
-      (state, action) => {
+      (state, _) => {
         state.isLoading = true;
-        console.log(`action: ${action.meta.requestId}`);
       }
     );
 
     builder.addMatcher<FulfilledAction>(
       action => action.type.endsWith('/fulfilled'),
-      (state, action) => {
+      (state, _) => {
         state.isLoading = false;
       }
     );
 
     builder.addMatcher<RejectedAction>(
       action => action.type.endsWith('/rejected'),
-      (state, action) => {
+      (state, _) => {
         state.isLoading = false;
       }
     );

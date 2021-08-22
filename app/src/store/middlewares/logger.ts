@@ -1,8 +1,8 @@
-import {  Middleware } from 'redux';
+import { Middleware } from 'redux';
 
 const logger: Middleware = api => next => action => {
-  console.log('dispatching', action);
-  next(action);
+  console.log('dispatching', action.type);
+  return next(action);
 };
 
 export default logger;

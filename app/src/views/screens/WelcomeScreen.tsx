@@ -25,14 +25,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
 
     dispatch(loadTodos({ userId: 6 }));
 
-    dispatch(
-      addTodo({
-        userId: 999,
-        id: 123456,
-        title: 'Watch anime',
-        completed: false,
-      })
-    );
+    // dispatch(
+    //   addTodo({
+    //     userId: 999,
+    //     id: 123456,
+    //     title: 'Watch anime',
+    //     completed: false,
+    //   })
+    // );
 
   }, []);
 
