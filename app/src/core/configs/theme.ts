@@ -12,7 +12,7 @@ const appTheme = {
     primary: colors.colorPrimaryYellow,
     accent: colors.colorAccent,
   },
-};
+} as ReactNativePaper.Theme;
 
 const navigationTheme = {
   ...DefaultNavigationTheme,
