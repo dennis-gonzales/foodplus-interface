@@ -1,5 +1,6 @@
 type ScreenParamList = {
-  WelcomeScreen: undefined;
+  Welcome: undefined;
+  Listings: undefined;
 };
 
 type NavigatorParamList = {

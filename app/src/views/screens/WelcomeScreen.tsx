@@ -6,12 +6,12 @@ import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { ScreenParamList } from '../../core/configs/routes';
 import TextInputWidget from '../widgets/TextInputWidget';
 
-interface WelcomeScreenProps {
-  route: RouteProp<ScreenParamList, 'WelcomeScreen'>;
-  navigation: NavigationProp<ScreenParamList, 'WelcomeScreen'>;
+interface WelcomeProps {
+  route: RouteProp<ScreenParamList, 'Welcome'>;
+  navigation: NavigationProp<ScreenParamList, 'Welcome'>;
 }
 
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
+const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
   const [name, setName] = React.useState<string>('');
   const [nameError, setNameError] = React.useState<boolean>(false);
   const [step, setStep] = React.useState<number>(1);
@@ -81,7 +81,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
     setNameError(name.length === 0);
 
     if (name.length > 0) {
-      console.log({ name });
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Listings' }],
+      });
     }
   };
 
