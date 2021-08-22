@@ -65,7 +65,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ route, navigation }) => {
         <Button
           labelStyle={styles.button}
           mode="text"
-          onPress={() => setStep(1)}
+          onPress={() => {
+            setStep(1);
+            setName('');
+            setNameError(false);
+          }}
         >
           Return
         </Button>

@@ -4,7 +4,7 @@ import { SafeAreaView, StyleSheet } from "react-native";
 
 type ScreenProps = React.ComponentProps<typeof SafeAreaView>;
 
-const Screen: React.FC<ScreenProps> = ({ children, style }) => {
+const ScreenLayout: React.FC<ScreenProps> = ({ children, style }) => {
   return <SafeAreaView style={[styles.screen, style]}>{children}</SafeAreaView>;
 };
 
@@ -15,4 +15,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Screen;
+export default ScreenLayout;
