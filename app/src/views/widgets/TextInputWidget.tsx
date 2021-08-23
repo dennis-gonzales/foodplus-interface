@@ -6,18 +6,9 @@ type TextInputProps = React.ComponentProps<typeof TextInput>;
 
 const TextInputWidget: React.FC<TextInputProps> = ({ ...otherProps }) => {
 
-  return (
-    <TextInput
-      style={styles.textInput}
-      {...otherProps}
-    />
-  )
+  return <TextInput {...otherProps} />;
 }
 
-const styles = StyleSheet.create({
-  textInput: {
-    backgroundColor: 'whitesmoke',
-  },
-});
+const styles = StyleSheet.create({});
 
 export default TextInputWidget;

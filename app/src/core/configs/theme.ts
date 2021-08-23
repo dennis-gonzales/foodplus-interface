@@ -11,6 +11,7 @@ const appTheme = {
     ...DefaultAppTheme.colors,
     primary: colors.colorPrimaryYellow,
     accent: colors.colorAccent,
+    background: '#fff',
   },
 } as ReactNativePaper.Theme;
 
