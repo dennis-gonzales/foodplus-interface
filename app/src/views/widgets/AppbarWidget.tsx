@@ -12,9 +12,11 @@ const AppbarWidget: React.FC<AppbarProps> = () => {
       <Appbar.Action icon="menu" onPress={() => {}} />
       <Appbar.Content title={<Text>Welcome, Chris.</Text>} />
       <Appbar.Action
+        color={appTheme.colors.primary}
         icon="basket"
         onPress={() => {}}
-        color={appTheme.colors.primary}
+        style={styles.appbarBasket}
+        size={30}
       />
     </Appbar.Header>
   );
@@ -24,6 +26,11 @@ const styles = StyleSheet.create({
   appbarheader: {
     backgroundColor: appTheme.colors.background,
     elevation: 0,
+  },
+  appbarBasket: {
+    backgroundColor: "whitesmoke",
+    elevation: 3,
+    marginRight: 10,
   },
 });
 
