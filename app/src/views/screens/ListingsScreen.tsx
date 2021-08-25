@@ -1,6 +1,12 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Chip, IconButton, Searchbar } from 'react-native-paper';
+import {
+  Chip,
+  IconButton,
+  Subheading,
+  Searchbar,
+  Title,
+} from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import AppbarWidget from '../widgets/AppbarWidget';
@@ -23,6 +29,7 @@ const categories = [
   {
     name: 'Salad Combo',
     id: 2,
+    active: true,
   },
   {
     name: 'Berry Combo',
@@ -38,6 +45,21 @@ const categories = [
   },
 ];
 
+const categories2 = [
+  {
+    name: 'Hottest',
+    id: 1,
+    active: true,
+  },
+  {
+    name: 'Popular',
+    id: 2,
+  },
+  {
+    name: 'New Combo',
+    id: 3,
+  },
+];
 
 // TODO: for testing purposes
 export const products: Product[] = [
@@ -102,7 +124,13 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           contentContainerStyle={styles.chipContainer}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
-            <Chip style={styles.chip} onPress={() => console.log('Pressed')}>
+            <Chip
+              style={[
+                styles.chip,
+                item.active ? { backgroundColor: appTheme.colors.primary } : {},
+              ]}
+              onPress={() => console.log('Pressed')}
+            >
               {item.name}
             </Chip>
           )}
@@ -110,6 +138,12 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
       </View>
 
       <View>
+        <View style={{ paddingHorizontal: 20, marginVertical: 10 }}>
+          <Title>The Wholesome Table</Title>
+
+          <Subheading>5PM Deals</Subheading>
+        </View>
+
         <FlatList
           data={products}
           keyExtractor={item => item.title}
@@ -120,7 +154,45 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
             <View style={styles.product}>
               <ProductWidget
                 product={item}
-                onPress={productId => navigation.navigate("ListingDetails", { productId })}
+                onPress={productId =>
+                  navigation.navigate('ListingDetails', { productId })
+                }
+              />
+            </View>
+          )}
+        />
+      </View>
+
+      <View>
+        <FlatList
+          data={categories2}
+          keyExtractor={item => item.id.toString()}
+          horizontal
+          contentContainerStyle={styles.chipContainer}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <Chip
+              style={{ elevation: 0, backgroundColor: 'white' }}
+              onPress={() => console.log('Pressed')}
+            >
+              {item.name}
+            </Chip>
+          )}
+        />
+
+        <FlatList
+          data={products}
+          keyExtractor={item => item.title}
+          horizontal
+          contentContainerStyle={styles.productContainer}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <View style={styles.product}>
+              <ProductWidget
+                product={item}
+                onPress={productId =>
+                  navigation.navigate('ListingDetails', { productId })
+                }
               />
             </View>
           )}
