@@ -1,12 +1,14 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
+import { Chip, IconButton, Searchbar, Text } from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
-import { ScreenParamList } from '../../core/configs/routes';
-import { Chip, IconButton, Searchbar, Text } from 'react-native-paper';
 import AppbarWidget from '../widgets/AppbarWidget';
-import { appTheme } from '../../core/configs/theme';
 import ProductWidget from '../widgets/ProductWidget';
+
+import { ScreenParamList } from '../../core/configs/routes';
+import { appTheme } from '../../core/configs/theme';
+import Product from '../../core/interfaces/Product';
 
 interface ListingsProps {
   route: RouteProp<ScreenParamList, 'Listings'>;
@@ -36,26 +38,32 @@ const categories = [
   },
 ];
 
-const products = [
+
+// TODO: for testing purposes
+export const products: Product[] = [
   {
+    id: 1,
     title: 'Product A',
     priceBeforeDiscount: 2.99,
     price: 1.99,
     image: 'https://picsum.photos/400',
   },
   {
+    id: 2,
     title: 'Product B',
     priceBeforeDiscount: 1.75,
     price: 1.45,
     image: 'https://picsum.photos/500',
   },
   {
+    id: 3,
     title: 'Product C',
     priceBeforeDiscount: 1.5,
     price: 1.25,
     image: 'https://picsum.photos/600',
   },
   {
+    id: 4,
     title: 'Product D',
     priceBeforeDiscount: 1.25,
     price: 1.0,
@@ -111,10 +119,8 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           renderItem={({ item }) => (
             <View style={styles.product}>
               <ProductWidget
-                title={item.title}
-                priceBeforeDiscount={item.priceBeforeDiscount}
-                price={item.price}
-                imageUri={item.image}
+                product={item}
+                onPress={productId => navigation.navigate("ListingDetails", { productId })}
               />
             </View>
           )}

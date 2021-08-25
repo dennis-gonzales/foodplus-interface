@@ -9,32 +9,28 @@ import {
 } from 'react-native-paper';
 
 import { appTheme } from '../../core/configs/theme';
+import Product from '../../core/interfaces/Product';
 
 interface ProductProps {
-  title: string;
-  priceBeforeDiscount: number;
-  price: Number;
-  imageUri: string;
+  product: Product;
+  onPress: (productId: number) => void;
 }
 
-const ProductWidget: React.FC<ProductProps> = ({
-  title,
-  priceBeforeDiscount,
-  price,
-  imageUri,
-}) => {
+const ProductWidget: React.FC<ProductProps> = ({ product, onPress }) => {
+  const { id, title, priceBeforeDiscount, price, image } = product;
+
   return (
-    <Card elevation={4} style={styles.card}>
+    <Card elevation={4} style={styles.card} onPress={() => onPress(id)}>
       <Card.Content style={styles.cardTopContent}>
         <IconButton
           color={appTheme.colors.primary}
-          style={{ backgroundColor: appTheme.colors.background, elevation: 2, }}
+          style={{ backgroundColor: appTheme.colors.background, elevation: 2 }}
           icon="heart-outline"
           size={24}
           onPress={() => {}}
         />
       </Card.Content>
-      <Card.Cover style={styles.cardCover} source={{ uri: imageUri }} />
+      <Card.Cover style={styles.cardCover} source={{ uri: image }} />
       <Card.Content style={styles.cardBottomContent}>
         <Title>{title}</Title>
       </Card.Content>
@@ -49,7 +45,7 @@ const ProductWidget: React.FC<ProductProps> = ({
           </View>
 
           <IconButton
-            style={{ backgroundColor: appTheme.colors.primary, }}
+            style={{ backgroundColor: appTheme.colors.primary }}
             color={appTheme.colors.text}
             icon="plus"
             onPress={() => {}}
