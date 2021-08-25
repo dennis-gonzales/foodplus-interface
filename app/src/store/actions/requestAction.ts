@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import IRequest from '../../core/interfaces/IRequest';
+import IRequest from '../../core/interfaces/api/IRequest';
 
 export const requestStarted = createAction<IRequest>('api/requestStarted');
 export const requestSuccess = createAction<IRequest>('api/requestSuccess');

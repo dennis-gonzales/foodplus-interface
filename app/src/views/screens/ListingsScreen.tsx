@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Chip, IconButton, Searchbar, Text } from 'react-native-paper';
+import { Chip, IconButton, Searchbar } from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import AppbarWidget from '../widgets/AppbarWidget';

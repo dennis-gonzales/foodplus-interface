@@ -1,6 +1,6 @@
 import axios from "axios";
 import { MiddlewareAPI, Dispatch, Middleware } from "redux";
-import IRequest from "../../core/interfaces/IRequest";
+import IRequest from "../../core/interfaces/api/IRequest";
 
 import * as actions from '../actions/requestAction';
 
