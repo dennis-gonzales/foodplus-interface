@@ -109,7 +109,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                   title={item.title}
                   priceBeforeDiscount={item.priceBeforeDiscount}
                   price={item.price}
-                  image={item.image}
+                  imageUri={item.image}
                 />
               </View>
             )}

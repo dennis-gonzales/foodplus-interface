@@ -14,21 +14,27 @@ interface ProductProps {
   title: string;
   priceBeforeDiscount: number;
   price: Number;
-  image: string;
+  imageUri: string;
 }
 
 const ProductWidget: React.FC<ProductProps> = ({
   title,
   priceBeforeDiscount,
   price,
-  image,
+  imageUri,
 }) => {
   return (
     <Card elevation={4} style={styles.card}>
       <Card.Content style={styles.cardTopContent}>
-        <IconButton icon="heart-outline" size={24} onPress={() => {}} />
+        <IconButton
+          color={appTheme.colors.primary}
+          style={{ backgroundColor: appTheme.colors.background, elevation: 2, }}
+          icon="heart-outline"
+          size={24}
+          onPress={() => {}}
+        />
       </Card.Content>
-      <Card.Cover style={styles.cardCover} source={{ uri: image }} />
+      <Card.Cover style={styles.cardCover} source={{ uri: imageUri }} />
       <Card.Content style={styles.cardBottomContent}>
         <Title>{title}</Title>
       </Card.Content>
@@ -38,12 +44,12 @@ const ProductWidget: React.FC<ProductProps> = ({
           <View style={{ flexDirection: 'row' }}>
             <Caption>{priceBeforeDiscount}</Caption>
             <Paragraph style={{ color: appTheme.colors.primary }}>
-                {price}
+              {price}
             </Paragraph>
           </View>
 
           <IconButton
-            style={{ backgroundColor: appTheme.colors.primary }}
+            style={{ backgroundColor: appTheme.colors.primary, }}
             color={appTheme.colors.text}
             icon="plus"
             onPress={() => {}}
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
   cardActionContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
   },
   cardBottomContent: {
     alignSelf: 'center',
@@ -78,6 +84,8 @@ const styles = StyleSheet.create({
   },
   cardTopContent: {
     alignSelf: 'flex-end',
+    position: 'absolute',
+    zIndex: 1,
   },
 });
 
