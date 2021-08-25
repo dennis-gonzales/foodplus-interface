@@ -67,9 +67,9 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
   const [search, setSearch] = React.useState('');
 
   return (
-    <View style={styles.container}>
-      <AppbarWidget />
-      <View style={styles.screen}>
+    <View style={styles.screen}>
+      <View>
+        <AppbarWidget />
         <View style={styles.searchContainer}>
           <Searchbar
             style={styles.searchbar}
@@ -84,66 +84,82 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
             icon="filter-variant"
           />
         </View>
+      </View>
 
-        <View>
-          <FlatList
-            data={categories}
-            keyExtractor={item => item.id.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <Chip onPress={() => console.log('Pressed')}>{item.name}</Chip>
-            )}
-          />
-        </View>
+      <View>
+        <FlatList
+          data={categories}
+          keyExtractor={item => item.id.toString()}
+          horizontal
+          contentContainerStyle={styles.chipContainer}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <Chip style={styles.chip} onPress={() => console.log('Pressed')}>
+              {item.name}
+            </Chip>
+          )}
+        />
+      </View>
 
-        <View>
-          <FlatList
-            data={products}
-            keyExtractor={item => item.title}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <View style={styles.product}>
-                <ProductWidget
-                  title={item.title}
-                  priceBeforeDiscount={item.priceBeforeDiscount}
-                  price={item.price}
-                  imageUri={item.image}
-                />
-              </View>
-            )}
-          />
-        </View>
+      <View>
+        <FlatList
+          data={products}
+          keyExtractor={item => item.title}
+          horizontal
+          contentContainerStyle={styles.productContainer}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <View style={styles.product}>
+              <ProductWidget
+                title={item.title}
+                priceBeforeDiscount={item.priceBeforeDiscount}
+                price={item.price}
+                imageUri={item.image}
+              />
+            </View>
+          )}
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginHorizontal: 10,
+  chip: {
+    backgroundColor: appTheme.colors.background,
+    elevation: 2,
+    margin: 4,
+  },
+  chipContainer: {
+    marginVertical: 10,
+    paddingHorizontal: 20,
   },
   filterIcon: {
-    backgroundColor: appTheme.colors.surface,
-    elevation: 1,
     borderRadius: 10,
+    elevation: 1,
+    backgroundColor: appTheme.colors.background,
     height: 40,
+    margin: 0,
+    marginLeft: 10,
+  },
+  product: {
+    width: 180,
+    marginVertical: 10,
+    marginHorizontal: 5,
+  },
+  productContainer: {
+    marginVertical: 10,
+    paddingHorizontal: 20,
   },
   screen: {
     flex: 1,
-    margin: 10,
   },
   searchContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  product: {
-    width: 200,
+    marginHorizontal: 20,
     marginVertical: 10,
-    marginHorizontal: 5,
   },
   searchbar: {
     flex: 1,

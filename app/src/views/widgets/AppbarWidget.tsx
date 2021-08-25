@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   appbarBasket: {
     backgroundColor: "whitesmoke",
     elevation: 3,
-    marginRight: 10,
+    marginRight: 15,
   },
 });
 

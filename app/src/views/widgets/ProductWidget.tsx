@@ -62,7 +62,9 @@ const ProductWidget: React.FC<ProductProps> = ({
 };
 
 const styles = StyleSheet.create({
-  card: {},
+  card: {
+    margin: 0,
+  },
   cardActions: {
     alignSelf: 'center',
     width: '100%',
