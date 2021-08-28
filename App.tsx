@@ -85,15 +85,18 @@ const App: React.FC = () => {
     Ubuntu_500Medium,
   });
 
-  console.error({ fontError: error });
-  
+  if (error) {
+    console.error({ fontError: error });
+  }
 
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
     return (
       <StorePrivoder store={store}>
-        <PaperProvider theme={{...appTheme, fonts: configureFonts(fontConfig)}}>
+        <PaperProvider
+          theme={{ ...appTheme, fonts: configureFonts(fontConfig) }}
+        >
           <NavigationContainer theme={navigationTheme}>
             <MainNavigator />
             <StatusBar style="auto" />
