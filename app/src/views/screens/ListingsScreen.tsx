@@ -29,7 +29,6 @@ const categories = [
   {
     name: 'Salad Combo',
     id: 2,
-    active: true,
   },
   {
     name: 'Berry Combo',
@@ -45,11 +44,10 @@ const categories = [
   },
 ];
 
-const categories2 = [
+const filters = [
   {
     name: 'Hottest',
     id: 1,
-    active: true,
   },
   {
     name: 'Popular',
@@ -58,6 +56,17 @@ const categories2 = [
   {
     name: 'New Combo',
     id: 3,
+  },
+];
+
+const xdeals = [
+  {
+    name: '5PM Deals',
+    id : 1,
+  },
+  {
+    name: '6PM Deals',
+    id : 2,
   },
 ];
 
@@ -94,7 +103,11 @@ export const products: Product[] = [
 ];
 
 const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
-  const [search, setSearch] = React.useState('');
+
+  const [category, setCategory] = React.useState<number>(categories[0].id);
+  const [filter, setFilter] = React.useState<number>(filters[0].id);
+  const [deals, setDeals] = React.useState<number>(xdeals[0].id);
+  const [search, setSearch] = React.useState<string>('');
 
   return (
     <View style={styles.screen}>
@@ -119,6 +132,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
       <View>
         <FlatList
           data={categories}
+          extraData={category}
           keyExtractor={item => item.id.toString()}
           horizontal
           contentContainerStyle={styles.chipContainer}
@@ -126,10 +140,10 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           renderItem={({ item }) => (
             <Chip
               style={[
-                styles.chip,
-                item.active ? { backgroundColor: appTheme.colors.primary } : {},
+                styles.categoryChip,
+                category === item.id && styles.activeCategory,
               ]}
-              onPress={() => console.log('Pressed')}
+              onPress={() => setCategory(item.id)}
             >
               {item.name}
             </Chip>
@@ -141,7 +155,24 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
         <View style={{ paddingHorizontal: 20, marginVertical: 10 }}>
           <Title>The Wholesome Table</Title>
 
-          <Subheading>5PM Deals</Subheading>
+          <FlatList
+            data={xdeals}
+            extraData={deals}
+            keyExtractor={item => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <Chip
+                style={[
+                  styles.bottomBorder,
+                  deals === item.id && styles.activeBottomBorder,
+                ]}
+                onPress={() => setDeals(item.id)}
+              >
+                {item.name}
+              </Chip>
+            )}
+          />
         </View>
 
         <FlatList
@@ -165,15 +196,19 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
 
       <View>
         <FlatList
-          data={categories2}
+          data={filters}
           keyExtractor={item => item.id.toString()}
+          extraData={filter}
           horizontal
           contentContainerStyle={styles.chipContainer}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
             <Chip
-              style={{ elevation: 0, backgroundColor: 'white' }}
-              onPress={() => console.log('Pressed')}
+              style={[
+                styles.bottomBorder,
+                filter === item.id && styles.activeBottomBorder,
+              ]}
+              onPress={() => setFilter(item.id)}
             >
               {item.name}
             </Chip>
@@ -203,7 +238,20 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  chip: {
+  activeBottomBorder: {
+    borderColor: appTheme.colors.primary,
+    borderWidth: 0,
+    borderBottomWidth: 4,
+  },
+  activeCategory: {
+    backgroundColor: appTheme.colors.primary,
+  },
+  bottomBorder: {
+    elevation: 0,
+    borderRadius: 0,
+    backgroundColor: 'transparent',
+  },
+  categoryChip: {
     backgroundColor: appTheme.colors.background,
     elevation: 2,
     margin: 4,
