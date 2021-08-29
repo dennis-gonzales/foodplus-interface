@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import {
   Chip,
   IconButton,
@@ -62,11 +62,11 @@ const filters = [
 const xdeals = [
   {
     name: '5PM Deals',
-    id : 1,
+    id: 1,
   },
   {
     name: '6PM Deals',
-    id : 2,
+    id: 2,
   },
 ];
 
@@ -103,7 +103,6 @@ export const products: Product[] = [
 ];
 
 const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
-
   const [category, setCategory] = React.useState<number>(categories[0].id);
   const [filter, setFilter] = React.useState<number>(filters[0].id);
   const [deals, setDeals] = React.useState<number>(xdeals[0].id);
@@ -129,45 +128,22 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
         </View>
       </View>
 
-      <View>
-        <FlatList
-          data={categories}
-          extraData={category}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          contentContainerStyle={styles.chipContainer}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <Chip
-              style={[
-                styles.categoryChip,
-                category === item.id && styles.activeCategory,
-              ]}
-              onPress={() => setCategory(item.id)}
-            >
-              {item.name}
-            </Chip>
-          )}
-        />
-      </View>
-
-      <View>
-        <View style={{ paddingHorizontal: 20, marginVertical: 10 }}>
-          <Title>The Wholesome Table</Title>
-
+      <ScrollView>
+        <View>
           <FlatList
-            data={xdeals}
-            extraData={deals}
+            data={categories}
+            extraData={category}
             keyExtractor={item => item.id.toString()}
             horizontal
+            contentContainerStyle={styles.chipContainer}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <Chip
                 style={[
-                  styles.bottomBorder,
-                  deals === item.id && styles.activeBottomBorder,
+                  styles.categoryChip,
+                  category === item.id && styles.activeCategory,
                 ]}
-                onPress={() => setDeals(item.id)}
+                onPress={() => setCategory(item.id)}
               >
                 {item.name}
               </Chip>
@@ -175,64 +151,89 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           />
         </View>
 
-        <FlatList
-          data={products}
-          keyExtractor={item => item.title}
-          horizontal
-          contentContainerStyle={styles.productContainer}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <View style={styles.product}>
-              <ProductWidget
-                product={item}
-                onPress={productId =>
-                  navigation.navigate('ListingDetails', { productId })
-                }
-              />
-            </View>
-          )}
-        />
-      </View>
+        <View>
+          <View style={{ paddingHorizontal: 20, marginVertical: 10 }}>
+            <Title>The Wholesome Table</Title>
 
-      <View>
-        <FlatList
-          data={filters}
-          keyExtractor={item => item.id.toString()}
-          extraData={filter}
-          horizontal
-          contentContainerStyle={styles.chipContainer}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <Chip
-              style={[
-                styles.bottomBorder,
-                filter === item.id && styles.activeBottomBorder,
-              ]}
-              onPress={() => setFilter(item.id)}
-            >
-              {item.name}
-            </Chip>
-          )}
-        />
+            <FlatList
+              data={xdeals}
+              extraData={deals}
+              keyExtractor={item => item.id.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <Chip
+                  style={[
+                    styles.bottomBorder,
+                    deals === item.id && styles.activeBottomBorder,
+                  ]}
+                  onPress={() => setDeals(item.id)}
+                >
+                  {item.name}
+                </Chip>
+              )}
+            />
+          </View>
 
-        <FlatList
-          data={products}
-          keyExtractor={item => item.title}
-          horizontal
-          contentContainerStyle={styles.productContainer}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <View style={styles.product}>
-              <ProductWidget
-                product={item}
-                onPress={productId =>
-                  navigation.navigate('ListingDetails', { productId })
-                }
-              />
-            </View>
-          )}
-        />
-      </View>
+          <FlatList
+            data={products}
+            keyExtractor={item => item.title}
+            horizontal
+            contentContainerStyle={styles.productContainer}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <View style={styles.product}>
+                <ProductWidget
+                  product={item}
+                  onPress={productId =>
+                    navigation.navigate('ListingDetails', { productId })
+                  }
+                />
+              </View>
+            )}
+          />
+        </View>
+
+        <View>
+          <FlatList
+            data={filters}
+            keyExtractor={item => item.id.toString()}
+            extraData={filter}
+            horizontal
+            contentContainerStyle={styles.chipContainer}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <Chip
+                style={[
+                  styles.bottomBorder,
+                  filter === item.id && styles.activeBottomBorder,
+                ]}
+                onPress={() => setFilter(item.id)}
+              >
+                {item.name}
+              </Chip>
+            )}
+          />
+
+          <FlatList
+            data={products}
+            keyExtractor={item => item.title}
+            horizontal
+            contentContainerStyle={styles.productContainer}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <View style={styles.product}>
+                <ProductWidget
+                  product={item}
+                  onPress={productId =>
+                    navigation.navigate('ListingDetails', { productId })
+                  }
+                />
+              </View>
+            )}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
