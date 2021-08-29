@@ -24,7 +24,8 @@
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.foodplus"
+      "package": "com.foodplusph",
+      "permissions": []
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
