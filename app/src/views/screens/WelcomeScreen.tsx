@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Image, useWindowDimensions, ScrollView } from 'react-native';
-import { Button, Caption, Text } from 'react-native-paper';
+import { StyleSheet, View, Image, useWindowDimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Button, Caption, Subheading } from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../core/configs/routes';
@@ -27,9 +27,9 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
   const step_1 = (): JSX.Element => (
     <View style={styles.stepContainer}>
       <View>
-        <Text style={styles.gutterBottom}>
+        <Subheading style={styles.gutterBottom}>
           The only app where you can enjoy closing discounts and more!
-        </Text>
+        </Subheading>
         <Caption style={styles.gutterBottom}>
           Order with our curated list of restaurants and save money by ordering
           at certain period of time.
@@ -37,7 +37,7 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
       </View>
 
       <Button
-        labelStyle={styles.button}
+        uppercase={false}
         mode="contained"
         onPress={() => setStep(2)}
       >
@@ -47,9 +47,9 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
   );
 
   const step_2 = (): JSX.Element => (
-    <View style={styles.stepContainer}>
+    <KeyboardAvoidingView style={styles.stepContainer}>
       <View>
-        <Text style={styles.gutterBottom}>What is your first name?</Text>
+        <Subheading style={styles.gutterBottom}>What is your first name?</Subheading>
 
         <TextInputWidget
           error={nameError}
@@ -62,16 +62,16 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
         />
       </View>
 
-      <View>
+      <View style={{ marginTop: 15, }}>
         <Button
-          labelStyle={styles.button}
+          uppercase={false}
           mode="contained"
           onPress={onStartPressed}
         >
           Start Ordering
         </Button>
         <Button
-          labelStyle={styles.button}
+          uppercase={false}
           mode="text"
           onPress={() => {
             setStep(1);
@@ -82,7 +82,7 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
           Return
         </Button>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 
   const onStartPressed = () => {
@@ -98,26 +98,22 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <Image
         style={{ height: height * 0.65 }}
         source={{ uri: 'https://picsum.photos/1000' }}
       />
 
-      <ScrollView contentContainerStyle={{ flex: 1, }}>
-        {step === 1 && step_1()}
-        {step === 2 && step_2()}
-      </ScrollView>
-    </View>
+      {step === 1 && step_1()}
+      {step === 2 && step_2()}
+
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  button: {
-    textTransform: 'none',
   },
   gutterBottom: {
     marginBottom: 20,
