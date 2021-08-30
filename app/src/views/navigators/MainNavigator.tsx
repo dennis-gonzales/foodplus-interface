@@ -6,13 +6,14 @@ import { ScreenParamList } from '../../core/configs/routes';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ListingsScreen from '../screens/ListingsScreen';
 import ListingDetailsScreen from '../screens/ListingDetailsScreen';
+import CheckoutScreen from '../screens/CheckoutScreen';
 
 const MainNavigator: React.FC = () => {
   const Stack = createStackNavigator<ScreenParamList>();
 
   return (
     <Stack.Navigator
-      initialRouteName="Listings"
+      initialRouteName="Welcome"
       screenOptions={{
         headerTitleAlign: 'left',
       }}
@@ -40,6 +41,15 @@ const MainNavigator: React.FC = () => {
         component={ListingDetailsScreen}
         options={{
           title: 'Listing Details',
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="Checkout"
+        component={CheckoutScreen}
+        options={{
+          title: 'Checkout',
           headerShown: false,
         }}
       />

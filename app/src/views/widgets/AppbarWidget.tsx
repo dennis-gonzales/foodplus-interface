@@ -8,7 +8,7 @@ interface AppbarProps {}
 
 const AppbarWidget: React.FC<AppbarProps> = () => {
   return (
-    <Appbar.Header style={styles.appbarheader}>
+    <Appbar.Header style={styles.appbarHeader}>
       <Appbar.Action icon="menu" onPress={() => {}} />
       <Appbar.Content title={<Text>Welcome, Chris.</Text>} />
       <Appbar.Action
@@ -23,7 +23,7 @@ const AppbarWidget: React.FC<AppbarProps> = () => {
 };
 
 const styles = StyleSheet.create({
-  appbarheader: {
+  appbarHeader: {
     backgroundColor: appTheme.colors.background,
     elevation: 0,
   },
