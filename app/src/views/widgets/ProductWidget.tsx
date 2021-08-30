@@ -13,21 +13,22 @@ import Product from '../../core/interfaces/Product';
 
 interface ProductProps {
   product: Product;
-  onPress: (productId: number) => void;
+  onPress: () => void;
+  onLike: () => void;
 }
 
-const ProductWidget: React.FC<ProductProps> = ({ product, onPress }) => {
+const ProductWidget: React.FC<ProductProps> = ({ product, onPress, onLike }) => {
   const { id, title, priceBeforeDiscount, price, image } = product;
 
   return (
-    <Card elevation={4} style={styles.card} onPress={() => onPress(id)}>
+    <Card elevation={4} style={styles.card} onPress={onPress}>
       <Card.Content style={styles.cardTopContent}>
         <IconButton
           color={appTheme.colors.primary}
           style={{ backgroundColor: appTheme.colors.background, elevation: 2 }}
           icon="heart-outline"
           size={24}
-          onPress={() => {}}
+          onPress={onLike}
         />
       </Card.Content>
       <Card.Cover style={styles.cardCover} source={{ uri: image }} />

@@ -185,9 +185,10 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
               <View style={styles.product}>
                 <ProductWidget
                   product={item}
-                  onPress={productId =>
-                    navigation.navigate('ListingDetails', { productId })
+                  onPress={() =>
+                    navigation.navigate('ListingDetails', { productId: item.id })
                   }
+                  onLike={() => navigation.navigate('Checkout')}
                 />
               </View>
             )}
@@ -225,9 +226,10 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
               <View style={styles.product}>
                 <ProductWidget
                   product={item}
-                  onPress={productId =>
-                    navigation.navigate('ListingDetails', { productId })
+                  onPress={() =>
+                    navigation.navigate('ListingDetails', { productId: item.id })
                   }
+                  onLike={() => navigation.navigate('Checkout')}
                 />
               </View>
             )}
