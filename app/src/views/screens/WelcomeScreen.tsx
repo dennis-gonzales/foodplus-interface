@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, useWindowDimensions, ScrollView } from 'react-native';
 import { Button, Caption, Text } from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
@@ -12,17 +12,19 @@ interface WelcomeProps {
 }
 
 const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
+  const { height } = useWindowDimensions();
+
   const [name, setName] = React.useState<string>('');
   const [nameError, setNameError] = React.useState<boolean>(false);
-  const [step, setStep] = React.useState<number>(1);
+  const [step, setStep] = React.useState<number>(1);  
 
   const step_1 = (): JSX.Element => (
-    <View style={styles.description}>
+    <View style={styles.stepContainer}>
       <View>
         <Text style={styles.gutterBottom}>
           The only app where you can enjoy closing discounts and more!
         </Text>
-        <Caption>
+        <Caption style={styles.gutterBottom}>
           Order with our curated list of restaurants and save money by ordering
           at certain period of time.
         </Caption>
@@ -39,9 +41,9 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
   );
 
   const step_2 = (): JSX.Element => (
-    <View style={styles.description}>
+    <View style={styles.stepContainer}>
       <View>
-        <Text style={styles.description}>What is your first name?</Text>
+        <Text style={styles.gutterBottom}>What is your first name?</Text>
 
         <TextInputWidget
           error={nameError}
@@ -91,12 +93,14 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        style={styles.image}
+        style={{ height: height * 0.65 }}
         source={{ uri: 'https://picsum.photos/1000' }}
       />
 
-      {step === 1 && step_1()}
-      {step === 2 && step_2()}
+      <ScrollView contentContainerStyle={{ flex: 1, }}>
+        {step === 1 && step_1()}
+        {step === 2 && step_2()}
+      </ScrollView>
     </View>
   );
 };
@@ -108,16 +112,13 @@ const styles = StyleSheet.create({
   button: {
     textTransform: 'none',
   },
-  description: {
-    flex: 1,
-    margin: 10,
-    justifyContent: 'space-around',
-  },
   gutterBottom: {
-    marginBottom: 10,
+    marginBottom: 20,
   },
-  image: {
-    height: 350,
+  stepContainer: {
+    padding: 20,
+    flex: 1,
+    justifyContent: 'space-around',
   },
 });
 
