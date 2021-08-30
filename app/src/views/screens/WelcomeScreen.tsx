@@ -4,6 +4,10 @@ import { Button, Caption, Text } from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../core/configs/routes';
+import { useAppDispatch } from '../../core/hooks/storeApi';
+
+import { setFirstname } from '../../store/features/userSlice';
+
 import TextInputWidget from '../widgets/TextInputWidget';
 
 interface WelcomeProps {
@@ -13,6 +17,8 @@ interface WelcomeProps {
 
 const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
   const { height } = useWindowDimensions();
+
+  const dispatch = useAppDispatch();
 
   const [name, setName] = React.useState<string>('');
   const [nameError, setNameError] = React.useState<boolean>(false);
@@ -83,6 +89,7 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({ route, navigation }) => {
     setNameError(name.length === 0);
 
     if (name.length > 0) {
+      dispatch(setFirstname(name));
       navigation.reset({
         index: 0,
         routes: [{ name: 'Listings' }],

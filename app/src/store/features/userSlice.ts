@@ -56,6 +56,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setFirstname: (state, action: PayloadAction<string>) => {
+      state.user.firstName = action.payload;
+    },
     unregistered: (state, { payload }: PayloadAction<SerializedError>) => {
       state.isLoggedIn = false;
       state.error = payload.message;
@@ -96,7 +99,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { unregistered } = userSlice.actions;
+export const { setFirstname, unregistered } = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectUser = (state: RootState) => state.entities.user.user;
