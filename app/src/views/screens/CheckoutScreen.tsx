@@ -139,10 +139,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 10,
     padding: 8,
+    width: 100,
   },
   titleStyle: {
     textAlign: 'center',
-    marginRight: 80,
   },
   screen: {
     flex: 1,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    backgroundColor: 'whitesmoke',
+    backgroundColor: appTheme.colors.background,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
     bottom: 0,
