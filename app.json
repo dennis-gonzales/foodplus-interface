@@ -25,7 +25,8 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.foodplusph",
-      "permissions": []
+      "permissions": [],
+      "versionCode": 2
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
