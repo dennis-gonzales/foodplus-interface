@@ -7,7 +7,7 @@ import { appTheme } from '../../core/configs/theme';
 import { useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
 
-import { selectUser } from '../../store/features/userSlice';
+import { selectUser } from '../../store/slices/userSlice';
 
 type AppbarNavigationProp = NavigationProp<ScreenParamList, any>;
 

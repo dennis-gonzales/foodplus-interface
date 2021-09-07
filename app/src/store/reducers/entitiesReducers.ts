@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import counterReducer from '../features/counterSlice';
-import todosReducer from '../features/todosSlice';
-import userSlice from '../features/userSlice';
+import counterReducer from '../slices/counterSlice';
+import todosReducer from '../slices/todosSlice';
+import userSlice from '../slices/userSlice';
 
 export default combineReducers({
   counter: counterReducer,

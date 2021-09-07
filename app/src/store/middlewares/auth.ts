@@ -1,6 +1,6 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { Middleware } from 'redux';
-import { selectIsLoggedIn, unregistered } from '../features/userSlice';
+import { selectIsLoggedIn, unregistered } from '../slices/userSlice';
 
 const auth: Middleware = ({ getState, dispatch }) => next => async (action: IAction<SerializedError>) => {
   if (!action.type.endsWith('/pending')) {
