@@ -8,8 +8,10 @@ import {
   Title,
 } from 'react-native-paper';
 
-import { appTheme } from '../../core/configs/theme';
+import { useAppSelector } from '../../core/hooks/storeApi';
 import Product from '../../core/interfaces/Product';
+
+import { selectAppTheme } from '../../store/slices/themeSlice';
 
 interface ProductProps {
   product: Product;
@@ -18,6 +20,8 @@ interface ProductProps {
 }
 
 const ProductWidget: React.FC<ProductProps> = ({ product, onPress, onLike }) => {
+  const appTheme = useAppSelector(state => selectAppTheme(state));
+
   const { id, title, priceBeforeDiscount, price, image } = product;
 
   return (

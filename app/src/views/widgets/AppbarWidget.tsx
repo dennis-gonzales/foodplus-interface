@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Appbar, Text } from 'react-native-paper';
 
-import { appTheme } from '../../core/configs/theme';
 import { useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
 
 import { selectUser } from '../../store/slices/userSlice';
+import { selectAppTheme } from '../../store/slices/themeSlice';
 
 type AppbarNavigationProp = NavigationProp<ScreenParamList, any>;
 
@@ -17,9 +17,10 @@ const AppbarWidget: React.FC<AppbarProps> = () => {
   const navigation = useNavigation<AppbarNavigationProp>();
 
   const firstName = useAppSelector(state => selectUser(state).firstName);
+  const appTheme = useAppSelector(state => selectAppTheme(state));
 
   return (
-    <Appbar.Header style={styles.appbarHeader}>
+    <Appbar.Header style={[styles.appbarHeader, { backgroundColor: appTheme.colors.background }]}>
       <Appbar.Action icon="menu" onPress={() => {}} />
       <Appbar.Content title={<Text>Welcome, {firstName}.</Text>} />
       <Appbar.Action
@@ -35,7 +36,6 @@ const AppbarWidget: React.FC<AppbarProps> = () => {
 
 const styles = StyleSheet.create({
   appbarHeader: {
-    backgroundColor: appTheme.colors.background,
     elevation: 0,
   },
   appbarBasket: {

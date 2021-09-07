@@ -18,7 +18,7 @@ import {
 } from '@expo-google-fonts/ubuntu';
 
 import { store } from './app/src/store';
-import { appTheme, darkAppTheme, navigationTheme, darkNavigationTheme } from './app/src/core/configs/theme';
+import { selectAppTheme, selectNavTheme } from './app/src/store/slices/themeSlice';
 import MainNavigator from './app/src/views/navigators/MainNavigator';
 
 const fontConfig = {
@@ -92,12 +92,13 @@ const App: React.FC = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
+
     return (
       <StorePrivoder store={store}>
         <PaperProvider
-          theme={{ ...appTheme, fonts: configureFonts(fontConfig) }}
+          theme={{ ...selectAppTheme(store.getState()), fonts: configureFonts(fontConfig) }}
         >
-          <NavigationContainer theme={navigationTheme}>
+          <NavigationContainer theme={selectNavTheme(store.getState())}>
             <MainNavigator />
             <StatusBar style="auto" />
           </NavigationContainer>

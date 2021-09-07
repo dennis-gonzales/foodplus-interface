@@ -9,7 +9,7 @@ import {
 } from 'react-native-paper';
 import colors from '../constants/colors';
 
-const appTheme = {
+const defaultAppTheme = {
   ...DefaultAppTheme,
   colors: {
     ...DefaultAppTheme.colors,
@@ -29,7 +29,7 @@ const darkAppTheme = {
   },
 } as ReactNativePaper.Theme;
 
-const navigationTheme = {
+const defaultNavigationTheme = {
   ...DefaultNavigationTheme,
   colors: {
     ...DefaultNavigationTheme.colors,
@@ -47,4 +47,9 @@ const darkNavigationTheme = {
   },
 } as NavigationTheme;
 
-export { appTheme, darkAppTheme, navigationTheme, darkNavigationTheme };
+export {
+  defaultAppTheme,
+  defaultNavigationTheme,
+  darkAppTheme,
+  darkNavigationTheme,
+};

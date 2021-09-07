@@ -6,8 +6,10 @@ import { RouteProp } from '@react-navigation/native';
 
 import { products } from './ListingsScreen';
 
+import { useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
-import { appTheme } from '../../core/configs/theme';
+
+import { selectAppTheme } from '../../store/slices/themeSlice';
 
 interface ListingDetailsProps {
   route: RouteProp<ScreenParamList, 'ListingDetails'>;
@@ -18,6 +20,8 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
   route,
   navigation,
 }) => {
+  const appTheme = useAppSelector(state => selectAppTheme(state));
+  
   const { productId } = route.params;
 
   const product = products.find(p => p.id === productId);

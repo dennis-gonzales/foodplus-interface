@@ -5,9 +5,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import { useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
-import { appTheme } from '../../core/configs/theme';
 import Product from '../../core/interfaces/Product';
+
+import { selectAppTheme } from '../../store/slices/themeSlice';
 
 interface CheckoutProps {
   route: RouteProp<ScreenParamList, 'Checkout'>;
@@ -40,6 +42,7 @@ export const checkout: Product[] = [
 ];
 
 const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
+  const appTheme = useAppSelector(state => selectAppTheme(state));
 
   const getTotalPrice = (): number => {
     return checkout.reduce((acc, curr) => acc + curr.price, 0);
@@ -100,9 +103,12 @@ const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
         />
       </View>
 
-      <View style={styles.footer}>
-        
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View
+        style={[styles.footer, { backgroundColor: appTheme.colors.background }]}
+      >
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
           <Subheading>Total</Subheading>
           <Title>${getTotalPrice()}</Title>
         </View>
@@ -150,7 +156,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
-    backgroundColor: appTheme.colors.background,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
     bottom: 0,

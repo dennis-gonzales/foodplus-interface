@@ -12,9 +12,11 @@ import { NavigationProp, RouteProp } from '@react-navigation/native';
 import AppbarWidget from '../widgets/AppbarWidget';
 import ProductWidget from '../widgets/ProductWidget';
 
+import { useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
-import { appTheme } from '../../core/configs/theme';
 import Product from '../../core/interfaces/Product';
+
+import { selectAppTheme } from '../../store/slices/themeSlice';
 
 interface ListingsProps {
   route: RouteProp<ScreenParamList, 'Listings'>;
@@ -103,6 +105,8 @@ export const products: Product[] = [
 ];
 
 const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
+  const appTheme = useAppSelector(state => selectAppTheme(state));
+
   const [category, setCategory] = React.useState<number>(categories[0].id);
   const [filter, setFilter] = React.useState<number>(filters[0].id);
   const [deals, setDeals] = React.useState<number>(xdeals[0].id);
@@ -121,7 +125,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           />
 
           <IconButton
-            style={styles.filterIcon}
+            style={dynamicStyles(appTheme).filterIcon}
             size={30}
             icon="filter-variant"
           />
@@ -140,8 +144,8 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
             renderItem={({ item }) => (
               <Chip
                 style={[
-                  styles.categoryChip,
-                  category === item.id && styles.activeCategory,
+                  dynamicStyles(appTheme).categoryChip,
+                  category === item.id && dynamicStyles(appTheme).activeCategory,
                 ]}
                 onPress={() => setCategory(item.id)}
               >
@@ -165,7 +169,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                 <Chip
                   style={[
                     styles.bottomBorder,
-                    deals === item.id && styles.activeBottomBorder,
+                    deals === item.id && dynamicStyles(appTheme).activeBottomBorder,
                   ]}
                   onPress={() => setDeals(item.id)}
                 >
@@ -207,7 +211,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
               <Chip
                 style={[
                   styles.bottomBorder,
-                  filter === item.id && styles.activeBottomBorder,
+                  filter === item.id && dynamicStyles(appTheme).activeBottomBorder,
                 ]}
                 onPress={() => setFilter(item.id)}
               >
@@ -240,36 +244,41 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  activeBottomBorder: {
-    borderColor: appTheme.colors.primary,
+const dynamicStyles = (theme: ReactNativePaper.Theme) => StyleSheet.create({
+activeBottomBorder: {
+    borderColor: theme.colors.primary,
     borderWidth: 0,
     borderBottomWidth: 4,
   },
   activeCategory: {
-    backgroundColor: appTheme.colors.primary,
+    backgroundColor: theme.colors.primary,
   },
+  categoryChip: {
+    backgroundColor: theme.colors.background,
+    elevation: 2,
+    margin: 4,
+  },
+  filterIcon: {
+    borderRadius: 10,
+    elevation: 1,
+    backgroundColor: theme.colors.background,
+    height: 40,
+    margin: 0,
+    marginLeft: 10,
+  },
+});
+
+const styles = StyleSheet.create({
+  
   bottomBorder: {
     elevation: 0,
     borderRadius: 0,
     backgroundColor: 'transparent',
   },
-  categoryChip: {
-    backgroundColor: appTheme.colors.background,
-    elevation: 2,
-    margin: 4,
-  },
+  
   chipContainer: {
     marginVertical: 10,
     paddingHorizontal: 20,
-  },
-  filterIcon: {
-    borderRadius: 10,
-    elevation: 1,
-    backgroundColor: appTheme.colors.background,
-    height: 40,
-    margin: 0,
-    marginLeft: 10,
   },
   product: {
     width: 180,
