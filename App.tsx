@@ -18,7 +18,7 @@ import {
 } from '@expo-google-fonts/ubuntu';
 
 import { store } from './app/src/store';
-import { appTheme, navigationTheme } from './app/src/core/configs/theme';
+import { appTheme, darkAppTheme, navigationTheme, darkNavigationTheme } from './app/src/core/configs/theme';
 import MainNavigator from './app/src/views/navigators/MainNavigator';
 
 const fontConfig = {

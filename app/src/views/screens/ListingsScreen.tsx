@@ -229,7 +229,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                   onPress={() =>
                     navigation.navigate('ListingDetails', { productId: item.id })
                   }
-                  onLike={() => navigation.navigate('Checkout')}
+                  onLike={() => {}}
                 />
               </View>
             )}
