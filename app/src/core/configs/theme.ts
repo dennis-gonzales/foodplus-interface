@@ -17,6 +17,7 @@ const defaultAppTheme = {
     accent: colors.colorAccent,
     background: '#fff',
   },
+  dark: false,
 } as ReactNativePaper.Theme;
 
 const darkAppTheme = {
@@ -27,6 +28,7 @@ const darkAppTheme = {
     accent: colors.colorAccent,
     background: '#121212',
   },
+  dark: true,
 } as ReactNativePaper.Theme;
 
 const defaultNavigationTheme = {
@@ -36,6 +38,7 @@ const defaultNavigationTheme = {
     primary: colors.colorPrimaryYellow,
     background: '#fff',
   },
+  dark: false,
 } as NavigationTheme;
 
 const darkNavigationTheme = {
@@ -45,6 +48,7 @@ const darkNavigationTheme = {
     primary: colors.colorPrimaryYellow,
     background: '#121212',
   },
+  dark: true,
 } as NavigationTheme;
 
 export {

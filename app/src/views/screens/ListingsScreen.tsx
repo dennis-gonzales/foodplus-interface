@@ -113,7 +113,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
   const [search, setSearch] = React.useState<string>('');
 
   return (
-    <View style={styles.screen}>
+    <View style={dynamicStyles(appTheme).screen}>
       <View>
         <AppbarWidget />
         <View style={styles.searchContainer}>
@@ -145,7 +145,8 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
               <Chip
                 style={[
                   dynamicStyles(appTheme).categoryChip,
-                  category === item.id && dynamicStyles(appTheme).activeCategory,
+                  category === item.id &&
+                    dynamicStyles(appTheme).activeCategory,
                 ]}
                 onPress={() => setCategory(item.id)}
               >
@@ -169,7 +170,8 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                 <Chip
                   style={[
                     styles.bottomBorder,
-                    deals === item.id && dynamicStyles(appTheme).activeBottomBorder,
+                    deals === item.id &&
+                      dynamicStyles(appTheme).activeBottomBorder,
                   ]}
                   onPress={() => setDeals(item.id)}
                 >
@@ -190,7 +192,9 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                 <ProductWidget
                   product={item}
                   onPress={() =>
-                    navigation.navigate('ListingDetails', { productId: item.id })
+                    navigation.navigate('ListingDetails', {
+                      productId: item.id,
+                    })
                   }
                   onLike={() => {}}
                 />
@@ -211,7 +215,8 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
               <Chip
                 style={[
                   styles.bottomBorder,
-                  filter === item.id && dynamicStyles(appTheme).activeBottomBorder,
+                  filter === item.id &&
+                    dynamicStyles(appTheme).activeBottomBorder,
                 ]}
                 onPress={() => setFilter(item.id)}
               >
@@ -231,7 +236,9 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                 <ProductWidget
                   product={item}
                   onPress={() =>
-                    navigation.navigate('ListingDetails', { productId: item.id })
+                    navigation.navigate('ListingDetails', {
+                      productId: item.id,
+                    })
                   }
                   onLike={() => {}}
                 />
@@ -244,38 +251,43 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
   );
 };
 
-const dynamicStyles = (theme: ReactNativePaper.Theme) => StyleSheet.create({
-activeBottomBorder: {
-    borderColor: theme.colors.primary,
-    borderWidth: 0,
-    borderBottomWidth: 4,
-  },
-  activeCategory: {
-    backgroundColor: theme.colors.primary,
-  },
-  categoryChip: {
-    backgroundColor: theme.colors.background,
-    elevation: 2,
-    margin: 4,
-  },
-  filterIcon: {
-    borderRadius: 10,
-    elevation: 1,
-    backgroundColor: theme.colors.background,
-    height: 40,
-    margin: 0,
-    marginLeft: 10,
-  },
-});
+const dynamicStyles = (theme: ReactNativePaper.Theme) => (
+  StyleSheet.create({
+    activeBottomBorder: {
+      borderColor: theme.colors.primary,
+      borderWidth: 0,
+      borderBottomWidth: 4,
+    },
+    activeCategory: {
+      backgroundColor: theme.colors.primary,
+    },
+    categoryChip: {
+      backgroundColor: theme.colors.background,
+      elevation: 2,
+      margin: 4,
+    },
+    filterIcon: {
+      borderRadius: 10,
+      elevation: 1,
+      backgroundColor: theme.colors.background,
+      height: 40,
+      margin: 0,
+      marginLeft: 10,
+    },
+    screen: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+  })
+);
 
 const styles = StyleSheet.create({
-  
   bottomBorder: {
     elevation: 0,
     borderRadius: 0,
     backgroundColor: 'transparent',
   },
-  
+
   chipContainer: {
     marginVertical: 10,
     paddingHorizontal: 20,
@@ -288,9 +300,6 @@ const styles = StyleSheet.create({
   productContainer: {
     marginVertical: 10,
     paddingHorizontal: 20,
-  },
-  screen: {
-    flex: 1,
   },
   searchContainer: {
     flexDirection: 'row',

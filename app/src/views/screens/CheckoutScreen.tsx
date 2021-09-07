@@ -49,7 +49,7 @@ const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { backgroundColor: appTheme.colors.background }]}>
       <Appbar.Header style={styles.appbarHeader}>
         <Pressable
           onPress={() => navigation.pop()}
