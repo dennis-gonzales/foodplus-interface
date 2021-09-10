@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Avatar, Button, Caption, Paragraph, Title } from 'react-native-paper';
+import Constants from 'expo-constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
@@ -86,7 +87,8 @@ const styles = StyleSheet.create({
   returnButton: {
     position: 'absolute',
     zIndex: 1,
-    margin: 20,
+    marginTop: (Constants.statusBarHeight + 10),
+    marginLeft: 10,
   },
   screen: {
     flex: 1,
