@@ -16,7 +16,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import { ScreenParamList } from '../../core/configs/routes';
 import { appTheme } from '../../core/configs/theme';
+import Product from '../../core/interfaces/Product';
 import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
+
+import { selectProduct } from '../../store/slices/productsSlice';
 import {
   decreaseQuantity,
   selectProductsFromCart,
@@ -33,6 +36,11 @@ const CartScreen: React.FC<CartProps> = ({ route, navigation }) => {
 
   const getTotalPrice = (): string => {
     return cart.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
+  };
+
+  const handlePress = (product: Product) => {
+    dispatch(selectProduct(product));
+    navigation.navigate('ListingDetails');
   };
 
   const renderEmptyCart = () => (
@@ -56,7 +64,7 @@ const CartScreen: React.FC<CartProps> = ({ route, navigation }) => {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item: cart }) => (
             <List.Item
-              onPress={() => {}}
+              onPress={() => handlePress(cart.product)}
               title={`${cart.quantity > 0 && `${cart.quantity}* `}${
                 cart.product.title
               }`}

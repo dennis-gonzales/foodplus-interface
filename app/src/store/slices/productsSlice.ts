@@ -46,7 +46,7 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    selectProduct: (state, { payload }: PayloadAction<Product>) => {
+    selectProduct: (state, { payload }: PayloadAction<Product | undefined>) => {
       state.selected = payload;
     }
   },

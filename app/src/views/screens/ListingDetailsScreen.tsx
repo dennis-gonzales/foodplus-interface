@@ -1,13 +1,16 @@
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
-import { Avatar, Caption, Paragraph, Title } from 'react-native-paper';
+import { Avatar, Button, Caption, Paragraph, Title } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../core/configs/routes';
 import { appTheme } from '../../core/configs/theme';
-import { useAppSelector } from '../../core/hooks/storeApi';
-import { selectSelectedProduct } from '../../store/slices/productsSlice';
+import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
+import {
+  selectProduct,
+  selectSelectedProduct,
+} from '../../store/slices/productsSlice';
 
 interface ListingDetailsProps {
   route: RouteProp<ScreenParamList, 'ListingDetails'>;
@@ -18,7 +21,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
   route,
   navigation,
 }) => {
-  
+  const dispatch = useAppDispatch();
   const product = useAppSelector(state => selectSelectedProduct(state));
 
   if (!product) {
@@ -27,17 +30,32 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
 
   const { id, image, price, title } = product;
 
+  React.useEffect(() => {
+    return () => {
+      dispatch(selectProduct());
+    };
+  }, []);
+
   const listUserImage = {
     uri: 'https://randomuser.me/api/portraits/men/1.jpg',
   };
 
   return (
-    <View>
-      <Image style={styles.image} source={{ uri: image }} />
+    <View style={styles.screen}>
+      <View>
+        <Button
+          onPress={() => navigation.pop()}
+          style={styles.returnButton}
+          mode="contained"
+        >
+          &lt; RETURN
+        </Button>
+        <Image style={styles.image} source={{ uri: image }} />
+      </View>
 
       <View style={styles.product}>
         <Title numberOfLines={1}>{title}</Title>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: 'row' }}>
           <Caption>{price - 1}</Caption>
           <Paragraph style={{ color: appTheme.colors.primary }}>
             {price} USD
@@ -64,6 +82,14 @@ const styles = StyleSheet.create({
   product: {
     marginHorizontal: 40,
     marginVertical: 5,
+  },
+  returnButton: {
+    position: 'absolute',
+    zIndex: 1,
+    margin: 20,
+  },
+  screen: {
+    flex: 1,
   },
   user: {
     marginHorizontal: 40,
