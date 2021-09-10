@@ -4,10 +4,10 @@ import { Avatar, Caption, Paragraph, Title } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
-import { products } from './ListingsScreen';
-
 import { ScreenParamList } from '../../core/configs/routes';
 import { appTheme } from '../../core/configs/theme';
+import { useAppSelector } from '../../core/hooks/storeApi';
+import { selectSelectedProduct } from '../../store/slices/productsSlice';
 
 interface ListingDetailsProps {
   route: RouteProp<ScreenParamList, 'ListingDetails'>;
@@ -18,15 +18,14 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
   route,
   navigation,
 }) => {
-  const { productId } = route.params;
-
-  const product = products.find(p => p.id === productId);
+  
+  const product = useAppSelector(state => selectSelectedProduct(state));
 
   if (!product) {
     throw new Error('Product not found!');
   }
 
-  const { id, image, price, priceBeforeDiscount, title } = product;
+  const { id, image, price, title } = product;
 
   const listUserImage = {
     uri: 'https://randomuser.me/api/portraits/men/1.jpg',
@@ -39,7 +38,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
       <View style={styles.product}>
         <Title numberOfLines={1}>{title}</Title>
         <View style={{ flexDirection: "row" }}>
-          <Caption>{priceBeforeDiscount}</Caption>
+          <Caption>{price - 1}</Caption>
           <Paragraph style={{ color: appTheme.colors.primary }}>
             {price} USD
           </Paragraph>

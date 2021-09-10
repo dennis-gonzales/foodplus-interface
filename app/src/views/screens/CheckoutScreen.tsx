@@ -7,42 +7,20 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import { ScreenParamList } from '../../core/configs/routes';
 import { appTheme } from '../../core/configs/theme';
-import Product from '../../core/interfaces/Product';
+import { useAppSelector } from '../../core/hooks/storeApi';
+import { selectProductsFromCart } from '../../store/slices/cartSlice';
 
 interface CheckoutProps {
   route: RouteProp<ScreenParamList, 'Checkout'>;
   navigation: StackNavigationProp<ScreenParamList, 'Checkout'>;
 }
 
-// TODO: for testing purposes
-export const checkout: Product[] = [
-  {
-    id: 1,
-    title: 'Product A',
-    priceBeforeDiscount: 2.99,
-    price: 1.99,
-    image: 'https://picsum.photos/400',
-  },
-  {
-    id: 3,
-    title: 'Product C',
-    priceBeforeDiscount: 1.5,
-    price: 1.25,
-    image: 'https://picsum.photos/600',
-  },
-  {
-    id: 4,
-    title: 'Product D',
-    priceBeforeDiscount: 1.25,
-    price: 1.0,
-    image: 'https://picsum.photos/700',
-  },
-];
-
 const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
 
+  const cart = useAppSelector(state => selectProductsFromCart(state));
+
   const getTotalPrice = (): number => {
-    return checkout.reduce((acc, curr) => acc + curr.price, 0);
+    return cart.reduce((acc, curr) => acc + curr.price, 0);
   };
 
   return (
@@ -73,7 +51,7 @@ const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
 
       <View style={{ paddingHorizontal: 20, marginVertical: 20 }}>
         <FlatList
-          data={checkout}
+          data={cart}
           keyExtractor={item => item.id.toString()}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
@@ -101,8 +79,9 @@ const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
       </View>
 
       <View style={styles.footer}>
-        
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
           <Subheading>Total</Subheading>
           <Title>${getTotalPrice()}</Title>
         </View>

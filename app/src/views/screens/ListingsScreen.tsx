@@ -14,7 +14,13 @@ import ProductWidget from '../widgets/ProductWidget';
 
 import { ScreenParamList } from '../../core/configs/routes';
 import { appTheme } from '../../core/configs/theme';
-import Product from '../../core/interfaces/Product';
+
+import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
+import {
+  loadProducts,
+  selectProducts,
+  selectIsLoading,
+} from '../../store/slices/productsSlice';
 
 interface ListingsProps {
   route: RouteProp<ScreenParamList, 'Listings'>;
@@ -70,43 +76,24 @@ const xdeals = [
   },
 ];
 
-// TODO: for testing purposes
-export const products: Product[] = [
-  {
-    id: 1,
-    title: 'Product A',
-    priceBeforeDiscount: 2.99,
-    price: 1.99,
-    image: 'https://picsum.photos/400',
-  },
-  {
-    id: 2,
-    title: 'Product B',
-    priceBeforeDiscount: 1.75,
-    price: 1.45,
-    image: 'https://picsum.photos/500',
-  },
-  {
-    id: 3,
-    title: 'Product C',
-    priceBeforeDiscount: 1.5,
-    price: 1.25,
-    image: 'https://picsum.photos/600',
-  },
-  {
-    id: 4,
-    title: 'Product D',
-    priceBeforeDiscount: 1.25,
-    price: 1.0,
-    image: 'https://picsum.photos/700',
-  },
-];
-
 const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
+
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(state => selectProducts(state));
+  const isLoading = useAppSelector(state => selectIsLoading(state));
+
   const [category, setCategory] = React.useState<number>(categories[0].id);
   const [filter, setFilter] = React.useState<number>(filters[0].id);
   const [deals, setDeals] = React.useState<number>(xdeals[0].id);
   const [search, setSearch] = React.useState<string>('');
+
+  React.useEffect(() => {
+    dispatch(loadProducts({}));
+  }, []);
+
+  if (isLoading) {
+    return <View />;
+  }
 
   return (
     <View style={styles.screen}>
@@ -183,13 +170,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={styles.product}>
-                <ProductWidget
-                  product={item}
-                  onPress={() =>
-                    navigation.navigate('ListingDetails', { productId: item.id })
-                  }
-                  onLike={() => {}}
-                />
+                <ProductWidget product={item} />
               </View>
             )}
           />
@@ -224,13 +205,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={styles.product}>
-                <ProductWidget
-                  product={item}
-                  onPress={() =>
-                    navigation.navigate('ListingDetails', { productId: item.id })
-                  }
-                  onLike={() => navigation.navigate('Checkout')}
-                />
+                <ProductWidget product={item} />
               </View>
             )}
           />

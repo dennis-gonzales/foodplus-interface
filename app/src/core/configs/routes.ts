@@ -1,7 +1,7 @@
 type ScreenParamList = {
   Welcome: undefined;
   Listings: undefined;
-  ListingDetails: { productId: number };
+  ListingDetails: undefined;
   Checkout: undefined;
 };
 
