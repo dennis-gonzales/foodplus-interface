@@ -7,8 +7,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import { ScreenParamList } from '../../core/configs/routes';
 import { appTheme } from '../../core/configs/theme';
-import { useAppSelector } from '../../core/hooks/storeApi';
-import { selectProductsFromCart } from '../../store/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
+import { decreaseQuantity, selectProductsFromCart } from '../../store/slices/cartSlice';
 
 interface CheckoutProps {
   route: RouteProp<ScreenParamList, 'Checkout'>;
@@ -17,10 +17,11 @@ interface CheckoutProps {
 
 const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
 
+  const dispatch = useAppDispatch();
   const cart = useAppSelector(state => selectProductsFromCart(state));
 
-  const getTotalPrice = (): number => {
-    return cart.reduce((acc, curr) => acc + curr.price, 0);
+  const getTotalPrice = (): string => {
+    return cart.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
   };
 
   return (
@@ -52,15 +53,15 @@ const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
       <View style={{ paddingHorizontal: 20, marginVertical: 20 }}>
         <FlatList
           data={cart}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.product.id.toString()}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
+          renderItem={({ item: cart }) => (
             <List.Item
               onPress={() => {}}
-              title={item.title}
-              description={`$${item.price}`}
+              title={`${cart.quantity > 0 && `${cart.quantity}* `}${cart.product.title}`}
+              description={`$${cart.price}`}
               left={props => (
-                <Avatar.Image {...props} source={{ uri: item.image }} />
+                <Avatar.Image {...props} source={{ uri: cart.product.image }} />
               )}
               right={props => (
                 <IconButton
@@ -70,7 +71,7 @@ const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
                     backgroundColor: appTheme.colors.primary,
                     borderRadius: 90,
                   }}
-                  onPress={() => {}}
+                  onPress={() => dispatch(decreaseQuantity(cart))}
                 />
               )}
             />
