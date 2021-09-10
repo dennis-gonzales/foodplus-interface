@@ -22,12 +22,12 @@ import {
   selectProductsFromCart,
 } from '../../store/slices/cartSlice';
 
-interface CheckoutProps {
+interface CartProps {
   route: RouteProp<ScreenParamList, 'Checkout'>;
   navigation: StackNavigationProp<ScreenParamList, 'Checkout'>;
 }
 
-const CheckoutScreen: React.FC<CheckoutProps> = ({ route, navigation }) => {
+const CartScreen: React.FC<CartProps> = ({ route, navigation }) => {
   const dispatch = useAppDispatch();
   const cart = useAppSelector(state => selectProductsFromCart(state));
 
@@ -182,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CheckoutScreen;
+export default CartScreen;

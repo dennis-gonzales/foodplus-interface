@@ -25,7 +25,7 @@ const AppbarWidget: React.FC<AppbarProps> = () => {
       <Appbar.Action
         color={appTheme.colors.primary}
         icon="basket"
-        onPress={() => navigation.navigate('Checkout')}
+        onPress={() => navigation.navigate('Cart')}
         style={styles.appbarBasket}
         size={30}
       />
