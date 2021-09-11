@@ -1,18 +1,15 @@
 import React from 'react';
-import { FlatList, Pressable, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import {
-  Appbar,
   Avatar,
   Button,
   IconButton,
   List,
-  Text,
   Subheading,
   Title,
 } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import { MaterialIcons } from '@expo/vector-icons';
 
 import { ScreenParamList } from '../../core/configs/routes';
 import { appTheme } from '../../core/configs/theme';
@@ -25,9 +22,11 @@ import {
   selectProductsFromCart,
 } from '../../store/slices/cartSlice';
 
+import FatAppbarLayout from '../layouts/FatAppbarLayout';
+
 interface CartProps {
-  route: RouteProp<ScreenParamList, 'Checkout'>;
-  navigation: StackNavigationProp<ScreenParamList, 'Checkout'>;
+  route: RouteProp<ScreenParamList, 'Cart'>;
+  navigation: StackNavigationProp<ScreenParamList, 'Cart'>;
 }
 
 const CartScreen: React.FC<CartProps> = ({ route, navigation }) => {
@@ -101,7 +100,7 @@ const CartScreen: React.FC<CartProps> = ({ route, navigation }) => {
             paddingVertical: 10,
             paddingHorizontal: 15,
           }}
-          onPress={() => {}}
+          onPress={() => navigation.navigate('DeliveryStatus')}
         >
           Checkout
         </Button>
@@ -111,29 +110,7 @@ const CartScreen: React.FC<CartProps> = ({ route, navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <Appbar.Header style={styles.appbarHeader}>
-        <Pressable
-          onPress={() => navigation.pop()}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed
-                ? appTheme.colors.primary
-                : appTheme.colors.background,
-              borderColor: pressed ? appTheme.colors.background : 'transparent',
-            },
-            styles.goBack,
-          ]}
-        >
-          {({ pressed }) => (
-            <>
-              <MaterialIcons name="arrow-back-ios" size={24} />
-              <Text>Go back</Text>
-            </>
-          )}
-        </Pressable>
-
-        <Appbar.Content titleStyle={styles.titleStyle} title="My Basket" />
-      </Appbar.Header>
+      <FatAppbarLayout title="My Basket" />
 
       {cart.length > 0 ? renderCartDetails() : renderEmptyCart()}
     </View>
@@ -141,19 +118,6 @@ const CartScreen: React.FC<CartProps> = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  appbarHeader: {
-    paddingVertical: 50,
-  },
-  goBack: {
-    alignItems: 'center',
-    borderRadius: 20,
-    borderWidth: 2,
-    elevation: 2,
-    flexDirection: 'row',
-    marginLeft: 10,
-    padding: 8,
-    width: 100,
-  },
   cartDetailsContainer: {
     paddingHorizontal: 20,
     marginVertical: 20,
@@ -167,9 +131,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flex: 1,
     marginHorizontal: 20,
-  },
-  titleStyle: {
-    textAlign: 'center',
   },
   screen: {
     flex: 1,

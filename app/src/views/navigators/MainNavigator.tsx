@@ -7,6 +7,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import ListingsScreen from '../screens/ListingsScreen';
 import ListingDetailsScreen from '../screens/ListingDetailsScreen';
 import CartScreen from '../screens/CartScreen';
+import DeliveryStatusScreen from '../screens/DeliveryStatusScreen';
 
 const MainNavigator: React.FC = () => {
   const Stack = createStackNavigator<ScreenParamList>();
@@ -50,6 +51,15 @@ const MainNavigator: React.FC = () => {
           title: 'Cart',
         }}
       />
+
+      <Stack.Screen
+        name="DeliveryStatus"
+        component={DeliveryStatusScreen}
+        options={{
+          title: 'Delivery Status',
+        }}
+      />
+
     </Stack.Navigator>
   );
 };

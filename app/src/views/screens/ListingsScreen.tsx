@@ -163,8 +163,8 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           </View>
 
           <FlatList
-            data={products}
-            keyExtractor={item => item.title}
+            data={products.slice(0, 10)}
+            keyExtractor={item => item.id.toString()}
             horizontal
             contentContainerStyle={styles.productContainer}
             showsHorizontalScrollIndicator={false}
@@ -198,8 +198,8 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           />
 
           <FlatList
-            data={products}
-            keyExtractor={item => item.title}
+            data={products.slice(10, 20)}
+            keyExtractor={item => item.id.toString()}
             horizontal
             contentContainerStyle={styles.productContainer}
             showsHorizontalScrollIndicator={false}

@@ -45,7 +45,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
     <View style={styles.screen}>
       <View>
         <Button
-          onPress={() => navigation.pop()}
+          onPress={() => navigation.goBack()}
           style={styles.returnButton}
           mode="contained"
         >
