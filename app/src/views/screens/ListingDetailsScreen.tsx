@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
-import { Avatar, Button, Caption, Paragraph, Title } from 'react-native-paper';
+import { Avatar, Button, Caption, Paragraph, Title, } from 'react-native-paper';
 import Constants from 'expo-constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -12,6 +12,8 @@ import {
   selectProduct,
   selectSelectedProduct,
 } from '../../store/slices/productsSlice';
+
+import NotFoundLayout from '../layouts/NotFoundLayout';
 
 interface ListingDetailsProps {
   route: RouteProp<ScreenParamList, 'ListingDetails'>;
@@ -26,7 +28,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
   const product = useAppSelector(state => selectSelectedProduct(state));
 
   if (!product) {
-    throw new Error('Product not found!');
+    return <NotFoundLayout />
   }
 
   const { id, image, price, title } = product;
@@ -87,8 +89,8 @@ const styles = StyleSheet.create({
   returnButton: {
     position: 'absolute',
     zIndex: 1,
-    marginTop: (Constants.statusBarHeight + 10),
-    marginLeft: 10,
+    marginTop: Constants.statusBarHeight + 30,
+    marginLeft: 15,
   },
   screen: {
     flex: 1,
