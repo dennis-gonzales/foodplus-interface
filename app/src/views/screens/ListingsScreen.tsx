@@ -22,7 +22,9 @@ import {
   filterProducts,
   selectIsFiltered,
 } from '../../store/slices/productsSlice';
+
 import LoadingListingsLayout from '../layouts/LoadingListingsLayout';
+import NoResultsLayout from '../layouts/NoResultsLayout';
 
 interface ListingsProps {
   route: RouteProp<ScreenParamList, 'Listings'>;
@@ -201,18 +203,25 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
     </ScrollView>
   );;
 
-  const renderFilteredListings = () => (
-    <FlatList
-      data={products}
-      keyExtractor={item => item.id.toString()}
-      contentContainerStyle={styles.productContainer}
-      renderItem={({ item }) => (
-        <View style={styles.productFiltered}>
-          <ProductWidget product={item} />
-        </View>
-      )}
-    />
-  );
+  const renderFilteredListings = (): JSX.Element => {
+
+    if (products.length === 0) {
+      return <NoResultsLayout />;
+    }
+
+    return (
+      <FlatList
+        data={products}
+        keyExtractor={item => item.id.toString()}
+        contentContainerStyle={styles.productContainer}
+        renderItem={({ item }) => (
+          <View style={styles.productFiltered}>
+            <ProductWidget product={item} />
+          </View>
+        )}
+      />
+    ); 
+  };
 
   return (
     <View style={styles.screen}>
