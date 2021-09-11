@@ -21,6 +21,7 @@ import {
   selectProducts,
   selectIsLoading,
 } from '../../store/slices/productsSlice';
+import LoadingListingsLayout from '../layouts/LoadingListingsLayout';
 
 interface ListingsProps {
   route: RouteProp<ScreenParamList, 'Listings'>;
@@ -92,7 +93,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
   }, []);
 
   if (isLoading) {
-    return <View />;
+    return <LoadingListingsLayout />;
   }
 
   return (

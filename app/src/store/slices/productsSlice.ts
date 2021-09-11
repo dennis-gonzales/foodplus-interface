@@ -11,6 +11,10 @@ export const loadProducts = createAsyncThunk<
   { state: RootState }
 >('products/get', async ({ productId }, { getState }) => {
   if (selectIsLoggedIn(getState())) {
+
+    // timeout for one second, for testing purposes
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     try {
       const response = await axios.get(
         `https://fakestoreapi.com/products`
