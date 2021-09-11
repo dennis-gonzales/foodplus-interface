@@ -1,6 +1,8 @@
 import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import _ from 'lodash';
+
 import { RootState } from '..';
 import Product from '../../core/interfaces/Product';
 import { selectIsLoggedIn } from './userSlice';
@@ -13,7 +15,7 @@ export const loadProducts = createAsyncThunk<
   if (selectIsLoggedIn(getState())) {
 
     // timeout for one second, for testing purposes
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
 
     try {
       const response = await axios.get(
@@ -30,14 +32,18 @@ export const loadProducts = createAsyncThunk<
 
 export interface ProductsState {
   list: Product[];
+  filterableList: Product[];
   selected?: Product;
   isLoading: boolean;
+  isFiltered: boolean;
   error?: string;
 }
 
 const initialState: ProductsState = {
   list: [],
+  filterableList: [],
   isLoading: false,
+  isFiltered: false,
 };
 
 type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
@@ -52,11 +58,26 @@ export const productsSlice = createSlice({
   reducers: {
     selectProduct: (state, { payload }: PayloadAction<Product | undefined>) => {
       state.selected = payload;
+    },
+    filterProducts: (state, { payload }: PayloadAction<string>) => {
+      if (payload.trim() === '') {
+        state.filterableList = state.list;
+        state.isFiltered = false;
+      } else {
+        state.filterableList = _.filter(state.list, product => {
+          return product.title
+            .trim()
+            .toLowerCase()
+            .startsWith(payload.trim().toLowerCase());
+        });
+        state.isFiltered = true;
+      }
     }
   },
   extraReducers: builder => {
     builder.addCase(loadProducts.fulfilled, (products, { payload }) => {
       products.list = payload;
+      products.filterableList = payload;
     });
 
     builder.addCase(loadProducts.rejected, (products, { error }) => {
@@ -65,33 +86,36 @@ export const productsSlice = createSlice({
 
     builder.addMatcher<PendingAction>(
       action => action.type.endsWith('/pending'),
-      (state, _) => {
+      (state, action) => {
         state.isLoading = true;
       }
     );
 
     builder.addMatcher<FulfilledAction>(
       action => action.type.endsWith('/fulfilled'),
-      (state, _) => {
+      (state, action) => {
         state.isLoading = false;
       }
     );
 
     builder.addMatcher<RejectedAction>(
       action => action.type.endsWith('/rejected'),
-      (state, _) => {
+      (state, action) => {
         state.isLoading = false;
       }
     );
   },
 });
 
-export const { selectProduct } = productsSlice.actions;
+export const { filterProducts, selectProduct } = productsSlice.actions;
 export default productsSlice.reducer;
 
-export const selectProducts = (state: RootState) => state.entities.products.list;
+export const selectProducts = (state: RootState) => state.entities.products.filterableList;
 
 export const selectSelectedProduct = (state: RootState) => state.entities.products.selected;
 
 export const selectIsLoading = (state: RootState) =>
   state.entities.products.isLoading;
+
+export const selectIsFiltered = (state: RootState) =>
+  state.entities.products.isFiltered;
