@@ -3,7 +3,6 @@ import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import {
   Chip,
   IconButton,
-  Subheading,
   Searchbar,
   Title,
 } from 'react-native-paper';

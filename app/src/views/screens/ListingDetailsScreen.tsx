@@ -13,7 +13,7 @@ import {
   selectSelectedProduct,
 } from '../../store/slices/productsSlice';
 
-import NotFoundLayout from '../layouts/NotFoundLayout';
+import PageNotFoundLayout from '../layouts/PageNotFoundLayout';
 
 interface ListingDetailsProps {
   route: RouteProp<ScreenParamList, 'ListingDetails'>;
@@ -28,7 +28,7 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
   const product = useAppSelector(state => selectSelectedProduct(state));
 
   if (!product) {
-    return <NotFoundLayout />
+    return <PageNotFoundLayout />;
   }
 
   const { id, image, price, title } = product;

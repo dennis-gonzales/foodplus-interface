@@ -6,27 +6,27 @@ import { NavigationProp, useNavigation } from '@react-navigation/core';
 
 import { ScreenParamList } from '../../core/configs/routes';
 
-type NotFoundProp = NavigationProp<ScreenParamList, any>;
+type PageNotFoundProp = NavigationProp<ScreenParamList, any>;
 
-const NotFoundLayout: React.FC = () => {
-    const navigation = useNavigation<NotFoundProp>();
+const PageNotFoundLayout: React.FC = () => {
+  const navigation = useNavigation<PageNotFoundProp>();
 
-    const renderNotFound = (): JSX.Element => {
-      if (Platform.OS === 'android' || Platform.OS === 'ios') {
-        /* licence: CC */
-        /* Animation by Emas Didik Prasetyo on Lottiefiles */
-        /* https://lottiefiles.com/58718-404-error-page */
-        return (
-          <LottieView
-            style={{ height: 350 }}	
-            source={require('../../../assets/animations/404-error-page.json')}
-            autoPlay
-            loop
-          />
-        );
-      }
-      return <></>;
-    };
+  const renderNotFound = (): JSX.Element => {
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      /* licence: CC */
+      /* Animation by Emas Didik Prasetyo on Lottiefiles */
+      /* https://lottiefiles.com/58718-404-error-page */
+      return (
+        <LottieView
+          style={{ height: 350 }}
+          source={require('../../../assets/animations/404-error-page.json')}
+          autoPlay
+          loop
+        />
+      );
+    }
+    return <></>;
+  };
 
   return (
     <View style={styles.screen}>
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NotFoundLayout;
+export default PageNotFoundLayout;
