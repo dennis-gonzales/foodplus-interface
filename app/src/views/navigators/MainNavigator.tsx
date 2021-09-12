@@ -15,7 +15,7 @@ const MainNavigator: React.FC = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="Listings"
+      initialRouteName="DeliveryStatus"
       screenOptions={{
         headerTitleAlign: 'left',
         headerShown: false,

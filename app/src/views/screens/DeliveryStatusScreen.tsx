@@ -9,8 +9,6 @@ import { ScreenParamList } from '../../core/configs/routes';
 
 import FatAppbarLayout from '../layouts/FatAppbarLayout';
 
-import dummyData from './data';
-
 const stepIndicatorStyles = {
   stepIndicatorSize: 30,
   currentStepIndicatorSize: 40,
@@ -32,6 +30,29 @@ const stepIndicatorStyles = {
   currentStepLabelColor: '#fe7013',
 };
 
+const sampleStatus = [
+  {
+    title: 'Order Taken',
+    icon: 'file',
+    completed: true,
+  },
+  {
+    title: 'Order is being processed',
+    icon: 'truck',
+    completed: true,
+  },
+  {
+    title: 'Order is being delivered',
+    icon: 'truck-delivery',
+    completed: false,
+  },
+  {
+    title: 'Order is received',
+    icon: 'truck-check',
+    completed: false,
+  },
+];
+
 interface CheckoutProps {
   route: RouteProp<ScreenParamList, 'DeliveryStatus'>;
   navigation: NavigationProp<ScreenParamList, 'DeliveryStatus'>;
@@ -39,7 +60,7 @@ interface CheckoutProps {
 
 const DeliveryStatusScreen: React.FC<CheckoutProps> = () => {
 
-  const [currentPage, setCurrentPage] = React.useState<number>(0);
+  const [currentPage, setCurrentPage] = React.useState<number>(2);
 
   const renderPage = (rowData: any) => {
     const item = rowData.item;
@@ -49,7 +70,11 @@ const DeliveryStatusScreen: React.FC<CheckoutProps> = () => {
           <Title style={styles.title}>{item.title}</Title>
           <Text style={styles.body}>{item.body}</Text>
         </View>
-        <Avatar.Icon style={styles.statusIcon} size={40} icon="check" />
+        <Avatar.Icon
+          style={styles.statusIcon}
+          size={40}
+          icon={item.completed ? 'check' : 'progress-clock'}
+        />
       </View>
     );
   };
@@ -62,18 +87,22 @@ const DeliveryStatusScreen: React.FC<CheckoutProps> = () => {
         <View style={styles.stepIndicator}>
           <StepIndicator
             customStyles={stepIndicatorStyles}
-            stepCount={dummyData.data.length}
+            stepCount={sampleStatus.length}
             direction="vertical"
             currentPosition={currentPage}
             renderStepIndicator={({ position, stepStatus }) => (
-              <MaterialCommunityIcons name="menu" color={stepStatus === 'current' ? 'hotpink' : 'white'} />
+              <MaterialCommunityIcons
+                size={24}
+                name={sampleStatus[position].icon as any}
+                color={stepStatus === 'current' ? 'orange' : 'white'}
+              />
             )}
           />
         </View>
         <FlatList
           keyExtractor={item => item.title}
           contentContainerStyle={styles.list}
-          data={dummyData.data}
+          data={sampleStatus}
           renderItem={renderPage}
         />
       </View>
@@ -84,6 +113,7 @@ const DeliveryStatusScreen: React.FC<CheckoutProps> = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    flex: 1,
   },
   screen: {
     flex: 1,
@@ -104,13 +134,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   title: {
-    flex: 1,
-    color: '#333333',
     paddingVertical: 10,
   },
   body: {
-    flex: 1,
-    color: '#606060',
     lineHeight: 24,
     marginRight: 8,
   },
