@@ -9,18 +9,17 @@ import { selectIsLoggedIn } from './userSlice';
 
 export const loadProducts = createAsyncThunk<
   Product[],
-  Partial<{ productId: number }>,
+  Partial<{ category: string }>,
   { state: RootState }
->('products/get', async ({ productId }, { getState }) => {
+>('products/get', async ({ category }, { getState }) => {
   if (selectIsLoggedIn(getState())) {
-
     // timeout for one second, for testing purposes
     // await new Promise((resolve) => setTimeout(resolve, 1000));
 
     try {
-      const response = await axios.get(
-        `https://fakestoreapi.com/products`
-      );
+      let uri = `https://fakestoreapi.com/products`;
+      if (category && category !== 'All') uri += `/category/${category}`;
+      const response = await axios.get(uri);
       return response.data;
     } catch (err) {
       throw err;

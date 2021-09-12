@@ -1,11 +1,6 @@
 import React from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import {
-  Chip,
-  IconButton,
-  Searchbar,
-  Title,
-} from 'react-native-paper';
+import { Chip, IconButton, Searchbar, Title } from 'react-native-paper';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import AppbarWidget from '../widgets/AppbarWidget';
@@ -17,12 +12,19 @@ import { appTheme } from '../../core/configs/theme';
 import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
 import {
   loadProducts,
-  selectProducts,
-  selectIsLoading,
   filterProducts,
+  selectProducts,
+  selectIsLoading as selectIsLoadingProducts,
   selectIsFiltered,
   selectFilterableProducts,
 } from '../../store/slices/productsSlice';
+import {
+  loadCategories,
+  selectActive,
+  selectCategories,
+  selectIsLoading as selectIsLoadingCategories,
+  updateCategory,
+} from '../../store/slices/categoriesSlice';
 
 import LoadingListingsLayout from '../layouts/LoadingListingsLayout';
 import NoResultsLayout from '../layouts/NoResultsLayout';
@@ -31,44 +33,6 @@ interface ListingsProps {
   route: RouteProp<ScreenParamList, 'Listings'>;
   navigation: NavigationProp<ScreenParamList, 'Listings'>;
 }
-
-const categories = [
-  {
-    name: 'All',
-    id: 1,
-  },
-  {
-    name: 'Salad Combo',
-    id: 2,
-  },
-  {
-    name: 'Berry Combo',
-    id: 3,
-  },
-  {
-    name: 'Mango Combo',
-    id: 4,
-  },
-  {
-    name: 'Beverage Combo',
-    id: 5,
-  },
-];
-
-const filters = [
-  {
-    name: 'Hottest',
-    id: 1,
-  },
-  {
-    name: 'Popular',
-    id: 2,
-  },
-  {
-    name: 'New Combo',
-    id: 3,
-  },
-];
 
 const xdeals = [
   {
@@ -82,27 +46,46 @@ const xdeals = [
 ];
 
 const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
-
   const dispatch = useAppDispatch();
-  const products = useAppSelector(state => selectProducts(state));
-  const filterableProducts = useAppSelector(state => selectFilterableProducts(state));
-  const isLoading = useAppSelector(state => selectIsLoading(state));
-  const isFiltered = useAppSelector(state => selectIsFiltered(state));
 
-  const [category, setCategory] = React.useState<number>(categories[0].id);
-  const [filter, setFilter] = React.useState<number>(filters[0].id);
+  /**
+   * @description = useSelector hook to get the products from the store
+   */
+  const products = useAppSelector(state => selectProducts(state));
+  const isFiltered = useAppSelector(state => selectIsFiltered(state));
+  const isLoadingProducts = useAppSelector(state =>
+    selectIsLoadingProducts(state)
+  );
+  const filterableProducts = useAppSelector(state =>
+    selectFilterableProducts(state)
+  );
+
+  /**
+   * @description = useSelector hook to get the categories from the store
+   */
+  const categories = useAppSelector(state => selectCategories(state));
+  const category = useAppSelector(state => selectActive(state));
+  const isLoadingCategories = useAppSelector(state =>
+    selectIsLoadingCategories(state)
+  );
+
+
   const [deals, setDeals] = React.useState<number>(xdeals[0].id);
   const [search, setSearch] = React.useState<string>('');
 
   React.useEffect(() => {
-    dispatch(loadProducts({}));
+    dispatch(loadCategories());
   }, []);
+
+  React.useEffect(() => {
+    dispatch(loadProducts({ category }));
+  }, [category]);
 
   React.useEffect(() => {
     if (products.length > 0) dispatch(filterProducts(search));
   }, [search]);
 
-  if (isLoading) {
+  if (isLoadingProducts && isLoadingCategories) {
     return <LoadingListingsLayout />;
   }
 
@@ -117,7 +100,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           <FlatList
             data={categories}
             extraData={category}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={item => item}
             horizontal
             contentContainerStyle={styles.chipContainer}
             showsHorizontalScrollIndicator={false}
@@ -125,11 +108,11 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
               <Chip
                 style={[
                   styles.categoryChip,
-                  category === item.id && styles.activeCategory,
+                  category === item && styles.activeCategory,
                 ]}
-                onPress={() => setCategory(item.id)}
+                onPress={() => dispatch(updateCategory(item))}
               >
-                {item.name}
+                {item}
               </Chip>
             )}
           />
@@ -174,7 +157,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
         </View>
 
         <View>
-          <FlatList
+          {/* <FlatList
             data={filters}
             keyExtractor={item => item.id.toString()}
             extraData={filter}
@@ -192,7 +175,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                 {item.name}
               </Chip>
             )}
-          />
+          /> */}
 
           <FlatList
             data={filterableProducts.slice(10, 20)}
@@ -227,7 +210,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           </View>
         )}
       />
-    ); 
+    );
   };
 
   return (
