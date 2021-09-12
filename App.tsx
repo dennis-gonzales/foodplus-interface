@@ -16,7 +16,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/ubuntu';
 import AppLoading from 'expo-app-loading';
-import Toast from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 
 import { store } from './app/src/store';
 import { appTheme, navigationTheme } from './app/src/core/configs/theme';
@@ -79,6 +79,28 @@ const fontConfig = {
   } as Fonts,
 };
 
+const toastConfig = {
+  success: ({ text1, text2, ...rest }: { text1: string; text2: string }) => (
+    <BaseToast
+      {...rest}
+      text1NumberOfLines={1}
+      text2NumberOfLines={2}
+      style={{ borderLeftColor: 'green' }}
+      contentContainerStyle={{
+        paddingHorizontal: 15,
+        alignItems: 'stretch',
+      }}
+      text1Style={{
+        fontSize: 15,
+        color: 'green',
+      }}
+      text1={text1}
+      text2={text2}
+    />
+  ),
+};
+
+
 const App: React.FC = () => {
   const [fontsLoaded, error] = useFonts({
     Ubuntu_300Light,
@@ -101,7 +123,7 @@ const App: React.FC = () => {
           <NavigationContainer theme={navigationTheme}>
             <MainNavigator />
             <StatusBar style="auto" />
-            <Toast ref={ref => Toast.setRef(ref)} />
+            <Toast config={toastConfig} ref={ref => Toast.setRef(ref)} />
           </NavigationContainer>
         </PaperProvider>
       </StorePrivoder>

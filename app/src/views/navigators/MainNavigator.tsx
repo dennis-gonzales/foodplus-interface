@@ -14,7 +14,7 @@ const MainNavigator: React.FC = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="Listings"
+      initialRouteName="Welcome"
       screenOptions={{
         headerTitleAlign: 'left',
         headerShown: false,
