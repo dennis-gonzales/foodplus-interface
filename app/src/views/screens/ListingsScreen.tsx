@@ -21,6 +21,7 @@ import {
   selectIsLoading,
   filterProducts,
   selectIsFiltered,
+  selectFilterableProducts,
 } from '../../store/slices/productsSlice';
 
 import LoadingListingsLayout from '../layouts/LoadingListingsLayout';
@@ -84,6 +85,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
 
   const dispatch = useAppDispatch();
   const products = useAppSelector(state => selectProducts(state));
+  const filterableProducts = useAppSelector(state => selectFilterableProducts(state));
   const isLoading = useAppSelector(state => selectIsLoading(state));
   const isFiltered = useAppSelector(state => selectIsFiltered(state));
 
@@ -97,54 +99,35 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
   }, []);
 
   React.useEffect(() => {
-    dispatch(filterProducts(search));
+    if (products.length > 0) dispatch(filterProducts(search));
   }, [search]);
 
   if (isLoading) {
     return <LoadingListingsLayout />;
   }
 
-  const renderListings = () => (
-    <ScrollView>
-      <View>
-        <FlatList
-          data={categories}
-          extraData={category}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          contentContainerStyle={styles.chipContainer}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <Chip
-              style={[
-                styles.categoryChip,
-                category === item.id && styles.activeCategory,
-              ]}
-              onPress={() => setCategory(item.id)}
-            >
-              {item.name}
-            </Chip>
-          )}
-        />
-      </View>
+  const renderListings = (): JSX.Element => {
+    if (products.length === 0) {
+      return <NoResultsLayout />;
+    }
 
-      <View>
-        <View style={{ paddingHorizontal: 20, marginVertical: 10 }}>
-          <Title>The Wholesome Table</Title>
-
+    return (
+      <ScrollView>
+        <View>
           <FlatList
-            data={xdeals}
-            extraData={deals}
+            data={categories}
+            extraData={category}
             keyExtractor={item => item.id.toString()}
             horizontal
+            contentContainerStyle={styles.chipContainer}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <Chip
                 style={[
-                  styles.bottomBorder,
-                  deals === item.id && styles.activeBottomBorder,
+                  styles.categoryChip,
+                  category === item.id && styles.activeCategory,
                 ]}
-                onPress={() => setDeals(item.id)}
+                onPress={() => setCategory(item.id)}
               >
                 {item.name}
               </Chip>
@@ -152,66 +135,90 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
           />
         </View>
 
-        <FlatList
-          data={products.slice(0, 10)}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          contentContainerStyle={styles.productContainer}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <View style={styles.product}>
-              <ProductWidget product={item} />
-            </View>
-          )}
-        />
-      </View>
+        <View>
+          <View style={{ paddingHorizontal: 20, marginVertical: 10 }}>
+            <Title>The Wholesome Table</Title>
 
-      <View>
-        <FlatList
-          data={filters}
-          keyExtractor={item => item.id.toString()}
-          extraData={filter}
-          horizontal
-          contentContainerStyle={styles.chipContainer}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <Chip
-              style={[
-                styles.bottomBorder,
-                filter === item.id && styles.activeBottomBorder,
-              ]}
-              onPress={() => setFilter(item.id)}
-            >
-              {item.name}
-            </Chip>
-          )}
-        />
+            <FlatList
+              data={xdeals}
+              extraData={deals}
+              keyExtractor={item => item.id.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <Chip
+                  style={[
+                    styles.bottomBorder,
+                    deals === item.id && styles.activeBottomBorder,
+                  ]}
+                  onPress={() => setDeals(item.id)}
+                >
+                  {item.name}
+                </Chip>
+              )}
+            />
+          </View>
 
-        <FlatList
-          data={products.slice(10, 20)}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          contentContainerStyle={styles.productContainer}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <View style={styles.product}>
-              <ProductWidget product={item} />
-            </View>
-          )}
-        />
-      </View>
-    </ScrollView>
-  );;
+          <FlatList
+            data={filterableProducts.slice(0, 10)}
+            keyExtractor={item => item.id.toString()}
+            horizontal
+            contentContainerStyle={styles.productContainer}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <View style={styles.product}>
+                <ProductWidget product={item} />
+              </View>
+            )}
+          />
+        </View>
+
+        <View>
+          <FlatList
+            data={filters}
+            keyExtractor={item => item.id.toString()}
+            extraData={filter}
+            horizontal
+            contentContainerStyle={styles.chipContainer}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <Chip
+                style={[
+                  styles.bottomBorder,
+                  filter === item.id && styles.activeBottomBorder,
+                ]}
+                onPress={() => setFilter(item.id)}
+              >
+                {item.name}
+              </Chip>
+            )}
+          />
+
+          <FlatList
+            data={filterableProducts.slice(10, 20)}
+            keyExtractor={item => item.id.toString()}
+            horizontal
+            contentContainerStyle={styles.productContainer}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <View style={styles.product}>
+                <ProductWidget product={item} />
+              </View>
+            )}
+          />
+        </View>
+      </ScrollView>
+    );
+  };
 
   const renderFilteredListings = (): JSX.Element => {
-
-    if (products.length === 0) {
+    if (filterProducts.length === 0) {
       return <NoResultsLayout />;
     }
 
     return (
       <FlatList
-        data={products}
+        data={filterableProducts}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={styles.productContainer}
         renderItem={({ item }) => (
@@ -227,24 +234,25 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
     <View style={styles.screen}>
       <View>
         <AppbarWidget />
-        <View style={styles.searchContainer}>
-          <Searchbar
-            style={styles.searchbar}
-            placeholder="Search"
-            value={search}
-            onChangeText={setSearch}
-          />
+        {products.length > 0 && (
+          <View style={styles.searchContainer}>
+            <Searchbar
+              style={styles.searchbar}
+              placeholder="Search"
+              value={search}
+              onChangeText={setSearch}
+            />
 
-          <IconButton
-            style={styles.filterIcon}
-            size={30}
-            icon="filter-variant"
-          />
-        </View>
+            <IconButton
+              style={styles.filterIcon}
+              size={30}
+              icon="filter-variant"
+            />
+          </View>
+        )}
       </View>
 
       {isFiltered ? renderFilteredListings() : renderListings()}
-
     </View>
   );
 };

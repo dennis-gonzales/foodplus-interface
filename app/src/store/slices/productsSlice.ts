@@ -110,7 +110,10 @@ export const productsSlice = createSlice({
 export const { filterProducts, selectProduct } = productsSlice.actions;
 export default productsSlice.reducer;
 
-export const selectProducts = (state: RootState) => state.entities.products.filterableList;
+export const selectProducts = (state: RootState) => state.entities.products.list;
+
+export const selectFilterableProducts = (state: RootState) =>
+  state.entities.products.filterableList;
 
 export const selectSelectedProduct = (state: RootState) => state.entities.products.selected;
 
