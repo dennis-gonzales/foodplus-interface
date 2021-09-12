@@ -27,7 +27,8 @@ const LoadingListingsLayout: React.FC = () => {
       <View>
         {renderNotFound()}
         <Title style={styles.title}>
-          Please wait while we get your chibog
+          Please wait while we get <br />
+          your chibog
         </Title>
       </View>
     </View>
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     flex: 1,
+    padding: 20,
   },
   title: {
       textAlign: 'center',
