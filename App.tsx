@@ -16,7 +16,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/ubuntu';
 import AppLoading from 'expo-app-loading';
-import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import Toast, { SuccessToast, BaseToastProps } from 'react-native-toast-message';
 
 import { store } from './app/src/store';
 import { appTheme, navigationTheme } from './app/src/core/configs/theme';
@@ -80,22 +80,18 @@ const fontConfig = {
 };
 
 const toastConfig = {
-  success: ({ text1, text2, ...rest }: { text1: string; text2: string }) => (
-    <BaseToast
-      {...rest}
-      text1NumberOfLines={1}
-      text2NumberOfLines={2}
-      style={{ borderLeftColor: 'green' }}
+  success: (props: BaseToastProps) => (
+    <SuccessToast
+      {...props}
       contentContainerStyle={{
-        paddingHorizontal: 15,
         alignItems: 'stretch',
       }}
       text1Style={{
         fontSize: 15,
         color: 'green',
       }}
-      text1={text1}
-      text2={text2}
+      onPress={() => props.onPress && props.onPress()}
+      onTrailingIconPress={() => Toast.hide()}
     />
   ),
 };
