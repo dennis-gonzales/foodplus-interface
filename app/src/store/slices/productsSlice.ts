@@ -1,4 +1,4 @@
-import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import _ from 'lodash';
@@ -45,12 +45,6 @@ const initialState: ProductsState = {
   isFiltered: false,
 };
 
-type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
-
-type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
-type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
-type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
-
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
@@ -74,35 +68,18 @@ export const productsSlice = createSlice({
     }
   },
   extraReducers: builder => {
+    builder.addCase(loadProducts.pending, (products, action) => {
+      products.isLoading = true;
+    });
     builder.addCase(loadProducts.fulfilled, (products, { payload }) => {
       products.list = payload;
       products.filterableList = payload;
+      products.isLoading = false;
     });
-
     builder.addCase(loadProducts.rejected, (products, { error }) => {
       products.error = error.message;
+      products.isLoading = false;
     });
-
-    builder.addMatcher<PendingAction>(
-      action => action.type.endsWith('/pending'),
-      (state, action) => {
-        state.isLoading = true;
-      }
-    );
-
-    builder.addMatcher<FulfilledAction>(
-      action => action.type.endsWith('/fulfilled'),
-      (state, action) => {
-        state.isLoading = false;
-      }
-    );
-
-    builder.addMatcher<RejectedAction>(
-      action => action.type.endsWith('/rejected'),
-      (state, action) => {
-        state.isLoading = false;
-      }
-    );
   },
 });
 

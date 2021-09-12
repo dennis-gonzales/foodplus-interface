@@ -34,6 +34,21 @@ interface ListingsProps {
   navigation: NavigationProp<ScreenParamList, 'Listings'>;
 }
 
+const filters = [
+  {
+    name: 'Hottest',
+    id: 1,
+  },
+  {
+    name: 'Popular',
+    id: 2,
+  },
+  {
+    name: 'New Combo',
+    id: 3,
+  },
+];
+
 const xdeals = [
   {
     name: '5PM Deals',
@@ -69,8 +84,8 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
     selectIsLoadingCategories(state)
   );
 
-
   const [deals, setDeals] = React.useState<number>(xdeals[0].id);
+  const [filter, setFilter] = React.useState<number>(filters[0].id);
   const [search, setSearch] = React.useState<string>('');
 
   React.useEffect(() => {
@@ -85,12 +100,10 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
     if (products.length > 0) dispatch(filterProducts(search));
   }, [search]);
 
-  if (isLoadingProducts && isLoadingCategories) {
-    return <LoadingListingsLayout />;
-  }
-
   const renderListings = (): JSX.Element => {
-    if (products.length === 0) {
+    if (isLoadingProducts || isLoadingCategories) {
+      return <LoadingListingsLayout />;
+    } else if (products.length === 0) {
       return <NoResultsLayout />;
     }
 
@@ -157,7 +170,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
         </View>
 
         <View>
-          {/* <FlatList
+          <FlatList
             data={filters}
             keyExtractor={item => item.id.toString()}
             extraData={filter}
@@ -175,7 +188,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                 {item.name}
               </Chip>
             )}
-          /> */}
+          />
 
           <FlatList
             data={filterableProducts.slice(10, 20)}
@@ -195,7 +208,9 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
   };
 
   const renderFilteredListings = (): JSX.Element => {
-    if (filterProducts.length === 0) {
+    if (isLoadingProducts || isLoadingCategories) {
+      return <LoadingListingsLayout />;
+    } else if (filterProducts.length === 0) {
       return <NoResultsLayout />;
     }
 
@@ -217,7 +232,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
     <View style={styles.screen}>
       <View>
         <AppbarWidget />
-        {products.length > 0 && (
+        {products.length > 0 && categories.length > 0 && (
           <View style={styles.searchContainer}>
             <Searchbar
               style={styles.searchbar}

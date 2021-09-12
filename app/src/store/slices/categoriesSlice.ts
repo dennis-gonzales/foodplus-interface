@@ -1,5 +1,4 @@
 import {
-  AsyncThunk,
   createAsyncThunk,
   createSlice,
   PayloadAction,
@@ -39,14 +38,8 @@ export interface CategoriesState {
 
 const initialState: CategoriesState = {
   list: [],
-  isLoading: false,
+  isLoading: true,
 };
-
-type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
-
-type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
-type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
-type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
 
 export const categoriesSlice = createSlice({
   name: 'categories',
@@ -57,35 +50,18 @@ export const categoriesSlice = createSlice({
     },
   },
   extraReducers: builder => {
+    builder.addCase(loadCategories.pending, (categories, action) => {
+      categories.isLoading = true;
+    });
     builder.addCase(loadCategories.fulfilled, (categories, { payload }) => {
       categories.list = payload;
       categories.list.unshift('All');
+      categories.isLoading = false;
     });
-
     builder.addCase(loadCategories.rejected, (categories, { error }) => {
       categories.error = error.message;
+      categories.isLoading = false;
     });
-
-    builder.addMatcher<PendingAction>(
-      action => action.type.endsWith('/pending'),
-      (state, action) => {
-        state.isLoading = true;
-      }
-    );
-
-    builder.addMatcher<FulfilledAction>(
-      action => action.type.endsWith('/fulfilled'),
-      (state, action) => {
-        state.isLoading = false;
-      }
-    );
-
-    builder.addMatcher<RejectedAction>(
-      action => action.type.endsWith('/rejected'),
-      (state, action) => {
-        state.isLoading = false;
-      }
-    );
   },
 });
 

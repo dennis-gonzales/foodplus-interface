@@ -117,7 +117,7 @@ export const todosSlice = createSlice({
 export const {} = todosSlice.actions;
 export default todosSlice.reducer;
 
-export const selectTodos = (state: RootState) => state.entities.todos.todoList;
+// export const selectTodos = (state: RootState) => state.entities.todos.todoList;
 
-export const selectIsLoading = (state: RootState) =>
-  state.entities.todos.isLoading;
+// export const selectIsLoading = (state: RootState) =>
+//   state.entities.todos.isLoading;
