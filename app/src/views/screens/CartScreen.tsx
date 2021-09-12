@@ -100,7 +100,7 @@ const CartScreen: React.FC<CartProps> = ({ route, navigation }) => {
             paddingVertical: 10,
             paddingHorizontal: 15,
           }}
-          onPress={() => navigation.navigate('DeliveryStatus')}
+          onPress={() => {}}
         >
           Checkout
         </Button>

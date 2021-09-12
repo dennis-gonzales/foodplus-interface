@@ -13,9 +13,6 @@ export const loadProducts = createAsyncThunk<
   { state: RootState }
 >('products/get', async ({ category }, { getState }) => {
   if (selectIsLoggedIn(getState())) {
-    // timeout for one second, for testing purposes
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-
     try {
       let uri = `https://fakestoreapi.com/products`;
       if (category && category !== 'All') uri += `/category/${category}`;
@@ -32,6 +29,7 @@ export const loadProducts = createAsyncThunk<
 export interface ProductsState {
   list: Product[];
   filterableList: Product[];
+  searchTerm: string;
   selected?: Product;
   isLoading: boolean;
   isFiltered: boolean;
@@ -41,6 +39,7 @@ export interface ProductsState {
 const initialState: ProductsState = {
   list: [],
   filterableList: [],
+  searchTerm: '',
   isLoading: true,
   isFiltered: false,
 };
@@ -49,23 +48,29 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    selectProduct: (state, { payload }: PayloadAction<Product | undefined>) => {
-      state.selected = payload;
+    selectProduct: (
+      products,
+      { payload }: PayloadAction<Product | undefined>
+    ) => {
+      products.selected = payload;
     },
-    filterProducts: (state, { payload }: PayloadAction<string>) => {
+    filterProducts: (products, { payload }: PayloadAction<string>) => {
       if (payload.trim() === '') {
-        state.filterableList = state.list;
-        state.isFiltered = false;
+        products.filterableList = products.list;
+        products.isFiltered = false;
       } else {
-        state.filterableList = _.filter(state.list, product => {
+        products.filterableList = _.filter(products.list, product => {
           return product.title
             .trim()
             .toLowerCase()
             .startsWith(payload.trim().toLowerCase());
         });
-        state.isFiltered = true;
+        products.isFiltered = true;
       }
-    }
+    },
+    setSearchTerm: (products, { payload }: PayloadAction<string>) => {
+      products.searchTerm = payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(loadProducts.pending, (products, action) => {
@@ -83,18 +88,25 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { filterProducts, selectProduct } = productsSlice.actions;
+export const { filterProducts, selectProduct, setSearchTerm } = productsSlice.actions;
 export default productsSlice.reducer;
 
-export const selectProducts = (state: RootState) => state.entities.products.list;
+export const selectProducts = (state: RootState) =>
+  state.entities.products.list;
 
 export const selectFilterableProducts = (state: RootState) =>
   state.entities.products.filterableList;
 
-export const selectSelectedProduct = (state: RootState) => state.entities.products.selected;
+export const selectSelectedProduct = (state: RootState) =>
+  state.entities.products.selected;
 
 export const selectIsLoading = (state: RootState) =>
   state.entities.products.isLoading;
 
 export const selectIsFiltered = (state: RootState) =>
   state.entities.products.isFiltered;
+
+export const selectSearchTerm = (state: RootState) =>
+  state.entities.products.searchTerm;
+
+export const selectError = (state: RootState) => state.entities.products.error;

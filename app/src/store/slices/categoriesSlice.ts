@@ -56,6 +56,7 @@ export const categoriesSlice = createSlice({
     builder.addCase(loadCategories.fulfilled, (categories, { payload }) => {
       categories.list = payload;
       categories.list.unshift('All');
+      categories.active = 'All';
       categories.isLoading = false;
     });
     builder.addCase(loadCategories.rejected, (categories, { error }) => {

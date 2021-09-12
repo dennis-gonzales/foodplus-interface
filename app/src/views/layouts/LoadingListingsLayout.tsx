@@ -27,8 +27,7 @@ const LoadingListingsLayout: React.FC = () => {
       <View>
         {renderNotFound()}
         <Title style={styles.title}>
-          Please wait while we get <br />
-          your chibog
+          Please wait while we get our goods
         </Title>
       </View>
     </View>

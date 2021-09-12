@@ -20,7 +20,7 @@ const AppbarWidget: React.FC<AppbarProps> = () => {
 
   return (
     <Appbar.Header style={styles.appbarHeader}>
-      <Appbar.Action icon="menu" onPress={() => {}} />
+      <Appbar.Action icon="menu" onPress={() => navigation.navigate('ListingDetails')} />
       <Appbar.Content title={<Text>Welcome, {firstName}.</Text>} />
       <Appbar.Action
         color={appTheme.colors.primary}

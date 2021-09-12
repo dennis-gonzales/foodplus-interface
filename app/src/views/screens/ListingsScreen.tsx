@@ -17,6 +17,8 @@ import {
   selectIsLoading as selectIsLoadingProducts,
   selectIsFiltered,
   selectFilterableProducts,
+  selectSearchTerm,
+  setSearchTerm,
 } from '../../store/slices/productsSlice';
 import {
   loadCategories,
@@ -68,6 +70,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
    */
   const products = useAppSelector(state => selectProducts(state));
   const isFiltered = useAppSelector(state => selectIsFiltered(state));
+  const search = useAppSelector(state => selectSearchTerm(state));
   const isLoadingProducts = useAppSelector(state =>
     selectIsLoadingProducts(state)
   );
@@ -86,19 +89,11 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
 
   const [deals, setDeals] = React.useState<number>(xdeals[0].id);
   const [filter, setFilter] = React.useState<number>(filters[0].id);
-  const [search, setSearch] = React.useState<string>('');
 
   React.useEffect(() => {
     dispatch(loadCategories());
+    dispatch(loadProducts({}));
   }, []);
-
-  React.useEffect(() => {
-    dispatch(loadProducts({ category }));
-  }, [category]);
-
-  React.useEffect(() => {
-    if (products.length > 0) dispatch(filterProducts(search));
-  }, [search]);
 
   const renderListings = (): JSX.Element => {
     if (isLoadingProducts || isLoadingCategories) {
@@ -123,7 +118,10 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
                   styles.categoryChip,
                   category === item && styles.activeCategory,
                 ]}
-                onPress={() => dispatch(updateCategory(item))}
+                onPress={() => {
+                  dispatch(updateCategory(item));
+                  dispatch(loadProducts({ category: item }));
+                }}
               >
                 {item}
               </Chip>
@@ -210,7 +208,7 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
   const renderFilteredListings = (): JSX.Element => {
     if (isLoadingProducts || isLoadingCategories) {
       return <LoadingListingsLayout />;
-    } else if (filterProducts.length === 0) {
+    } else if (filterableProducts.length === 0) {
       return <NoResultsLayout />;
     }
 
@@ -238,7 +236,10 @@ const ListingsScreen: React.FC<ListingsProps> = ({ route, navigation }) => {
               style={styles.searchbar}
               placeholder="Search"
               value={search}
-              onChangeText={setSearch}
+              onChangeText={text => {
+                dispatch(setSearchTerm(text));
+                dispatch(filterProducts(text));
+              }}
             />
 
             <IconButton
