@@ -8,13 +8,14 @@ import ListingsScreen from '../screens/ListingsScreen';
 import ListingDetailsScreen from '../screens/ListingDetailsScreen';
 import CartScreen from '../screens/CartScreen';
 import DeliveryStatusScreen from '../screens/DeliveryStatusScreen';
+import OrderStatusScreen from '../screens/OrderStatusScreen';
 
 const MainNavigator: React.FC = () => {
   const Stack = createStackNavigator<ScreenParamList>();
 
   return (
     <Stack.Navigator
-      initialRouteName="Welcome"
+      initialRouteName="Listings"
       screenOptions={{
         headerTitleAlign: 'left',
         headerShown: false,
@@ -60,6 +61,14 @@ const MainNavigator: React.FC = () => {
         }}
       />
 
+      <Stack.Screen
+        name="OrderStatus"
+        component={OrderStatusScreen}
+        options={{
+          title: 'Order Status',
+        }}
+      />
+      
     </Stack.Navigator>
   );
 };
