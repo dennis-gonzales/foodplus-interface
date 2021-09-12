@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
 
 import _ from 'lodash';
 
@@ -25,6 +26,14 @@ export const cartSlice = createSlice({
       if (cart) {
         cart.quantity += 1;
         cart.price = cart.product.price * cart.quantity;
+
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: 'Quantity increased',
+          text2: _.truncate(payload.title, { length: 100 }),
+        });
+        
       } else {
         state.list.push({
           product: payload,
@@ -32,7 +41,15 @@ export const cartSlice = createSlice({
           timestamp: new Date().getMilliseconds(),
           price: payload.price,
         });
+
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: 'Added to cart',
+          text2: _.truncate(payload.title, { length: 100 }),
+        });
       }
+
     },
     decreaseQuantity: (state, { payload }: PayloadAction<Cart>) => {
       const product = _.find(state.list, { product: payload.product });
@@ -44,15 +61,29 @@ export const cartSlice = createSlice({
         if (product.quantity === 0) {
           state.list = _.without(state.list, product);
         }
+
+        Toast.show({
+          type: 'success',
+          position: 'top',
+          text1: 'Product quantity decreased',
+          text2: _.truncate(payload.product.title, { length: 20 }),
+        });
       }
     },
     clearCart: (state) => {
       state.list = [];
-    }
+      
+      Toast.show({
+        type: 'success',
+        position: 'top',
+        text1: 'Cart cleared',
+      });
+    },
   },
 });
 
-export const { addToCart, decreaseQuantity, clearCart } = cartSlice.actions;
+export const { addToCart, clearCart, decreaseQuantity } =
+  cartSlice.actions;
 export default cartSlice.reducer;
 
 export const selectProductsFromCart = (state: RootState) => state.session.cart.list;

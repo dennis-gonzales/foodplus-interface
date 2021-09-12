@@ -42,7 +42,7 @@ export interface ProductsState {
 const initialState: ProductsState = {
   list: [],
   filterableList: [],
-  isLoading: false,
+  isLoading: true,
   isFiltered: false,
 };
 

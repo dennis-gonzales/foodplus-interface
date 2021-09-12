@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
-import { Avatar, Button, Caption, Paragraph, Title, } from 'react-native-paper';
+import { Avatar, Button, Caption, Paragraph, Title } from 'react-native-paper';
 import Constants from 'expo-constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -27,17 +27,17 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
   const dispatch = useAppDispatch();
   const product = useAppSelector(state => selectSelectedProduct(state));
 
-  if (!product) {
-    return <PageNotFoundLayout />;
-  }
-
-  const { id, image, price, title } = product;
-
   React.useEffect(() => {
     return () => {
       dispatch(selectProduct());
     };
   }, []);
+  
+  if (!product) {
+    return <PageNotFoundLayout />;
+  }
+
+  const { id, image, price, title } = product;
 
   const listUserImage = {
     uri: 'https://randomuser.me/api/portraits/men/1.jpg',
