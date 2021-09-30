@@ -49,20 +49,20 @@ const initialState: UserState = {
     },
   },
   isLoading: false,
-  isLoggedIn: false,
+  isLoggedIn: true,
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setFirstname: (state, action: PayloadAction<string>) => {
-      state.user.firstName = action.payload;
+    setFirstname: (state, { payload }: PayloadAction<string>) => {
+      state.user.firstName = payload;
     },
     unregistered: (state, { payload }: PayloadAction<SerializedError>) => {
       state.isLoggedIn = false;
       state.error = payload.message;
-    }
+    },
   },
   extraReducers: builder => {
     builder.addCase(login.pending, (state, _) => {
@@ -95,17 +95,16 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.error = error.message;
     });
-    
   },
 });
 
 export const { setFirstname, unregistered } = userSlice.actions;
 export default userSlice.reducer;
 
-export const selectUser = (state: RootState) => state.entities.user.user;
+export const selectUser = (state: RootState) => state.session.user.user;
 
-export const selectIsLoading = (state: RootState) => state.entities.user.isLoading;
+export const selectIsLoading = (state: RootState) => state.session.user.isLoading;
 
-export const selectIsLoggedIn = (state: RootState) => state.entities.user.isLoggedIn;
+export const selectIsLoggedIn = (state: RootState) => state.session.user.isLoggedIn;
 
-export const selectError = (state: RootState) => state.entities.user.error;
+export const selectError = (state: RootState) => state.session.user.error;

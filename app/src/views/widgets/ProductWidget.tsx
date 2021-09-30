@@ -7,39 +7,54 @@ import {
   Paragraph,
   Title,
 } from 'react-native-paper';
+import { NavigationProp, useNavigation } from '@react-navigation/core';
 
 import { appTheme } from '../../core/configs/theme';
+import { ScreenParamList } from '../../core/configs/routes';
 import Product from '../../core/interfaces/Product';
+import { useAppDispatch } from '../../core/hooks/storeApi';
+
+import { selectProduct } from '../../store/slices/productsSlice';
+import { addToCart } from '../../store/slices/cartSlice';
+
+type ProductNavigationProp = NavigationProp<ScreenParamList, any>;
 
 interface ProductProps {
   product: Product;
-  onPress: () => void;
-  onLike: () => void;
 }
 
-const ProductWidget: React.FC<ProductProps> = ({ product, onPress, onLike }) => {
-  const { id, title, priceBeforeDiscount, price, image } = product;
+const ProductWidget: React.FC<ProductProps> = ({ product, }) => {
+  
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation<ProductNavigationProp>();
+  
+  const { id, title, price, image } = product;
+
+  const handlePress = () => {
+    dispatch(selectProduct(product));
+    navigation.navigate('ListingDetails');
+  }
 
   return (
-    <Card elevation={4} style={styles.card} onPress={onPress}>
+    <Card elevation={4} style={styles.card} onPress={handlePress}>
       <Card.Content style={styles.cardTopContent}>
         <IconButton
           color={appTheme.colors.primary}
           style={{ backgroundColor: appTheme.colors.background, elevation: 2 }}
           icon="heart-outline"
           size={24}
-          onPress={onLike}
+          onPress={() => {}}
         />
       </Card.Content>
       <Card.Cover style={styles.cardCover} source={{ uri: image }} />
       <Card.Content style={styles.cardBottomContent}>
-        <Title>{title}</Title>
+        <Title numberOfLines={2}>{title}</Title>
       </Card.Content>
 
       <Card.Content style={styles.cardActions}>
         <View style={styles.cardActionContent}>
           <View style={{ flexDirection: 'row' }}>
-            <Caption>{priceBeforeDiscount}</Caption>
+            <Caption>{price - 1}</Caption>
             <Paragraph style={{ color: appTheme.colors.primary }}>
               {price}
             </Paragraph>
@@ -49,7 +64,7 @@ const ProductWidget: React.FC<ProductProps> = ({ product, onPress, onLike }) => 
             style={{ backgroundColor: appTheme.colors.primary }}
             color={appTheme.colors.text}
             icon="plus"
-            onPress={() => {}}
+            onPress={() => dispatch(addToCart(product))}
             size={20}
           />
         </View>
@@ -61,6 +76,7 @@ const ProductWidget: React.FC<ProductProps> = ({ product, onPress, onLike }) => 
 const styles = StyleSheet.create({
   card: {
     margin: 0,
+    height: 260,
   },
   cardActions: {
     alignSelf: 'center',

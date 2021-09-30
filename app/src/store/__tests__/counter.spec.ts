@@ -1,5 +1,5 @@
-import { AnyAction, } from 'redux';
-import reducer, { increment, decrement, incrementByAmount } from '../features/counterSlice';
+import { AnyAction } from '@reduxjs/toolkit';
+import reducer, { increment, decrement, incrementByAmount } from '../slices/counterSlice';
 
 test('should return the initial state', () => {
   expect(reducer(undefined, {} as AnyAction)).toEqual({ value: 0 });

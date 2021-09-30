@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux';
 
-import counterReducer from '../features/counterSlice';
-import todosReducer from '../features/todosSlice';
-import userSlice from '../features/userSlice';
+import productsSlice from '../slices/productsSlice';
+import categoriesSlice from '../slices/categoriesSlice';
 
 export default combineReducers({
-  counter: counterReducer,
-  todos: todosReducer,
-  user: userSlice,
+  products: productsSlice,
+  categories: categoriesSlice,
 });

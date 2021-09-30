@@ -1,9 +1,14 @@
 interface Product {
   id: number;
-  title: string,
-  priceBeforeDiscount: number,
-  price: number,
-  image: string,
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }
 
 export default Product;

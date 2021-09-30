@@ -1,13 +1,19 @@
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
-import { Avatar, Caption, Paragraph, Title } from 'react-native-paper';
+import { Avatar, Button, Caption, Paragraph, Title } from 'react-native-paper';
+import Constants from 'expo-constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
-import { products } from './ListingsScreen';
-
 import { ScreenParamList } from '../../core/configs/routes';
 import { appTheme } from '../../core/configs/theme';
+import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
+import {
+  selectProduct,
+  selectSelectedProduct,
+} from '../../store/slices/productsSlice';
+
+import PageNotFoundLayout from '../layouts/PageNotFoundLayout';
 
 interface ListingDetailsProps {
   route: RouteProp<ScreenParamList, 'ListingDetails'>;
@@ -18,28 +24,42 @@ const ListingDetails: React.FC<ListingDetailsProps> = ({
   route,
   navigation,
 }) => {
-  const { productId } = route.params;
+  const dispatch = useAppDispatch();
+  const product = useAppSelector(state => selectSelectedProduct(state));
 
-  const product = products.find(p => p.id === productId);
-
+  React.useEffect(() => {
+    return () => {
+      dispatch(selectProduct());
+    };
+  }, []);
+  
   if (!product) {
-    throw new Error('Product not found!');
+    return <PageNotFoundLayout />;
   }
 
-  const { id, image, price, priceBeforeDiscount, title } = product;
+  const { id, image, price, title } = product;
 
   const listUserImage = {
     uri: 'https://randomuser.me/api/portraits/men/1.jpg',
   };
 
   return (
-    <View>
-      <Image style={styles.image} source={{ uri: image }} />
+    <View style={styles.screen}>
+      <View>
+        <Button
+          onPress={() => navigation.goBack()}
+          style={styles.returnButton}
+          mode="contained"
+        >
+          &lt; RETURN
+        </Button>
+        <Image style={styles.image} source={{ uri: image }} />
+      </View>
 
       <View style={styles.product}>
         <Title numberOfLines={1}>{title}</Title>
-        <View style={{ flexDirection: "row" }}>
-          <Caption>{priceBeforeDiscount}</Caption>
+        <View style={{ flexDirection: 'row' }}>
+          <Caption>{price - 1}</Caption>
           <Paragraph style={{ color: appTheme.colors.primary }}>
             {price} USD
           </Paragraph>
@@ -65,6 +85,15 @@ const styles = StyleSheet.create({
   product: {
     marginHorizontal: 40,
     marginVertical: 5,
+  },
+  returnButton: {
+    position: 'absolute',
+    zIndex: 1,
+    marginTop: Constants.statusBarHeight + 30,
+    marginLeft: 15,
+  },
+  screen: {
+    flex: 1,
   },
   user: {
     marginHorizontal: 40,

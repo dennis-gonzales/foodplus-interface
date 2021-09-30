@@ -6,16 +6,19 @@ import { ScreenParamList } from '../../core/configs/routes';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ListingsScreen from '../screens/ListingsScreen';
 import ListingDetailsScreen from '../screens/ListingDetailsScreen';
-import CheckoutScreen from '../screens/CheckoutScreen';
+import CartScreen from '../screens/CartScreen';
+import DeliveryStatusScreen from '../screens/DeliveryStatusScreen';
+import OrderStatusScreen from '../screens/OrderStatusScreen';
 
 const MainNavigator: React.FC = () => {
   const Stack = createStackNavigator<ScreenParamList>();
 
   return (
     <Stack.Navigator
-      initialRouteName="Welcome"
+      initialRouteName="DeliveryStatus"
       screenOptions={{
         headerTitleAlign: 'left',
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -23,7 +26,6 @@ const MainNavigator: React.FC = () => {
         component={WelcomeScreen}
         options={{
           title: 'Welcome',
-          headerShown: false,
         }}
       />
 
@@ -32,7 +34,6 @@ const MainNavigator: React.FC = () => {
         component={ListingsScreen}
         options={{
           title: 'Listings',
-          headerShown: false,
         }}
       />
 
@@ -41,18 +42,33 @@ const MainNavigator: React.FC = () => {
         component={ListingDetailsScreen}
         options={{
           title: 'Listing Details',
-          headerShown: false,
         }}
       />
 
       <Stack.Screen
-        name="Checkout"
-        component={CheckoutScreen}
+        name="Cart"
+        component={CartScreen}
         options={{
-          title: 'Checkout',
-          headerShown: false,
+          title: 'Cart',
         }}
       />
+
+      <Stack.Screen
+        name="DeliveryStatus"
+        component={DeliveryStatusScreen}
+        options={{
+          title: 'Delivery Status',
+        }}
+      />
+
+      <Stack.Screen
+        name="OrderStatus"
+        component={OrderStatusScreen}
+        options={{
+          title: 'Order Status',
+        }}
+      />
+      
     </Stack.Navigator>
   );
 };

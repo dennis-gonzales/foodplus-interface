@@ -6,7 +6,7 @@ import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { ScreenParamList } from '../../core/configs/routes';
 import { useAppDispatch } from '../../core/hooks/storeApi';
 
-import { setFirstname } from '../../store/features/userSlice';
+import { setFirstname } from '../../store/slices/userSlice';
 
 import TextInputWidget from '../widgets/TextInputWidget';
 

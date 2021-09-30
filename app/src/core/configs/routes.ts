@@ -1,8 +1,10 @@
 type ScreenParamList = {
   Welcome: undefined;
   Listings: undefined;
-  ListingDetails: { productId: number };
-  Checkout: undefined;
+  ListingDetails: undefined;
+  Cart: undefined;
+  DeliveryStatus: undefined;
+  OrderStatus: undefined;
 };
 
 type NavigatorParamList = {

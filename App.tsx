@@ -3,7 +3,6 @@ import { configureFonts, Provider as PaperProvider } from 'react-native-paper';
 import { Provider as StorePrivoder } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import AppLoading from 'expo-app-loading';
 import { Fonts } from 'react-native-paper/lib/typescript/types';
 import {
   Ubuntu_300Light,
@@ -16,6 +15,8 @@ import {
   Ubuntu_700Bold_Italic,
   useFonts,
 } from '@expo-google-fonts/ubuntu';
+import AppLoading from 'expo-app-loading';
+import Toast, { SuccessToast, BaseToastProps } from 'react-native-toast-message';
 
 import { store } from './app/src/store';
 import { appTheme, navigationTheme } from './app/src/core/configs/theme';
@@ -78,6 +79,24 @@ const fontConfig = {
   } as Fonts,
 };
 
+const toastConfig = {
+  success: (props: BaseToastProps) => (
+    <SuccessToast
+      {...props}
+      contentContainerStyle={{
+        alignItems: 'stretch',
+      }}
+      text1Style={{
+        fontSize: 15,
+        color: 'green',
+      }}
+      onPress={() => props.onPress && props.onPress()}
+      onTrailingIconPress={() => Toast.hide()}
+    />
+  ),
+};
+
+
 const App: React.FC = () => {
   const [fontsLoaded, error] = useFonts({
     Ubuntu_300Light,
@@ -100,6 +119,7 @@ const App: React.FC = () => {
           <NavigationContainer theme={navigationTheme}>
             <MainNavigator />
             <StatusBar style="auto" />
+            <Toast config={toastConfig} ref={ref => Toast.setRef(ref)} />
           </NavigationContainer>
         </PaperProvider>
       </StorePrivoder>
