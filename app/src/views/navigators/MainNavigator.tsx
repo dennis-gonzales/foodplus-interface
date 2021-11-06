@@ -1,49 +1,38 @@
 import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { ScreenParamList, NavigatorParamList } from '../../core/configs/routes';
 
 import ListingsNavigator from './ListingsNavigator';
-import CartScreen from '../screens/CartScreen';
-import AccountScreen from '../screens/AccountScreen';
+import ListingDetails from '../containers/ListingDetailsContainer';
 
 const MainNavigator: React.FC = () => {
-  const Tab = createMaterialBottomTabNavigator<ScreenParamList & NavigatorParamList>();
+  const Stack = createStackNavigator<ScreenParamList & NavigatorParamList>();
 
   return (
-    <Tab.Navigator initialRouteName="ListingsNavigator">
-      <Tab.Screen
+    <Stack.Navigator
+      initialRouteName="ListingsNavigator"
+      screenOptions={{
+        headerTitleAlign: 'left',
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen
         name="ListingsNavigator"
         component={ListingsNavigator}
         options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
+          title: 'Listings',
         }}
       />
-      <Tab.Screen
-        name="Cart"
-        component={CartScreen}
+
+      <Stack.Screen
+        name="ListingDetails"
+        component={ListingDetails}
         options={{
-          tabBarLabel: 'Cart',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="cart" color={color} size={26} />
-          ),
+          title: 'Listing Details',
         }}
       />
-      <Tab.Screen
-        name="Account"
-        component={AccountScreen}
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
+    </Stack.Navigator>
   );
 };
 
