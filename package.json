@@ -22,6 +22,7 @@
     "expo-font": "~9.2.1",
     "expo-status-bar": "~1.0.4",
     "lodash": "^4.17.21",
+    "lottie-ios": "^3.2.3",
     "lottie-react-native": "4.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -31,7 +32,8 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-step-indicator": "^1.0.3",
-    "react-native-toast-message": "^1.6.0",
+    "react-native-toast-message": "^2.0.1",
+    "react-native-vector-icons": "^9.0.0",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.4"
   },

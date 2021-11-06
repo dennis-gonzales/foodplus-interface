@@ -91,7 +91,6 @@ const toastConfig = {
         color: 'green',
       }}
       onPress={() => props.onPress && props.onPress()}
-      onTrailingIconPress={() => Toast.hide()}
     />
   ),
 };
@@ -119,7 +118,7 @@ const App: React.FC = () => {
           <NavigationContainer theme={navigationTheme}>
             <MainNavigator />
             <StatusBar style="auto" />
-            <Toast config={toastConfig} ref={ref => Toast.setRef(ref)} />
+            <Toast config={toastConfig} />
           </NavigationContainer>
         </PaperProvider>
       </StorePrivoder>
