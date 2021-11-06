@@ -70,6 +70,9 @@ export const productsSlice = createSlice({
     },
     setSearchTerm: (products, { payload }: PayloadAction<string>) => {
       products.searchTerm = payload;
+      if (payload.trim() === '') {
+        products.filterableList = products.list;
+      }
     },
   },
   extraReducers: builder => {

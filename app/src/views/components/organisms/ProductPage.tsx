@@ -8,6 +8,7 @@ import ProductList from '../molecules/ProductList';
 type Props = React.ComponentPropsWithoutRef<typeof ProductList> & {
   searchTerm: string;
   onSearchTermChanged: (text: string) => void;
+  onSearchPressed: (text: string) => void;
 };
 
 const ProductPage: React.FC<Props> = (props) => {
@@ -19,6 +20,8 @@ const ProductPage: React.FC<Props> = (props) => {
           style={styles.searchbar}
           placeholder="Search"
           value={props.searchTerm}
+          onIconPress={() => props.onSearchPressed(props.searchTerm)}
+          onSubmitEditing={() => props.onSearchPressed(props.searchTerm)}
           onChangeText={props.onSearchTermChanged}
         />
 

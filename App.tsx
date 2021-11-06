@@ -79,21 +79,21 @@ const fontConfig = {
   } as Fonts,
 };
 
-const toastConfig = {
-  success: (props: BaseToastProps) => (
-    <SuccessToast
-      {...props}
-      contentContainerStyle={{
-        alignItems: 'stretch',
-      }}
-      text1Style={{
-        fontSize: 15,
-        color: 'green',
-      }}
-      onPress={() => props.onPress && props.onPress()}
-    />
-  ),
-};
+// const toastConfig = {
+//   success: (props: BaseToastProps) => (
+//     <SuccessToast
+//       {...props}
+//       contentContainerStyle={{
+//         alignItems: 'stretch',
+//       }}
+//       text1Style={{
+//         fontSize: 15,
+//         color: 'green',
+//       }}
+//       onPress={() => props.onPress && props.onPress()}
+//     />
+//   ),
+// };
 
 
 const App: React.FC = () => {
@@ -118,7 +118,7 @@ const App: React.FC = () => {
           <NavigationContainer theme={navigationTheme}>
             <MainNavigator />
             <StatusBar style="auto" />
-            <Toast config={toastConfig} />
+            <Toast  />
           </NavigationContainer>
         </PaperProvider>
       </StorePrivoder>

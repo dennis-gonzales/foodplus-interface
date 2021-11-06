@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
 
 import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
 import { addToCart } from '../../store/slices/cartSlice';
 
+import SafeView from '../components/darkMatter/SafeView';
 import ProductPage from '../components/organisms/ProductPage';
 import {
   loadProducts,
@@ -33,21 +34,19 @@ const ListingsContainer: React.FC = () => {
 
 
   return (
-    <View>
+    <SafeView>
       <ProductPage
         products={products}
         searchTerm={searchTerm}
-        onAddToCartPressed={product => dispatch(addToCart(product))}
         onProductPressed={product => {
           dispatch(selectProduct(product));
           navigation.navigate('ListingDetails');
         }}
-        onSearchTermChanged={text => {
-          dispatch(setSearchTerm(text));
-          dispatch(filterProducts(text));
-        }}
+        onAddToCartPressed={product => dispatch(addToCart(product))}
+        onSearchTermChanged={text => dispatch(setSearchTerm(text))}
+        onSearchPressed={text => dispatch(filterProducts(text))}
       />
-    </View>
+    </SafeView>
   );
 };
 

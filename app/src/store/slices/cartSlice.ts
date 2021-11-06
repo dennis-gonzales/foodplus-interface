@@ -29,7 +29,7 @@ export const cartSlice = createSlice({
 
         Toast.show({
           type: 'success',
-          text1: 'Quantity increased',
+          text1: `*${cart.quantity} Quantity increased`,
           text2: _.truncate(payload.title, { length: 100 }),
         });
       } else {
@@ -48,14 +48,14 @@ export const cartSlice = createSlice({
       }
     },
     decreaseQuantity: (state, { payload }: PayloadAction<Cart>) => {
-      const product = _.find(state.list, { product: payload.product });
+      const cart = _.find(state.list, { product: payload.product });
 
-      if (product) {
-        product.quantity -= 1;
-        product.price = product.product.price * product.quantity;
+      if (cart) {
+        cart.quantity -= 1;
+        cart.price = cart.product.price * cart.quantity;
 
-        if (product.quantity === 0) {
-          state.list = _.without(state.list, product);
+        if (cart.quantity === 0) {
+          state.list = _.without(state.list, cart);
           Toast.show({
             type: 'success',
             text1: 'Removed from cart',
@@ -65,7 +65,7 @@ export const cartSlice = createSlice({
         } else {
           Toast.show({
             type: 'success',
-            text1: 'Quantity decreased',
+            text1: `*${cart.quantity} Quantity decreased`,
             text2: _.truncate(payload.product.title, { length: 100 }),
           });
         }

@@ -23,15 +23,6 @@ const ProductItem: React.FC<ProductProps & { product: Product }> = ({
 }) => {
   const { id, title, price, image } = product;
 
-  const [mounted, setMounted] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-    () => {
-      setMounted(false);
-    };
-  }, []);
-
   return (
     <Card
       elevation={4}
@@ -48,7 +39,7 @@ const ProductItem: React.FC<ProductProps & { product: Product }> = ({
         />
       </Card.Content>
 
-      {mounted && <Card.Cover style={styles.cardCover} source={{ uri: image }} />}
+      {<Card.Cover style={styles.cardCover} source={{ uri: image }} />}
       
       <Card.Content style={styles.cardBottomContent}>
         <Title numberOfLines={2}>{title}</Title>
