@@ -26,8 +26,6 @@ const ListingsContainer: React.FC = () => {
   const products = useAppSelector(selectFilterableProducts);
   const searchTerm = useAppSelector(selectSearchTerm);
 
-
-
   React.useEffect(() => {
     dispatch(loadProducts({}));
   }, []);

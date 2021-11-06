@@ -5,10 +5,12 @@ type ScreenParamList = {
   Cart: undefined;
   DeliveryStatus: undefined;
   OrderStatus: undefined;
+  Account: undefined;
 };
 
 type NavigatorParamList = {
   MainNavigator: undefined;
+  ListingsNavigator: undefined;
 }
 
 
