@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { IconButton, Searchbar } from 'react-native-paper';
+import { Divider, IconButton, Menu, Searchbar } from 'react-native-paper';
 
 import { appTheme } from '../../../core/configs/theme';
 import ProductList from '../molecules/ProductList';
@@ -12,6 +12,7 @@ type Props = React.ComponentPropsWithoutRef<typeof ProductList> & {
 };
 
 const ProductPage: React.FC<Props> = (props) => {
+  const [showFilterMenu, setShowFilterMenu] = React.useState<boolean>(false);
 
   return (
     <>
@@ -25,7 +26,23 @@ const ProductPage: React.FC<Props> = (props) => {
           onChangeText={props.onSearchTermChanged}
         />
 
-        <IconButton style={styles.filterIcon} size={30} icon="filter-variant" />
+        <Menu
+          visible={showFilterMenu}
+          onDismiss={() => setShowFilterMenu(false)}
+          anchor={
+            <IconButton
+              onPress={() => setShowFilterMenu(true)}
+              style={styles.filterIcon}
+              size={30}
+              icon="filter-variant"
+            />
+          }
+        >
+          <Menu.Item onPress={() => {}} title="Item 1" />
+          <Menu.Item onPress={() => {}} title="Item 2" />
+          <Divider />
+          <Menu.Item onPress={() => {}} title="Item 3" />
+        </Menu>
       </View>
 
       <ProductList {...props} />
