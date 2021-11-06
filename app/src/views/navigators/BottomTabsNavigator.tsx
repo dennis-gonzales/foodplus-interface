@@ -8,7 +8,7 @@ import CartScreen from '../screens/CartScreen';
 import AccountScreen from '../screens/AccountScreen';
 import ListingsScreen from '../screens/ListingsScreen';
 
-const ListingsNavigator: React.FC = () => {
+const BottomTabsNavigator: React.FC = () => {
   const Tab = createMaterialBottomTabNavigator<ScreenParamList>();
 
   return (
@@ -27,7 +27,7 @@ const ListingsNavigator: React.FC = () => {
         name="Cart"
         component={CartScreen}
         options={{
-          tabBarLabel: 'Cart',
+          tabBarLabel: 'My Cart',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cart" color={color} size={26} />
           ),
@@ -47,4 +47,4 @@ const ListingsNavigator: React.FC = () => {
   );
 };
 
-export default ListingsNavigator;
+export default BottomTabsNavigator;

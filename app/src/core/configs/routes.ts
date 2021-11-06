@@ -9,8 +9,8 @@ type ScreenParamList = {
 };
 
 type NavigatorParamList = {
-  MainNavigator: undefined;
-  ListingsNavigator: undefined;
+  Main: undefined;
+  BottomTabs: undefined;
 }
 
 

@@ -14,7 +14,7 @@ type Props = React.ComponentPropsWithoutRef<typeof ProductList> & {
 const ProductPage: React.FC<Props> = (props) => {
 
   return (
-    <View>
+    <>
       <View style={styles.searchContainer}>
         <Searchbar
           style={styles.searchbar}
@@ -29,7 +29,7 @@ const ProductPage: React.FC<Props> = (props) => {
       </View>
 
       <ProductList {...props} />
-    </View>
+    </>
   );
 };
 

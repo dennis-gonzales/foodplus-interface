@@ -1,27 +1,27 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 import { ScreenParamList, NavigatorParamList } from '../../core/configs/routes';
 
-import ListingsNavigator from './ListingsNavigator';
+import BottomTabsNavigator from './BottomTabsNavigator';
 import ListingDetails from '../containers/ListingDetailsContainer';
 
 const MainNavigator: React.FC = () => {
-  const Stack = createStackNavigator<ScreenParamList & NavigatorParamList>();
+  const Stack = createNativeStackNavigator<ScreenParamList & NavigatorParamList>();
 
   return (
     <Stack.Navigator
-      initialRouteName="ListingsNavigator"
+      initialRouteName="BottomTabs"
       screenOptions={{
-        headerTitleAlign: 'left',
         headerShown: false,
       }}
     >
       <Stack.Screen
-        name="ListingsNavigator"
-        component={ListingsNavigator}
+        name="BottomTabs"
+        component={BottomTabsNavigator}
         options={{
-          title: 'Listings',
+          title: 'Home',
         }}
       />
 
