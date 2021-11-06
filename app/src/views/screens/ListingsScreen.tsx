@@ -1,14 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import ListingsContainer from '../containers/ListingsContainer';
 
-const ListingsScreen = () => {
-  return (
-    <View>
-      <Text>HELLO WORLD</Text>
-    </View>
-  );
+const ListingsScreen: React.FC = () => {
+  return <ListingsContainer />;
 };
 
 export default ListingsScreen;
-
-const styles = StyleSheet.create({});
