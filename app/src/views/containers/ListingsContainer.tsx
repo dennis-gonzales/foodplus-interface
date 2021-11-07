@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
 import { addToCart } from '../../store/slices/cartSlice';
 
-import SafeView from '../components/darkMatter/SafeView';
 import ProductPage from '../components/organisms/ProductPage';
 import {
   loadProducts,
@@ -32,19 +31,17 @@ const ListingsContainer: React.FC = () => {
 
 
   return (
-    <SafeView>
-      <ProductPage
-        products={products}
-        searchTerm={searchTerm}
-        onProductPressed={product => {
-          dispatch(selectProduct(product));
-          navigation.navigate('ListingDetails');
-        }}
-        onAddToCartPressed={product => dispatch(addToCart(product))}
-        onSearchTermChanged={text => dispatch(setSearchTerm(text))}
-        onSearchPressed={text => dispatch(filterProducts(text))}
-      />
-    </SafeView>
+    <ProductPage
+      products={products}
+      searchTerm={searchTerm}
+      onProductPressed={product => {
+        dispatch(selectProduct(product));
+        navigation.navigate('ListingDetails');
+      }}
+      onAddToCartPressed={product => dispatch(addToCart(product))}
+      onSearchTermChanged={text => dispatch(setSearchTerm(text))}
+      onSearchPressed={text => dispatch(filterProducts(text))}
+    />
   );
 };
 

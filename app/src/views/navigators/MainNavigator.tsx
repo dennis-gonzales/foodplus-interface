@@ -14,14 +14,13 @@ const MainNavigator: React.FC = () => {
     <Stack.Navigator
       initialRouteName="BottomTabs"
       screenOptions={{
-        headerShown: false,
       }}
     >
       <Stack.Screen
         name="BottomTabs"
         component={BottomTabsNavigator}
         options={{
-          title: 'Home',
+          title: 'Food Plus',
         }}
       />
 
@@ -29,7 +28,7 @@ const MainNavigator: React.FC = () => {
         name="ListingDetails"
         component={ListingDetails}
         options={{
-          title: 'Listing Details',
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

@@ -37,7 +37,7 @@ const BottomTabsNavigator: React.FC = () => {
         name="Account"
         component={AccountScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Account',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),

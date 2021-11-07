@@ -5,7 +5,7 @@ import {
   Card,
   IconButton,
   Paragraph,
-  Title,
+  Subheading,
 } from 'react-native-paper';
 
 import { appTheme } from '../../../core/configs/theme';
@@ -42,7 +42,7 @@ const ProductItem: React.FC<ProductProps & { product: Product }> = ({
       {<Card.Cover style={styles.cardCover} source={{ uri: image }} />}
       
       <Card.Content style={styles.cardBottomContent}>
-        <Title numberOfLines={2}>{title}</Title>
+        <Subheading numberOfLines={2}>{title}</Subheading>
       </Card.Content>
 
       <Card.Content style={styles.cardActions}>

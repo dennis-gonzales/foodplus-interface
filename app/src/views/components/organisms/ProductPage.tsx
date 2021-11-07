@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 20,
-    marginVertical: 10,
+    marginHorizontal: 10,
+    marginTop: 10,
   },
 });
 

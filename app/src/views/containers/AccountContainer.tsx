@@ -2,15 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import SafeView from '../components/darkMatter/SafeView';
-
 const AccountContainer: React.FC = () => {
-
-  return (
-    <SafeView>
-      <Text>Account</Text>
-    </SafeView>
-  );
+  return <Text>Account</Text>;
 };
 
 const styles = StyleSheet.create({});
