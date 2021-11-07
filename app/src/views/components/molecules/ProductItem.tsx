@@ -11,12 +11,13 @@ import {
 import { appTheme } from '../../../core/configs/theme';
 import Product from '../../../core/interfaces/Product';
 
-export interface ProductProps {
+interface ProductProps {
+  product: Product;
   onAddToCartPressed: (product: Product) => void;
   onProductPressed: (product: Product) => void;
 }
 
-const ProductItem: React.FC<ProductProps & { product: Product }> = ({
+const ProductItem: React.FC<ProductProps> = ({
   product,
   onAddToCartPressed,
   onProductPressed,

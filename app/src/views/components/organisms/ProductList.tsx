@@ -2,9 +2,9 @@ import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Product from '../../../core/interfaces/Product';
-import ProductItem, { ProductProps } from '../atoms/ProductItem';
+import ProductItem from '../molecules/ProductItem';
 
-type ProductListProps = ProductProps & {
+type ProductListProps = Omit<React.ComponentPropsWithoutRef<typeof ProductItem>, "product"> & {
   products: Product[];
 };
 
@@ -15,6 +15,8 @@ const ProductList: React.FC<ProductListProps> = ({
   onAddToCartPressed,
   onProductPressed,
 }) => {
+
+  console.log('product list - render');
 
   const renderItem = React.useCallback(
     ({ item }: { item: Product }) => (
@@ -30,9 +32,13 @@ const ProductList: React.FC<ProductListProps> = ({
   );
 
   const getItemLayout = React.useCallback(
-    (data, index) => (
-      {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
-    ), []);
+    (data, index) => ({
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    }),
+    []
+  );
 
   return (
     <FlatList

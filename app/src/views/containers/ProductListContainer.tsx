@@ -6,45 +6,44 @@ import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
 import { addToCart } from '../../store/slices/cartSlice';
 
-import ProductPage from '../components/organisms/ProductPage';
+import ProductList from '../components/organisms/ProductList';
 import {
   loadProducts,
   selectFilterableProducts,
   selectProduct,
-  filterProducts,
-  selectSearchTerm,
-  setSearchTerm,
 } from '../../store/slices/productsSlice';
+import { selectActive } from '../../store/slices/categoriesSlice';
 
-type ListingsContainerProps = NavigationProp<ScreenParamList, any>;
+type ProductListContainerProps = NavigationProp<ScreenParamList, any>;
 
-const ListingsContainer: React.FC = () => {
-  const navigation = useNavigation<ListingsContainerProps>();
+const ProductListContainer: React.FC = () => {
+  const navigation = useNavigation<ProductListContainerProps>();
   const dispatch = useAppDispatch();
 
   const products = useAppSelector(selectFilterableProducts);
-  const searchTerm = useAppSelector(selectSearchTerm);
+  const category = useAppSelector(selectActive)
 
   React.useEffect(() => {
-    dispatch(loadProducts({}));
-  }, []);
+    dispatch(
+      loadProducts({
+        category,
+      })
+    );
+  }, [category]);
 
 
   return (
-    <ProductPage
+    <ProductList
       products={products}
-      searchTerm={searchTerm}
       onProductPressed={product => {
         dispatch(selectProduct(product));
         navigation.navigate('ListingDetails');
       }}
       onAddToCartPressed={product => dispatch(addToCart(product))}
-      onSearchTermChanged={text => dispatch(setSearchTerm(text))}
-      onSearchPressed={text => dispatch(filterProducts(text))}
     />
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default ListingsContainer;
+export default ProductListContainer;
