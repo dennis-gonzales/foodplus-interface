@@ -16,36 +16,32 @@ const HorizontalCategoryList: React.FC<HorizontalCategoryListProps> = ({
   categories,
   onCategoryPressed,
 }) => {
-
   console.log('category list - render');
 
   const renderItem = ({ item }: { item: string }) => (
-    <View style={styles.category}>
-      <Category
+    <Category
       category={item}
       isActive={item === activeCategory}
       onCategoryPressed={onCategoryPressed}
     />
-    </View>
   );
 
   return (
-    <FlatList
-      data={categories}
-      horizontal
-      contentContainerStyle={styles.categoriesContainer}
-      // extraData={activeCategory}
-      showsHorizontalScrollIndicator={false}
-      keyExtractor={item => item}
-      renderItem={renderItem}
-    />
+    <View>
+      <FlatList
+        data={categories}
+        horizontal
+        contentContainerStyle={styles.categoriesContainer}
+        // extraData={activeCategory}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={item => item}
+        renderItem={renderItem}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  category: {
-    minHeight: 60,
-  },
   categoriesContainer: {
     marginTop: 10,
     paddingHorizontal: 5,

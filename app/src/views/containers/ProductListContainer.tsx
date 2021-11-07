@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Title } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
+import LottieView from 'lottie-react-native';
 import validator from 'validator';
 
 import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
@@ -43,6 +45,22 @@ const ProductListContainer: React.FC = () => {
     loadProductAndFilter();
   }, [category]);
 
+
+  if (products.length === 0) {
+    return (
+      <View style={styles.lottieContainer}>
+        <LottieView
+          style={styles.lottieView}
+          source={require('../../../assets/animations/empty-box.json')}
+          autoPlay
+          loop
+        />
+
+        <Title>No Results Found</Title>
+      </View>
+    );
+  }
+
   return (
     <ProductList
       products={products}
@@ -55,6 +73,17 @@ const ProductListContainer: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  lottieContainer: {
+    marginTop: 20,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    display: 'flex',
+    flex: 1,
+  },
+  lottieView: {
+    height: 350,
+  },
+});
 
 export default ProductListContainer;
