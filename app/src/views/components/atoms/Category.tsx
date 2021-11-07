@@ -19,6 +19,7 @@ const Category: React.FC<CategoryProps> = ({
     <Chip
       style={[styles.categoryChip, isActive && styles.activeCategory]}
       onPress={() => onCategoryPressed(category)}
+      selected={isActive}
     >
       {category}
     </Chip>

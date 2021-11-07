@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Divider, IconButton, Menu, Searchbar } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
+import { AntDesign } from '@expo/vector-icons';
 
 import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
@@ -41,14 +42,15 @@ const ProductListContainer: React.FC = () => {
             onPress={() => setShowFilterMenu(true)}
             style={styles.filterIcon}
             size={30}
-            icon="filter-variant"
+            icon={() => <AntDesign size={24} name="filter" />}
           />
         }
       >
-        <Menu.Item onPress={() => {}} title="Item 1" />
-        <Menu.Item onPress={() => {}} title="Item 2" />
+        <Menu.Item onPress={() => {}} title="Ascending" />
+        <Menu.Item onPress={() => {}} title="Descending" />
         <Divider />
-        <Menu.Item onPress={() => {}} title="Item 3" />
+        <Menu.Item onPress={() => {}} title="Popular" />
+        <Menu.Item onPress={() => {}} title="Newly Added" />
       </Menu>
     </View>
   );
