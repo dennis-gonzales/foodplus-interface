@@ -82,7 +82,7 @@ export const cartSlice = createSlice({
         state.items.push({
           product: payload,
           quantity: 1,
-          timestamp: new Date().getMilliseconds(),
+          timestamp: new Date(),
           price: payload.price,
           status: 'unchecked',
         });

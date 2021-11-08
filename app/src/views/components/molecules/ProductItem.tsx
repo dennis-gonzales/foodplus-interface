@@ -22,7 +22,7 @@ const ProductItem: React.FC<ProductProps> = ({
   onAddToCartPressed,
   onProductPressed,
 }) => {
-  const { id, title, price, image } = product;
+  const { id, title, price, image, category, description, rating } = product;
 
   return (
     <Card

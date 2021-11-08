@@ -3,7 +3,7 @@ import Product from './Product';
 interface CartItem {
   product: Product;
   quantity: number;
-  timestamp: number;
+  timestamp: Date;
   price: number;
   status: "checked" | "unchecked" | "indeterminate";
 };
