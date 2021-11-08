@@ -23,12 +23,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     clearCart: state => {
-      state.items = [];
-
-      Toast.show({
-        type: 'success',
-        text1: 'Cart cleared',
-      });
+      state.items = _.filter(state.items, items => items.status !== 'checked');
     },
     decreaseQuantity: (state, { payload }: PayloadAction<Product>) => {
       const cart = _.find(state.items, cart => cart.product.id === payload.id);
@@ -94,7 +89,7 @@ export const cartSlice = createSlice({
       }
 
     },
-    toggleAllStatus: (state, { payload }: PayloadAction) => {
+    toggleAllStatus: state => {
       state.allStatus = state.allStatus === 'checked' ? 'unchecked' : 'checked';
       state.items.map(cart => cart.status = state.allStatus);
     },

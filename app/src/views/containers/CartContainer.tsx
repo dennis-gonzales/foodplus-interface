@@ -16,12 +16,13 @@ import {
   toggleAllStatus,
   toggleProductStatus,
   selectAllStatus,
+  clearCart,
 } from '../../../src/store/slices/cartSlice';
 
 import LottieContentView from '../common/LottieContentView';
 import CartList from '../components/organisms/CartList';
 import CartPriceSummary from '../components/molecules/CartPriceSummary';
-import CartListItemCheckBox from '../components/molecules/CartListItemCheckBox';
+import CartListAction from '../components/molecules/CartListAction';
 
 type CartContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -54,9 +55,10 @@ const CartContainer: React.FC = () => {
 
   return (
     <>
-      <CartListItemCheckBox
+      <CartListAction
         status={allStatus}
         toggleStatus={() => dispatch(toggleAllStatus())}
+        onClearPressed={() => dispatch(clearCart())}
       />
 
       <CartList
