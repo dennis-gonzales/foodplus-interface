@@ -16,7 +16,7 @@ const CartPriceSummary: React.FC<CartPriceSummaryProps> = ({
     <View style={styles.footer}>
       <View style={styles.centerFullyAligned}>
         <Subheading>Total</Subheading>
-        <Title>${totalPrice}</Title>
+        <Title>PHP {totalPrice}</Title>
       </View>
 
       <Button

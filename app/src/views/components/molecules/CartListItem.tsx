@@ -47,13 +47,12 @@ const CartListItem: React.FC<CartItemProps> = ({
       />
 
       <View style={styles.content}>
-        <Subheading>${item.product.price}</Subheading>
+        <Subheading>{item.product.price} PHP</Subheading>
 
         <View style={styles.contentRight}>
         <IconButton
           icon="minus"
           disabled={item.quantity <= 1}
-          // size={32}
           style={styles.contentButton}
           onPress={() => decreaseQuantity(item.product)}
         />
@@ -65,7 +64,6 @@ const CartListItem: React.FC<CartItemProps> = ({
         <IconButton
           icon="plus"
           disabled={item.quantity >= 99}
-          // size={32}
           style={styles.contentButton}
           onPress={() => increaseQuantity(item.product)}
         />
