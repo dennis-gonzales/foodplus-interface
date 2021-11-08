@@ -85,7 +85,7 @@ const CartContainer: React.FC = () => {
 
       <CartPriceSummary
         totalPrice={getTotalPrice()}
-        onCheckoutPressed={() => {}}
+        onCheckoutPressed={() => navigation.navigate('Checkout')}
       />
     </View>
   );

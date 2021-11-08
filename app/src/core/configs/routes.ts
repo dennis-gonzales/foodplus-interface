@@ -3,6 +3,7 @@ type ScreenParamList = {
   Listings: undefined;
   ListingDetails: undefined;
   Cart: undefined;
+  Checkout: undefined;
   DeliveryStatus: undefined;
   OrderStatus: undefined;
   Account: undefined;

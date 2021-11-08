@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScreenParamList, NavigatorParamList } from '../../core/configs/routes';
 
 import BottomTabsNavigator from './BottomTabsNavigator';
+import CheckoutScreen from '../screens/CheckoutScreen';
 import ListingDetails from '../containers/ListingDetailsContainer';
 
 const MainNavigator: React.FC = () => {
@@ -13,8 +14,6 @@ const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator
       initialRouteName="BottomTabs"
-      screenOptions={{
-      }}
     >
       <Stack.Screen
         name="BottomTabs"
@@ -30,6 +29,11 @@ const MainNavigator: React.FC = () => {
         options={{
           headerShown: false,
         }}
+      />
+
+      <Stack.Screen
+        name="Checkout"
+        component={CheckoutScreen}
       />
     </Stack.Navigator>
   );
