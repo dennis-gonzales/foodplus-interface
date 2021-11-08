@@ -14,23 +14,23 @@ const CartPriceSummary: React.FC<CartPriceSummaryProps> = ({
 }) => {
   return (
     <View style={styles.footer}>
-        <View style={styles.centerFullyAligned}>
-          <Subheading>Total</Subheading>
-          <Title>${totalPrice}</Title>
-        </View>
-
-        <Button
-          mode="contained"
-          style={styles.checkoutButton}
-          contentStyle={{
-            paddingVertical: 10,
-            paddingHorizontal: 15,
-          }}
-          onPress={onCheckoutPressed}
-        >
-          Checkout
-        </Button>
+      <View style={styles.centerFullyAligned}>
+        <Subheading>Total</Subheading>
+        <Title>${totalPrice}</Title>
       </View>
+
+      <Button
+        mode="contained"
+        style={styles.checkoutButton}
+        contentStyle={{
+          paddingVertical: 10,
+          paddingHorizontal: 15,
+        }}
+        onPress={onCheckoutPressed}
+      >
+        Checkout
+      </Button>
+    </View>
   );
 };
 
@@ -50,13 +50,9 @@ const styles = StyleSheet.create({
     backgroundColor: appTheme.colors.background,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
-    bottom: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     height: 100,
-    left: 0,
-    position: 'absolute',
-    right: 0,
   },
 });
 

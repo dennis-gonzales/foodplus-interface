@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { Title } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
 import validator from 'validator';
 
@@ -7,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
 import { increaseQuantity } from '../../store/slices/cartSlice';
 
-import ProductList from '../components/organisms/ProductList';
 import {
   filterProducts,
   loadProducts,
@@ -16,8 +16,9 @@ import {
   selectSearchTerm,
 } from '../../store/slices/productsSlice';
 import { selectActive } from '../../store/slices/categoriesSlice';
+
 import LottieContentView from '../common/LottieContentView';
-import { Title } from 'react-native-paper';
+import ProductList from '../components/organisms/ProductList';
 
 type ProductListContainerProps = NavigationProp<ScreenParamList, any>;
 

@@ -9,11 +9,13 @@ import Product from '../../core/types/Product';
 
 export interface CartState {
   items: CartItem[];
+  allStatus: 'checked' | 'unchecked' | 'indeterminate';
   error?: string;
 }
 
 const initialState: CartState = {
   items: [],
+  allStatus: 'unchecked',
 };
 
 export const cartSlice = createSlice({
@@ -79,22 +81,38 @@ export const cartSlice = createSlice({
         });
       }
     },
-    toggleStatus: (state, { payload }: PayloadAction<CartItem>) => {
-      const cart = _.find(state.items, cart => cart.product.id === payload.product.id);
+    toggleProductStatus: (state, { payload }: PayloadAction<CartItem>) => {
+      const cart = _.find(
+        state.items,
+        cart => cart.product.id === payload.product.id
+      );
 
       if (cart) {
         cart.status = cart.status === 'checked' ? 'unchecked' : 'checked';
+        const allChecked = state.items.every(item => item.status === 'checked');
+        state.allStatus = allChecked ? 'checked' : 'unchecked';
       }
+
+    },
+    toggleAllStatus: (state, { payload }: PayloadAction) => {
+      state.allStatus = state.allStatus === 'checked' ? 'unchecked' : 'checked';
+      state.items.map(cart => cart.status = state.allStatus);
     },
   },
 });
 
-export const { clearCart, decreaseQuantity, increaseQuantity, toggleStatus } =
-  cartSlice.actions;
+export const {
+  clearCart,
+  decreaseQuantity,
+  increaseQuantity,
+  toggleProductStatus,
+  toggleAllStatus,
+} = cartSlice.actions;
 export default cartSlice.reducer;
 
-export const selectProducts = (state: RootState) =>
-  state.session.cart.items;
+export const selectProducts = (state: RootState) => state.session.cart.items;
 
 export const selectCheckedProducts = (state: RootState) =>
   _.filter(state.session.cart.items, cart => cart.status === 'checked');
+
+export const selectAllStatus = (state: RootState) => state.session.cart.allStatus;
