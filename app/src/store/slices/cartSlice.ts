@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
 import Toast from 'react-native-toast-message';
 
 import _ from 'lodash';
@@ -36,7 +37,6 @@ export const cartSlice = createSlice({
           type: 'success',
           text1: 'Selected products removed from cart',
         });
-
       } else {
         Toast.show({
           type: 'info',
@@ -62,7 +62,6 @@ export const cartSlice = createSlice({
 
         const allChecked = state.items.every(item => item.status === 'checked');
         state.allStatus = allChecked ? 'checked' : 'unchecked';
-
       } else {
         Toast.show({
           type: 'success',
@@ -83,7 +82,6 @@ export const cartSlice = createSlice({
           text1: `*${cart.quantity} Quantity increased`,
           text2: _.truncate(payload.title, { length: 100 }),
         });
-
       } else {
         state.items.push({
           product: payload,
@@ -107,7 +105,7 @@ export const cartSlice = createSlice({
         cart => cart.product.id === payload.product.id
       );
       if (!cart) return;
-      
+
       cart.status = cart.status === 'checked' ? 'unchecked' : 'checked';
       const allChecked = state.items.every(item => item.status === 'checked');
       state.allStatus = allChecked ? 'checked' : 'unchecked';
@@ -130,8 +128,9 @@ export default cartSlice.reducer;
 
 export const selectProducts = (state: RootState) => state.session.cart.items;
 
-export const selectCheckedProducts = (state: RootState) =>
-  _.filter(state.session.cart.items, cart => cart.status === 'checked');
-
 export const selectAllStatus = (state: RootState) =>
   state.session.cart.allStatus;
+
+export const selectCheckedProducts = createSelector([selectProducts], items =>
+  _.filter(items, cart => cart.status === 'checked')
+);
