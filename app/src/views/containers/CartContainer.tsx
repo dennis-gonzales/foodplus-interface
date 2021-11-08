@@ -1,10 +1,13 @@
 import React from 'react';
-import { StyleSheet, } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { Title } from 'react-native-paper';
+import { Button, Title } from 'react-native-paper';
 
 import { ScreenParamList } from '../../../src/core/configs/routes';
-import { useAppDispatch, useAppSelector } from '../../../src/core/hooks/storeApi';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../src/core/hooks/storeApi';
 import CartItem from '../../core/types/CartItem';
 
 import { selectProduct } from '../../../src/store/slices/productsSlice';
@@ -29,7 +32,7 @@ type CartContainerProps = NavigationProp<ScreenParamList, any>;
 const CartContainer: React.FC = () => {
   const navigation = useNavigation<CartContainerProps>();
   const dispatch = useAppDispatch();
-  
+
   const items = useAppSelector(selectProducts);
   const selectedItems = useAppSelector(selectCheckedProducts);
   const allStatus = useAppSelector(selectAllStatus);
@@ -47,7 +50,18 @@ const CartContainer: React.FC = () => {
     return (
       <LottieContentView
         source={require('../../../assets/animations/empty-box.json')}
-        bottomContent={<Title>No Items in Cart</Title>}
+        bottomContent={
+          <>
+            <Title style={styles.marginBottom}>No Items in Cart</Title>
+            <Button
+              icon="cart"
+              mode="contained"
+              onPress={() => navigation.navigate('Listings')}
+            >
+              Shop Now
+            </Button>
+          </>
+        }
         lottieContainerStyle={styles.lottieContainer}
       />
     );
@@ -80,7 +94,10 @@ const CartContainer: React.FC = () => {
 const styles = StyleSheet.create({
   lottieContainer: {
     justifyContent: 'center',
-  }
+  },
+  marginBottom: {
+    marginBottom: 20,
+  },
 });
 
 export default CartContainer;
