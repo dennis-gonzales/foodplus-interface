@@ -40,8 +40,12 @@ const ProductItem: React.FC<ProductProps> = ({
         />
       </Card.Content>
 
-      {<Card.Cover style={styles.cardCover} source={{ uri: image }} />}
-      
+      <Card.Cover
+        defaultSource={require('../../../../assets/adaptive-icon.png')}
+        style={styles.cardCover}
+        source={{ uri: image }}
+      />
+
       <Card.Content style={styles.cardBottomContent}>
         <Subheading numberOfLines={2}>{title}</Subheading>
       </Card.Content>

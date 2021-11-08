@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Divider, IconButton, Menu, Searchbar } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
-import { AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
@@ -42,15 +42,57 @@ const ProductListContainer: React.FC = () => {
             onPress={() => setShowFilterMenu(true)}
             style={styles.filterIcon}
             size={30}
-            icon={() => <AntDesign size={24} name="filter" />}
+            icon={() => (
+              <MaterialCommunityIcons
+                name="filter-menu-outline"
+                size={24}
+                color="black"
+              />
+            )}
           />
         }
       >
-        <Menu.Item onPress={() => {}} title="Ascending" />
-        <Menu.Item onPress={() => {}} title="Descending" />
+        <Menu.Item
+          icon={() => (
+            <MaterialCommunityIcons
+              name="sort-alphabetical-ascending"
+              size={24}
+              color="black"
+            />
+          )}
+          onPress={() => {}}
+          title="Ascending"
+        />
+        <Menu.Item
+          icon={() => (
+            <MaterialCommunityIcons
+              name="sort-alphabetical-descending"
+              size={24}
+              color="black"
+            />
+          )}
+          onPress={() => {}}
+          title="Descending"
+        />
         <Divider />
-        <Menu.Item onPress={() => {}} title="Popular" />
-        <Menu.Item onPress={() => {}} title="Newly Added" />
+        <Menu.Item
+          icon={() => (
+            <MaterialCommunityIcons
+              name="star-four-points-outline"
+              size={24}
+              color="black"
+            />
+          )}
+          onPress={() => {}}
+          title="Popular"
+        />
+        <Menu.Item
+          icon={() => (
+            <MaterialCommunityIcons name="new-box" size={24} color="black" />
+          )}
+          onPress={() => {}}
+          title="Newly Added"
+        />
       </Menu>
     </View>
   );
