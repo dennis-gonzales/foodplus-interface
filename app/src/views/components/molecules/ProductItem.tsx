@@ -9,7 +9,7 @@ import {
 } from 'react-native-paper';
 
 import { appTheme } from '../../../core/configs/theme';
-import Product from '../../../core/interfaces/Product';
+import Product from '../../../core/types/Product';
 
 interface ProductProps {
   product: Product;

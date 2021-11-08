@@ -12,18 +12,14 @@ type HorizontalCategoryListProps = Omit<
 };
 
 const HorizontalCategoryList: React.FC<HorizontalCategoryListProps> = ({
-  activeCategory,
   categories,
-  onCategoryPressed,
+  activeCategory,
+  ...props
 }) => {
   console.log('category list - render');
 
   const renderItem = ({ item }: { item: string }) => (
-    <Category
-      category={item}
-      isActive={item === activeCategory}
-      onCategoryPressed={onCategoryPressed}
-    />
+    <Category category={item} isActive={item === activeCategory} {...props} />
   );
 
   return (

@@ -37,7 +37,7 @@ const api: Middleware = ({ dispatch }: MiddlewareAPI) => (next: Dispatch) => asy
     if (onError) {
       dispatch({
         type: onError,
-        payload: error.message,
+        payload: error instanceof Error ? error.message : `${error}`,
       });
     }
   }

@@ -4,7 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import { RootState } from '..';
-import Product from '../../core/interfaces/Product';
+import Product from '../../core/types/Product';
 import { selectIsLoggedIn } from './userSlice';
 
 export const loadProducts = createAsyncThunk<

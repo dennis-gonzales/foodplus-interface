@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
-import Product from '../../../core/interfaces/Product';
+import Product from '../../../core/types/Product';
 import ProductItem from '../molecules/ProductItem';
 
 type ProductListProps = Omit<React.ComponentPropsWithoutRef<typeof ProductItem>, "product"> & {

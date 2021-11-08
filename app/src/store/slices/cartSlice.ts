@@ -4,16 +4,16 @@ import Toast from 'react-native-toast-message';
 import _ from 'lodash';
 
 import { RootState } from '..';
-import Cart from '../../core/interfaces/Cart';
-import Product from '../../core/interfaces/Product';
+import CartItem from '../../core/types/CartItem';
+import Product from '../../core/types/Product';
 
 export interface CartState {
-  list: Cart[];
+  items: CartItem[];
   error?: string;
 }
 
 const initialState: CartState = {
-  list: [],
+  items: [],
 };
 
 export const cartSlice = createSlice({
@@ -21,7 +21,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }: PayloadAction<Product>) => {
-      const cart = _.find(state.list, cart => cart.product.id === payload.id);
+      const cart = _.find(state.items, cart => cart.product.id === payload.id);
 
       if (cart) {
         cart.quantity += 1;
@@ -33,7 +33,7 @@ export const cartSlice = createSlice({
           text2: _.truncate(payload.title, { length: 100 }),
         });
       } else {
-        state.list.push({
+        state.items.push({
           product: payload,
           quantity: 1,
           timestamp: new Date().getMilliseconds(),
@@ -47,32 +47,32 @@ export const cartSlice = createSlice({
         });
       }
     },
-    decreaseQuantity: (state, { payload }: PayloadAction<Cart>) => {
-      const cart = _.find(state.list, { product: payload.product });
+    decreaseQuantity: (state, { payload }: PayloadAction<Product>) => {
+      const cart = _.find(state.items, cart => cart.product.id === payload.id);
 
       if (cart) {
         cart.quantity -= 1;
         cart.price = cart.product.price * cart.quantity;
 
         if (cart.quantity === 0) {
-          state.list = _.without(state.list, cart);
+          state.items = _.without(state.items, cart);
           Toast.show({
             type: 'success',
             text1: 'Removed from cart',
-            text2: _.truncate(payload.product.title, { length: 100 }),
+            text2: _.truncate(payload.title, { length: 100 }),
           });
           
         } else {
           Toast.show({
             type: 'success',
             text1: `*${cart.quantity} Quantity decreased`,
-            text2: _.truncate(payload.product.title, { length: 100 }),
+            text2: _.truncate(payload.title, { length: 100 }),
           });
         }
       }
     },
     clearCart: state => {
-      state.list = [];
+      state.items = [];
 
       Toast.show({
         type: 'success',
@@ -86,4 +86,4 @@ export const { addToCart, clearCart, decreaseQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
 
 export const selectProductsFromCart = (state: RootState) =>
-  state.session.cart.list;
+  state.session.cart.items;
