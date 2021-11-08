@@ -1,6 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Avatar, Checkbox, IconButton, List } from 'react-native-paper';
+import {
+  Avatar,
+  Button,
+  Caption,
+  Checkbox,
+  IconButton,
+  List,
+} from 'react-native-paper';
 
 import { appTheme } from '../../../core/configs/theme';
 import CartItem from '../../../core/types/CartItem';
@@ -8,7 +15,7 @@ import Product from '../../../core/types/Product';
 
 interface CartItemProps {
   item: CartItem;
-  status: "checked" | "unchecked" | "indeterminate";
+  status: 'checked' | 'unchecked' | 'indeterminate';
   onItemPressed: (item: CartItem) => void;
   toggleStatus: (item: CartItem) => void;
   decreaseQuantity: (product: Product) => void;
@@ -26,10 +33,8 @@ const CartListItem: React.FC<CartItemProps> = ({
   return (
     <List.Item
       onPress={() => onItemPressed(item)}
-      title={`${item.quantity > 0 && `${item.quantity}* `}${
-        item.product.title
-      }`}
-      description={`$${item.price}`}
+      title={item.product.title}
+      description={item.product.description}
       left={props => (
         <View style={styles.listLeftProps}>
           <Checkbox status={status} onPress={() => toggleStatus(item)} />
@@ -52,6 +57,16 @@ const CartListItem: React.FC<CartItemProps> = ({
 };
 
 const styles = StyleSheet.create({
+  description: {
+    backgroundColor: 'lightgrey',
+    minHeight: 60,
+    display: 'flex',
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
   listLeftProps: {
     display: 'flex',
     flexDirection: 'row',
