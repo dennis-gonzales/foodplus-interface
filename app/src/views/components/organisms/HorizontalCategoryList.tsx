@@ -14,12 +14,12 @@ type HorizontalCategoryListProps = Omit<
 const HorizontalCategoryList: React.FC<HorizontalCategoryListProps> = ({
   categories,
   activeCategory,
-  ...props
+  ...categoryProps
 }) => {
   console.log('category list - render');
 
   const renderItem = ({ item }: { item: string }) => (
-    <Category category={item} isActive={item === activeCategory} {...props} />
+    <Category category={item} isActive={item === activeCategory} {...categoryProps} />
   );
 
   return (

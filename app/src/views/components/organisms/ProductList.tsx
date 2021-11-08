@@ -4,7 +4,10 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import Product from '../../../core/types/Product';
 import ProductItem from '../molecules/ProductItem';
 
-type ProductListProps = Omit<React.ComponentPropsWithoutRef<typeof ProductItem>, "product"> & {
+type ProductListProps = Omit<
+  React.ComponentPropsWithoutRef<typeof ProductItem>,
+  'product'
+> & {
   products: Product[];
 };
 
@@ -12,20 +15,14 @@ const ITEM_HEIGHT = 260;
 
 const ProductList: React.FC<ProductListProps> = ({
   products,
-  onAddToCartPressed,
-  onProductPressed,
+  ...productItemProps
 }) => {
-
   console.log('product list - render');
 
   const renderItem = React.useCallback(
     ({ item }: { item: Product }) => (
       <View style={styles.product}>
-        <ProductItem
-          product={item}
-          onAddToCartPressed={onAddToCartPressed}
-          onProductPressed={onProductPressed}
-        />
+        <ProductItem product={item} {...productItemProps} />
       </View>
     ),
     []
@@ -67,8 +64,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   productWrapper: {
-    justifyContent: 'space-evenly'
-  }
+    justifyContent: 'space-evenly',
+  },
 });
 
 export default ProductList;

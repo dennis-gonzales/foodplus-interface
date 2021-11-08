@@ -8,12 +8,12 @@ type CartListProps = Omit<React.ComponentPropsWithoutRef<typeof CartListItem>, "
   items: CartItem[];
 }
 
-const CartList: React.FC<CartListProps> = ({ items, ...props }) => {
+const CartList: React.FC<CartListProps> = ({ items, ...cartListProps }) => {
 
   console.log('cart list - render');
 
   const renderItem = ({ item }: { item: CartItem }) => (
-    <CartListItem item={item} {...props} />
+    <CartListItem item={item} {...cartListProps} />
   );
 
   return (
