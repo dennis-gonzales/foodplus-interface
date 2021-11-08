@@ -39,6 +39,7 @@ const CartContainer: React.FC = () => {
       <LottieContentView
         source={require('../../../assets/animations/empty-box.json')}
         bottomContent={<Title>No Items in Cart</Title>}
+        lottieContainerStyle={styles.lottieContainer}
       />
     );
   }
@@ -60,6 +61,10 @@ const CartContainer: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  lottieContainer: {
+    justifyContent: 'center',
+  }
+});
 
 export default CartContainer;

@@ -49,6 +49,7 @@ const ProductListContainer: React.FC = () => {
       <LottieContentView
         source={require('../../../assets/animations/empty-box.json')}
         bottomContent={<Title>No Products Found</Title>}
+        lottieContainerStyle={styles.lottieContainer}
       />
     );
   }
@@ -65,6 +66,10 @@ const ProductListContainer: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  lottieContainer: {
+    justifyContent: 'center',
+  }
+});
 
 export default ProductListContainer;
