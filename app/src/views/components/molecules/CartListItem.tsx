@@ -1,13 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import {
-  Avatar,
-  Button,
-  Caption,
-  Checkbox,
-  IconButton,
-  List,
-} from 'react-native-paper';
+import { Avatar, Checkbox, IconButton, List, Subheading } from 'react-native-paper';
 
 import { appTheme } from '../../../core/configs/theme';
 import CartItem from '../../../core/types/CartItem';
@@ -31,47 +24,96 @@ const CartListItem: React.FC<CartItemProps> = ({
   increaseQuantity,
 }) => {
   return (
-    <List.Item
-      onPress={() => onItemPressed(item)}
-      title={item.product.title}
-      description={item.product.description}
-      left={props => (
-        <View style={styles.listLeftProps}>
-          <Checkbox status={status} onPress={() => toggleStatus(item)} />
-          <Avatar.Image {...props} source={{ uri: item.product.image }} />
-        </View>
-      )}
-      right={props => (
+    <>
+      <List.Item
+        onPress={() => toggleStatus(item)}
+        title={item.product.title}
+        description={item.product.description}
+        style={styles.listItem}
+        left={props => (
+          <View style={styles.listLeftProps}>
+            <Checkbox status={status} onPress={() => toggleStatus(item)} />
+            <Avatar.Image {...props} source={{ uri: item.product.image }} />
+          </View>
+        )}
+        right={props => (
+          <IconButton
+            {...props}
+            icon="open-in-new"
+            style={styles.listRightProps}
+            onPress={() => onItemPressed(item)}
+          />
+        )}
+      />
+
+      <View style={styles.content}>
+        <Subheading>${item.product.price}</Subheading>
+
+        <View style={styles.contentRight}>
         <IconButton
-          {...props}
           icon="minus"
-          style={{
-            backgroundColor: appTheme.colors.primary,
-            borderRadius: 90,
-          }}
+          disabled={item.quantity <= 1}
+          // size={32}
+          style={styles.contentButton}
           onPress={() => decreaseQuantity(item.product)}
         />
-      )}
-    />
+        <Avatar.Text
+          style={styles.contentText}
+          size={35}
+          label={item.quantity.toString()}
+        />
+        <IconButton
+          icon="plus"
+          disabled={item.quantity >= 99}
+          // size={32}
+          style={styles.contentButton}
+          onPress={() => increaseQuantity(item.product)}
+        />
+        </View>
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  description: {
-    backgroundColor: 'lightgrey',
-    minHeight: 60,
+  content: {
+    backgroundColor: 'whitesmoke',
     display: 'flex',
-    flex: 1,
-    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: 5,
+    marginBottom: 5,
+    paddingHorizontal: 10,
+  },
+  contentRight: {
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  contentButton: {
+    backgroundColor: appTheme.colors.background,
+    height: 32,
+    width: 32,
+  },
+  contentText: {
+    backgroundColor: appTheme.colors.background,
+    height: 32,
+    width: 32,
+  },
+  listItem: {
+    backgroundColor: 'whitesmoke',
   },
   listLeftProps: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+  },
+  listRightProps: {
+    backgroundColor: appTheme.colors.background,
+    borderRadius: 90,
   },
 });
 
