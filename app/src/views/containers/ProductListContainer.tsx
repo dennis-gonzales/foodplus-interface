@@ -16,7 +16,8 @@ import {
   selectSearchTerm,
 } from '../../store/slices/productsSlice';
 import { selectActive } from '../../store/slices/categoriesSlice';
-import LottieTitleView from '../common/LottieTitleView';
+import LottieContentView from '../common/LottieContentView';
+import { Title } from 'react-native-paper';
 
 type ProductListContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -45,9 +46,9 @@ const ProductListContainer: React.FC = () => {
 
   if (products.length === 0) {
     return (
-      <LottieTitleView
-        title="No Products Found"
+      <LottieContentView
         source={require('../../../assets/animations/empty-box.json')}
+        bottomContent={<Title>No Products Found</Title>}
       />
     );
   }

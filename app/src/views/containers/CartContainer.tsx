@@ -14,7 +14,8 @@ import {
 import CartItem from '../../core/types/CartItem';
 import CartList from '../components/organisms/CartList';
 import CartPriceSummary from '../components/molecules/CartPriceSummary';
-import LottieTitleView from '../common/LottieTitleView';
+import LottieContentView from '../common/LottieContentView';
+import { Title } from 'react-native-paper';
 
 type CartContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -35,9 +36,9 @@ const CartContainer: React.FC = () => {
 
   if (cart.length === 0) {
     return (
-      <LottieTitleView
-        title="No Items in Cart"
+      <LottieContentView
         source={require('../../../assets/animations/empty-box.json')}
+        bottomContent={<Title>No Items in Cart</Title>}
       />
     );
   }
