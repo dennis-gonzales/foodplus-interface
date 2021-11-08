@@ -5,7 +5,7 @@ import validator from 'validator';
 
 import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
 import { ScreenParamList } from '../../core/configs/routes';
-import { addToCart } from '../../store/slices/cartSlice';
+import { increaseQuantity } from '../../store/slices/cartSlice';
 
 import ProductList from '../components/organisms/ProductList';
 import {
@@ -61,7 +61,7 @@ const ProductListContainer: React.FC = () => {
         dispatch(selectProduct(product));
         navigation.navigate('ListingDetails');
       }}
-      onAddToCartPressed={product => dispatch(addToCart(product))}
+      onAddToCartPressed={product => dispatch(increaseQuantity(product))}
     />
   );
 };

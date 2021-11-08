@@ -5,6 +5,7 @@ interface CartItem {
   quantity: number;
   timestamp: number;
   price: number;
+  status: "checked" | "unchecked" | "indeterminate";
 };
 
 export default CartItem;

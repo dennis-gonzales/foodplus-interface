@@ -8,14 +8,18 @@ import Product from '../../../core/types/Product';
 
 interface CartItemProps {
   item: CartItem;
+  status: "checked" | "unchecked" | "indeterminate";
   onItemPressed: (item: CartItem) => void;
+  toggleStatus: (item: CartItem) => void;
   decreaseQuantity: (product: Product) => void;
   increaseQuantity: (product: Product) => void;
 }
 
 const CartListItem: React.FC<CartItemProps> = ({
   item,
+  status,
   onItemPressed,
+  toggleStatus,
   decreaseQuantity,
   increaseQuantity,
 }) => {
@@ -28,7 +32,7 @@ const CartListItem: React.FC<CartItemProps> = ({
       description={`$${item.price}`}
       left={props => (
         <View style={styles.listLeftProps}>
-          <Checkbox status="checked" onPress={() => {}} />
+          <Checkbox status={status} onPress={() => toggleStatus(item)} />
           <Avatar.Image {...props} source={{ uri: item.product.image }} />
         </View>
       )}

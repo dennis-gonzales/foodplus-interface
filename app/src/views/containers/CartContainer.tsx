@@ -7,9 +7,11 @@ import { ScreenParamList } from '../../../src/core/configs/routes';
 import { useAppDispatch, useAppSelector } from '../../../src/core/hooks/storeApi';
 import { selectProduct } from '../../../src/store/slices/productsSlice';
 import {
-  addToCart,
   decreaseQuantity,
-  selectProductsFromCart,
+  increaseQuantity,
+  selectProducts,
+  selectCheckedProducts,
+  toggleStatus,
 } from '../../../src/store/slices/cartSlice';
 import CartItem from '../../core/types/CartItem';
 import CartList from '../components/organisms/CartList';
@@ -23,10 +25,11 @@ const CartContainer: React.FC = () => {
   const navigation = useNavigation<CartContainerProps>();
   const dispatch = useAppDispatch();
   
-  const cart = useAppSelector(selectProductsFromCart);
+  const items = useAppSelector(selectProducts);
+  const selectedItems = useAppSelector(selectCheckedProducts);
 
   const getTotalPrice = (): string => {
-    return cart.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
+    return selectedItems.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
   };
 
   const handlePress = (item: CartItem) => {
@@ -34,7 +37,7 @@ const CartContainer: React.FC = () => {
     navigation.navigate('ListingDetails');
   };
 
-  if (cart.length === 0) {
+  if (items.length === 0) {
     return (
       <LottieContentView
         source={require('../../../assets/animations/empty-box.json')}
@@ -47,9 +50,10 @@ const CartContainer: React.FC = () => {
   return (
     <>
       <CartList
-        items={cart}
-        increaseQuantity={item => dispatch(addToCart(item))}
-        decreaseQuantity={item => dispatch(decreaseQuantity(item))}
+        items={items}
+        increaseQuantity={product => dispatch(increaseQuantity(product))}
+        decreaseQuantity={product => dispatch(decreaseQuantity(product))}
+        toggleStatus={item => dispatch(toggleStatus(item))}
         onItemPressed={handlePress}
       />
 
