@@ -4,7 +4,7 @@ import { Button, Subheading, Title } from 'react-native-paper';
 import { appTheme } from '../../../core/configs/theme';
 
 interface CartPriceSummaryProps {
-  totalPrice: string;
+  totalPrice: number;
   onCheckoutPressed: () => void;
 }
 
@@ -16,7 +16,7 @@ const CartPriceSummary: React.FC<CartPriceSummaryProps> = ({
     <View style={styles.footer}>
       <View style={styles.centerFullyAligned}>
         <Subheading>Total</Subheading>
-        <Title>PHP {totalPrice}</Title>
+        <Title>PHP {totalPrice.toFixed(2)}</Title>
       </View>
 
       <Button

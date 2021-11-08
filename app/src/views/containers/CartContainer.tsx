@@ -15,11 +15,11 @@ import {
   decreaseQuantity,
   increaseQuantity,
   selectProducts,
-  selectCheckedProducts,
   toggleAllStatus,
   toggleProductStatus,
   selectAllStatus,
   clearCart,
+  selectCheckedProductsTotalPrice,
 } from '../../../src/store/slices/cartSlice';
 
 import LottieContentView from '../common/LottieContentView';
@@ -34,12 +34,8 @@ const CartContainer: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const items = useAppSelector(selectProducts);
-  const selectedItems = useAppSelector(selectCheckedProducts);
   const allStatus = useAppSelector(selectAllStatus);
-
-  const getTotalPrice = (): string => {
-    return selectedItems.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
-  };
+  const selectedItemsPrice = useAppSelector(selectCheckedProductsTotalPrice);
 
   const handlePress = (item: CartItem) => {
     dispatch(selectProduct(item.product));
@@ -84,7 +80,7 @@ const CartContainer: React.FC = () => {
       />
 
       <CartPriceSummary
-        totalPrice={getTotalPrice()}
+        totalPrice={selectedItemsPrice}
         onCheckoutPressed={() => navigation.navigate('Checkout')}
       />
     </View>

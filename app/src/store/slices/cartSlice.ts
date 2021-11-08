@@ -134,3 +134,8 @@ export const selectAllStatus = (state: RootState) =>
 export const selectCheckedProducts = createSelector([selectProducts], items =>
   _.filter(items, cart => cart.status === 'checked')
 );
+
+export const selectCheckedProductsTotalPrice = createSelector(
+  [selectCheckedProducts],
+  items => _.sumBy(items, cart => cart.price)
+);
