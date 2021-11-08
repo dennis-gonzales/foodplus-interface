@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Button, Title } from 'react-native-paper';
 
@@ -68,7 +68,7 @@ const CartContainer: React.FC = () => {
   }
 
   return (
-    <>
+    <View style={styles.container}>
       <CartListAction
         status={allStatus}
         toggleStatus={() => dispatch(toggleAllStatus())}
@@ -87,11 +87,15 @@ const CartContainer: React.FC = () => {
         totalPrice={getTotalPrice()}
         onCheckoutPressed={() => {}}
       />
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 10,
+  },
   lottieContainer: {
     justifyContent: 'center',
   },

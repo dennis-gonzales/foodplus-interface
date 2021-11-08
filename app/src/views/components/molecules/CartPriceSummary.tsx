@@ -23,8 +23,7 @@ const CartPriceSummary: React.FC<CartPriceSummaryProps> = ({
         mode="contained"
         style={styles.checkoutButton}
         contentStyle={{
-          paddingVertical: 10,
-          paddingHorizontal: 15,
+          paddingVertical: 5,
         }}
         onPress={onCheckoutPressed}
       >
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#ccc',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    height: 100,
+    height: 80,
   },
 });
 
