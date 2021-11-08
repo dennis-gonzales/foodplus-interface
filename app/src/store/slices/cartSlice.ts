@@ -23,7 +23,25 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     clearCart: state => {
-      state.items = _.filter(state.items, items => items.status !== 'checked');
+      const hasChecked = state.items.some(item => item.status === 'checked');
+
+      if (hasChecked) {
+        state.items = _.filter(
+          state.items,
+          items => items.status !== 'checked'
+        );
+        state.allStatus = 'unchecked';
+
+        Toast.show({
+          type: 'success',
+          text1: 'Selected products removed from cart',
+        });
+      } else {
+        Toast.show({
+          type: 'info',
+          text1: 'Please select a product to remove',
+        });
+      }
     },
     decreaseQuantity: (state, { payload }: PayloadAction<Product>) => {
       const cart = _.find(state.items, cart => cart.product.id === payload.id);
@@ -87,11 +105,10 @@ export const cartSlice = createSlice({
         const allChecked = state.items.every(item => item.status === 'checked');
         state.allStatus = allChecked ? 'checked' : 'unchecked';
       }
-
     },
     toggleAllStatus: state => {
       state.allStatus = state.allStatus === 'checked' ? 'unchecked' : 'checked';
-      state.items.map(cart => cart.status = state.allStatus);
+      state.items.map(cart => (cart.status = state.allStatus));
     },
   },
 });
