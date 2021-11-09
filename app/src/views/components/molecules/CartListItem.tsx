@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Avatar, Checkbox, IconButton, List, Subheading } from 'react-native-paper';
+import { Avatar, Checkbox, Divider, IconButton, List, Subheading } from 'react-native-paper';
 
 import { appTheme } from '../../../core/configs/theme';
 import CartItem from '../../../core/types/CartItem';
@@ -46,8 +46,10 @@ const CartListItem: React.FC<CartItemProps> = ({
         )}
       />
 
+      <Divider />
+
       <View style={styles.content}>
-        <Subheading>{item.product.price} PHP</Subheading>
+        <Subheading style={styles.price}>{item.product.price} PHP</Subheading>
 
         <View style={styles.contentRight}>
         <IconButton
@@ -112,7 +114,13 @@ const styles = StyleSheet.create({
   listRightProps: {
     backgroundColor: appTheme.colors.background,
     borderRadius: 90,
+    borderColor: appTheme.colors.primary,
+    borderWidth: 0.4,
   },
+  price: {
+    fontWeight: 'bold',
+    marginLeft: 10,
+  }
 });
 
 export default CartListItem;

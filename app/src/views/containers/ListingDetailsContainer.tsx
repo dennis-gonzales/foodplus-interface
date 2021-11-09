@@ -18,7 +18,7 @@ const ListingDetailsContainer: React.FC = () => {
   const navigation = useNavigation<ListingDetailsContainerProps>();
   const dispatch = useAppDispatch();
   
-  const product = useAppSelector(state => selectSelectedProduct(state));
+  const product = useAppSelector(selectSelectedProduct);
 
   React.useEffect(() => {
     return () => {
