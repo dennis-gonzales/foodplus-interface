@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Avatar, Button, Caption, Paragraph, Title } from 'react-native-paper';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RouteProp } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../../src/core/configs/routes';
 import { appTheme } from '../../../src/core/configs/theme';
@@ -13,18 +12,12 @@ import {
   selectSelectedProduct,
 } from '../../../src/store/slices/productsSlice';
 
-// import PageNotFoundLayout from '../layouts/PageNotFoundLayout';
+type ListingDetailsContainerProps = NavigationProp<ScreenParamList, any>;
 
-interface ListingDetailsProps {
-  route: RouteProp<ScreenParamList, 'ListingDetails'>;
-  navigation: StackNavigationProp<ScreenParamList, 'ListingDetails'>;
-}
-
-const ListingDetails: React.FC<ListingDetailsProps> = ({
-  route,
-  navigation,
-}) => {
+const ListingDetailsContainer: React.FC = () => {
+  const navigation = useNavigation<ListingDetailsContainerProps>();
   const dispatch = useAppDispatch();
+  
   const product = useAppSelector(state => selectSelectedProduct(state));
 
   React.useEffect(() => {
@@ -106,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListingDetails;
+export default ListingDetailsContainer;

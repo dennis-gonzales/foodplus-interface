@@ -4,9 +4,9 @@ import { Title } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
 import validator from 'validator';
 
-import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
-import { ScreenParamList } from '../../core/configs/routes';
-import { increaseQuantity } from '../../store/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
+import { ScreenParamList } from '../../../core/configs/routes';
+import { increaseQuantity } from '../../../store/slices/cartSlice';
 
 import {
   filterProducts,
@@ -14,11 +14,11 @@ import {
   selectFilterableProducts,
   selectProduct,
   selectSearchTerm,
-} from '../../store/slices/productsSlice';
-import { selectActive } from '../../store/slices/categoriesSlice';
+} from '../../../store/slices/productsSlice';
+import { selectActive } from '../../../store/slices/categoriesSlice';
 
-import LottieContentView from '../common/LottieContentView';
-import ProductList from '../components/organisms/ProductList';
+import LottieContentView from '../../common/LottieContentView';
+import ProductList from '../../components/organisms/ProductList';
 
 type ProductListContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -48,7 +48,7 @@ const ProductListContainer: React.FC = () => {
   if (products.length === 0) {
     return (
       <LottieContentView
-        source={require('../../../assets/animations/empty-box.json')}
+        source={require('../../../../assets/animations/empty-box.json')}
         bottomContent={<Title>No Products Found</Title>}
         lottieContainerStyle={styles.lottieContainer}
       />

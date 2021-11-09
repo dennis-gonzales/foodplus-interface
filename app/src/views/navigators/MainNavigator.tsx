@@ -6,7 +6,7 @@ import { ScreenParamList, NavigatorParamList } from '../../core/configs/routes';
 
 import BottomTabsNavigator from './BottomTabsNavigator';
 import CheckoutScreen from '../screens/CheckoutScreen';
-import ListingDetails from '../containers/ListingDetailsContainer';
+import ListingDetailsScreen from '../screens/ListingDetailsScreen';
 
 const MainNavigator: React.FC = () => {
   const Stack = createNativeStackNavigator<ScreenParamList & NavigatorParamList>();
@@ -25,7 +25,7 @@ const MainNavigator: React.FC = () => {
 
       <Stack.Screen
         name="ListingDetails"
-        component={ListingDetails}
+        component={ListingDetailsScreen}
         options={{
           headerShown: false,
         }}

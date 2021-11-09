@@ -3,9 +3,9 @@ import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { ScreenParamList } from '../../core/configs/routes';
-import ProductSearchContainer from '../containers/ProductSearchContainer';
-import HorizontalCategoryListContainer from '../containers/HorizontalCategoryListContainer';
-import ProductListContainer from '../containers/ProductListContainer';
+import ProductSearchContainer from '../containers/Listings/ProductSearchContainer';
+import HorizontalCategoryListContainer from '../containers/Listings/HorizontalCategoryListContainer';
+import ProductListContainer from '../containers/Listings/ProductListContainer';
 
 interface ListingsScreenProps {
   route: RouteProp<ScreenParamList, 'Listings'>;

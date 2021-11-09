@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Checkbox, Subheading } from 'react-native-paper';
 
-interface CartListActionProps {
+interface CartActionProps {
   status: 'checked' | 'unchecked' | 'indeterminate';
   toggleStatus: () => void;
   onClearPressed: () => void;
 }
 
-const CartListAction: React.FC<CartListActionProps> = ({
+const CartAction: React.FC<CartActionProps> = ({
   status,
   toggleStatus,
   onClearPressed,
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CartListAction;
+export default CartAction;

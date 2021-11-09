@@ -4,14 +4,14 @@ import { Divider, IconButton, Menu, Searchbar } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { useAppDispatch, useAppSelector } from '../../core/hooks/storeApi';
-import { ScreenParamList } from '../../core/configs/routes';
-import { appTheme } from '../../core/configs/theme';
+import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
+import { ScreenParamList } from '../../../core/configs/routes';
+import { appTheme } from '../../../core/configs/theme';
 import {
   filterProducts,
   selectSearchTerm,
   setSearchTerm,
-} from '../../store/slices/productsSlice';
+} from '../../../store/slices/productsSlice';
 
 type ProductListContainerProps = NavigationProp<ScreenParamList, any>;
 
