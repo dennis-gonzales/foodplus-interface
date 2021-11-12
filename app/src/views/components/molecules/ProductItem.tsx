@@ -11,13 +11,13 @@ import {
 import { appTheme } from '../../../core/configs/theme';
 import Product from '../../../core/types/Product';
 
-interface ProductProps {
+interface ProductItemProps {
   product: Product;
   onAddToCartPressed: (product: Product) => void;
   onProductPressed: (product: Product) => void;
 }
 
-const ProductItem: React.FC<ProductProps> = ({
+const ProductItem: React.FC<ProductItemProps> = ({
   product,
   onAddToCartPressed,
   onProductPressed,
