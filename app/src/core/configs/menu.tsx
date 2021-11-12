@@ -7,8 +7,9 @@ const menuItem: MenuItem[] = [
     icon: {
       backgroundColor: 'dodgerblue',
       size: 40,
-      src: 'email-outline',
+      src: 'food',
     },
+    targetScreen: 'MyOrders',
   },
   {
     name: 'My Favourites',
@@ -17,14 +18,23 @@ const menuItem: MenuItem[] = [
       size: 35,
       src: 'heart-outline',
     },
+    targetScreen: 'MyFavourites',
   },
   {
     header: 'Other',
-    name: 'EULA',
+    name: 'Terms of Service',
     icon: {
       backgroundColor: 'green',
       size: 35,
       src: 'file-document-outline',
+    },
+  },
+  {
+    name: 'Privacy Policy',
+    icon: {
+      backgroundColor: 'indigo',
+      size: 35,
+      src: 'shield-check-outline',
     },
   },
   {

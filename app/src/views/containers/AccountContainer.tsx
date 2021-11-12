@@ -1,11 +1,11 @@
-import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import { Avatar, Title, List } from "react-native-paper";
-import { NavigationProp, useNavigation } from "@react-navigation/core";
+import React from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Avatar, Title, List } from 'react-native-paper';
+import { NavigationProp, useNavigation } from '@react-navigation/core';
 
-import { ScreenParamList } from "../../core/configs/routes";
-import MenuItem from "../../core/interfaces/ui/MenuItem";
-import menuItem from "../../core/configs/menu";
+import { ScreenParamList } from '../../core/configs/routes';
+import MenuItem from '../../core/interfaces/ui/MenuItem';
+import menuItem from '../../core/configs/menu';
 
 type AccountContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -17,7 +17,9 @@ const AccountContainer: React.FC = () => {
       {item.header && <List.Subheader>{item.header}</List.Subheader>}
 
       <List.Item
-        onPress={() => {}}
+        onPress={() =>
+          item.targetScreen && navigation.navigate(item.targetScreen)
+        }
         disabled={item.disabled}
         title={item.name}
         description={item.description}
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
   },
   profileData: {
     marginHorizontal: 10,
-  }
+  },
 });
 
 export default AccountContainer;

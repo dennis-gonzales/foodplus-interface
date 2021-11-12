@@ -7,6 +7,8 @@ import { ScreenParamList, NavigatorParamList } from '../../core/configs/routes';
 import BottomTabsNavigator from './BottomTabsNavigator';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import ListingDetailsScreen from '../screens/ListingDetailsScreen';
+import MyOrdersScreen from '../screens/MyOrdersScreen';
+import MyFavouritesScreen from '../screens/MyFavouritesScreen';
 
 const MainNavigator: React.FC = () => {
   const Stack = createNativeStackNavigator<ScreenParamList & NavigatorParamList>();
@@ -34,6 +36,22 @@ const MainNavigator: React.FC = () => {
       <Stack.Screen
         name="Checkout"
         component={CheckoutScreen}
+      />
+
+      <Stack.Screen
+        name="MyOrders"
+        component={MyOrdersScreen}
+        options={{
+          title: 'My Orders',
+        }}
+      />
+
+      <Stack.Screen
+        name="MyFavourites"
+        component={MyFavouritesScreen}
+        options={{
+          title: 'My Favourites',
+        }}
       />
     </Stack.Navigator>
   );
