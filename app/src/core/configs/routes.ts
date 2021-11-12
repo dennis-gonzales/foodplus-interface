@@ -7,7 +7,7 @@ type ScreenParamList = {
   ListingDetails: undefined;
   MyFavourites: undefined;
   MyOrders: undefined;
-  OrderStatus: undefined;
+  OrderSuccess: undefined;
   Welcome: undefined;
 };
 

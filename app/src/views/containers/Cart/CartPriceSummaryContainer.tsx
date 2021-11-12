@@ -22,7 +22,7 @@ const CartPriceSummaryContainer: React.FC = () => {
   return (
     <CartPriceSummary
         totalPrice={selectedItemsPrice}
-        onCheckoutPressed={() => navigation.navigate('Checkout')}
+        onCheckoutPressed={() => navigation.navigate('OrderSuccess')}
       />
   );
 };
