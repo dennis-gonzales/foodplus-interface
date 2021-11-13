@@ -6,7 +6,7 @@ import { appTheme } from '../../../core/configs/theme';
 import CartItem from '../../../core/types/CartItem';
 import Product from '../../../core/types/Product';
 
-interface CartItemProps {
+interface CartListItemProps {
   item: CartItem;
   status: 'checked' | 'unchecked' | 'indeterminate';
   onItemPressed: (item: CartItem) => void;
@@ -15,7 +15,7 @@ interface CartItemProps {
   increaseQuantity: (product: Product) => void;
 }
 
-const CartListItem: React.FC<CartItemProps> = ({
+const CartListItem: React.FC<CartListItemProps> = ({
   item,
   status,
   onItemPressed,
@@ -52,23 +52,23 @@ const CartListItem: React.FC<CartItemProps> = ({
         <Subheading style={styles.price}>{item.product.price} PHP</Subheading>
 
         <View style={styles.contentRight}>
-        <IconButton
-          icon="minus"
-          disabled={item.quantity <= 1}
-          style={styles.contentButton}
-          onPress={() => decreaseQuantity(item.product)}
-        />
-        <Avatar.Text
-          style={styles.contentText}
-          size={35}
-          label={item.quantity.toString()}
-        />
-        <IconButton
-          icon="plus"
-          disabled={item.quantity >= 99}
-          style={styles.contentButton}
-          onPress={() => increaseQuantity(item.product)}
-        />
+          <IconButton
+            icon="minus"
+            disabled={item.quantity <= 1}
+            style={styles.contentButton}
+            onPress={() => decreaseQuantity(item.product)}
+          />
+          <Avatar.Text
+            style={styles.contentText}
+            size={35}
+            label={item.quantity.toString()}
+          />
+          <IconButton
+            icon="plus"
+            disabled={item.quantity >= 99}
+            style={styles.contentButton}
+            onPress={() => increaseQuantity(item.product)}
+          />
         </View>
       </View>
     </>

@@ -46,7 +46,6 @@ const ProductList: React.FC<ProductListProps> = ({
       initialNumToRender={8}
       getItemLayout={getItemLayout}
       removeClippedSubviews
-      showsHorizontalScrollIndicator={false}
       maxToRenderPerBatch={8}
       numColumns={2}
       renderItem={renderItem}
