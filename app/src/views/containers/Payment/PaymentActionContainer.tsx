@@ -6,10 +6,10 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { ScreenParamList } from '../../../core/configs/routes';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 
-type CheckoutActionContainerProps = NavigationProp<ScreenParamList, any>;
+type PaymentActionContainerProps = NavigationProp<ScreenParamList, any>;
 
-const CheckoutActionContainer: React.FC = () => {
-  const navigation = useNavigation<CheckoutActionContainerProps>();
+const PaymentActionContainer: React.FC = () => {
+  const navigation = useNavigation<PaymentActionContainerProps>();
   const dispatch = useAppDispatch();
 
   return (
@@ -20,14 +20,14 @@ const CheckoutActionContainer: React.FC = () => {
       </View>
       <View style={styles.rightAction}>
         <Button
-          onPress={() => navigation.navigate('Payment')}
+          onPress={() => navigation.navigate('OrderSuccess')}
           color="darkslateblue"
           contentStyle={{
             paddingVertical: 5,
           }}
           mode="contained"
         >
-          NEXT
+          MAKE PAYMENT
         </Button>
       </View>
     </View>
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CheckoutActionContainer;
+export default PaymentActionContainer;

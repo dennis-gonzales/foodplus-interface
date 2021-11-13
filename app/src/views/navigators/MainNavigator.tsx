@@ -10,6 +10,7 @@ import ListingDetailsScreen from '../screens/ListingDetailsScreen';
 import MyOrdersScreen from '../screens/MyOrdersScreen';
 import MyFavouritesScreen from '../screens/MyFavouritesScreen';
 import OrderSuccessScreen from '../screens/OrderSuccessScreen';
+import PaymentScreen from '../screens/PaymentScreen';
 
 const MainNavigator: React.FC = () => {
   const Stack = createNativeStackNavigator<ScreenParamList & NavigatorParamList>();
@@ -61,6 +62,14 @@ const MainNavigator: React.FC = () => {
         component={OrderSuccessScreen}
         options={{
           headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="Payment"
+        component={PaymentScreen}
+        options={{
+          title: 'Payment',
         }}
       />
     </Stack.Navigator>

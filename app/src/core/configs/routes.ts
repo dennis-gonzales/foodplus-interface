@@ -8,6 +8,7 @@ type ScreenParamList = {
   MyFavourites: undefined;
   MyOrders: undefined;
   OrderSuccess: undefined;
+  Payment: undefined;
   Welcome: undefined;
 };
 
