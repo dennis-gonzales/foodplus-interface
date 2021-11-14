@@ -23,7 +23,7 @@ const MyFavouritesScreen: React.FC<MyFavouritesScreenProps> = ({ route, navigati
           <Button
             icon="cart"
             mode="contained"
-            onPress={() => navigation.navigate('Listings')}
+            onPress={() => navigation.navigate('Merchants')}
           >
             Find My Favourite
           </Button>

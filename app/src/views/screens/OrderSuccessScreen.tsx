@@ -46,7 +46,7 @@ const OrderSuccessScreen: React.FC<OrderSuccessScreenProps> = ({
           mode="text"
           style={styles.buttons}
           contentStyle={styles.buttonsContent}
-          onPress={() => navigation.navigate('MerchantListings')}
+          onPress={() => navigation.navigate('Merchants')}
         >
           Continue Shopping
         </Button>

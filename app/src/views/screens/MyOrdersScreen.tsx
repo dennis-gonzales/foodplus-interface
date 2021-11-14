@@ -23,7 +23,7 @@ const MyOrdersScreen: React.FC<MyOrdersScreenProps> = ({ route, navigation }) =>
           <Button
             icon="cart"
             mode="contained"
-            onPress={() => navigation.navigate('Listings')}
+            onPress={() => navigation.navigate('Merchants')}
           >
             Shop Now
           </Button>
