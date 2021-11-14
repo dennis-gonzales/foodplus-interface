@@ -12,6 +12,7 @@ const appTheme = {
     primary: colors.colorPrimaryYellow,
     accent: colors.colorAccent,
     background: '#fff',
+    notification: colors.colorAccent,
   },
 } as ReactNativePaper.Theme;
 
@@ -20,7 +21,7 @@ const navigationTheme = {
   colors: {
     ...DefaultNavigationTheme.colors,
     primary: colors.colorPrimaryYellow,
-    background: "#fff",
+    background: '#fff',
   },
 } as NavigationTheme;
 
