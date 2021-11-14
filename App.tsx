@@ -1,8 +1,9 @@
 import React from 'react';
 import { configureFonts, Provider as PaperProvider } from 'react-native-paper';
-import { Provider as StorePrivoder } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { Fonts } from 'react-native-paper/lib/typescript/types';
 import {
   Ubuntu_300Light,
@@ -21,6 +22,7 @@ import Toast, { SuccessToast, BaseToastProps } from 'react-native-toast-message'
 import { store } from './app/src/store';
 import { appTheme, navigationTheme } from './app/src/core/configs/theme';
 import MainNavigator from './app/src/views/navigators/MainNavigator';
+import OfflineNotice from './app/src/views/common/OfflineNotice';
 
 const fontConfig = {
   web: {
@@ -79,24 +81,9 @@ const fontConfig = {
   } as Fonts,
 };
 
-// const toastConfig = {
-//   success: (props: BaseToastProps) => (
-//     <SuccessToast
-//       {...props}
-//       contentContainerStyle={{
-//         alignItems: 'stretch',
-//       }}
-//       text1Style={{
-//         fontSize: 15,
-//         color: 'green',
-//       }}
-//       onPress={() => props.onPress && props.onPress()}
-//     />
-//   ),
-// };
-
-
 const App: React.FC = () => {
+  const netInfo = useNetInfo();
+
   const [fontsLoaded, error] = useFonts({
     Ubuntu_300Light,
     Ubuntu_400Regular,
@@ -107,21 +94,25 @@ const App: React.FC = () => {
     console.error({ fontError: error });
   }
 
+  const noInternet =
+    netInfo.type !== 'unknown' && netInfo.isInternetReachable === false;
+
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
     return (
-      <StorePrivoder store={store}>
+      <StoreProvider store={store}>
         <PaperProvider
           theme={{ ...appTheme, fonts: configureFonts(fontConfig) }}
-        >
+        > 
+          {noInternet && <OfflineNotice />}
+          <StatusBar style="auto" />
           <NavigationContainer theme={navigationTheme}>
             <MainNavigator />
-            <StatusBar style="auto" />
-            <Toast  />
           </NavigationContainer>
+          <Toast topOffset={noInternet ? 100 : 40} />
         </PaperProvider>
-      </StorePrivoder>
+      </StoreProvider>
     );
   }
 };
