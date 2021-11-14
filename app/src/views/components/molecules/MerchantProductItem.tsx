@@ -11,13 +11,13 @@ import {
 import { appTheme } from '../../../core/configs/theme';
 import Product from '../../../core/types/Product';
 
-interface ProductItemProps {
+interface MerchantProductItemProps {
   product: Product;
   onAddToCartPressed: (product: Product) => void;
   onProductPressed: (product: Product) => void;
 }
 
-const ProductItem: React.FC<ProductItemProps> = ({
+const MerchantProductItem: React.FC<MerchantProductItemProps> = ({
   product,
   onAddToCartPressed,
   onProductPressed,
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductItem;
+export default MerchantProductItem;

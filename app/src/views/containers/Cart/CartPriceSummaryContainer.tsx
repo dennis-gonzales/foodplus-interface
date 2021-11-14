@@ -23,14 +23,15 @@ const CartPriceSummaryContainer: React.FC = () => {
   const selectedItemsPrice = useAppSelector(selectCheckedProductsTotalPrice);
 
   const handlePress = () => {
-    if (checkedProducts.length > 0) {
-      navigation.navigate('Checkout');
-    } else {
+    if (checkedProducts.length === 0) {
       Toast.show({
         text1: 'Please select at least one item',
         type: 'info',
       });
+      return;
     }
+    
+    navigation.navigate('Checkout');
   };
 
   return (

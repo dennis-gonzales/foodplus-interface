@@ -2,20 +2,22 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { ScreenParamList } from '../../core/configs/routes';
+import { NavigatorParamList, ScreenParamList } from '../../core/configs/routes';
 
+import HomeNavigator from './HomeNavigator';
 import CartScreen from '../screens/CartScreen';
 import AccountScreen from '../screens/AccountScreen';
-import ListingsScreen from '../screens/ListingsScreen';
 
 const BottomTabsNavigator: React.FC = () => {
-  const Tab = createMaterialBottomTabNavigator<ScreenParamList>();
+  const Tab = createMaterialBottomTabNavigator<
+    ScreenParamList & NavigatorParamList
+  >();
 
   return (
-    <Tab.Navigator initialRouteName="Listings">
+    <Tab.Navigator initialRouteName="Home">
       <Tab.Screen
-        name="Listings"
-        component={ListingsScreen}
+        name="Home"
+        component={HomeNavigator}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
@@ -23,6 +25,7 @@ const BottomTabsNavigator: React.FC = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name="Cart"
         component={CartScreen}
@@ -33,6 +36,7 @@ const BottomTabsNavigator: React.FC = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name="Account"
         component={AccountScreen}

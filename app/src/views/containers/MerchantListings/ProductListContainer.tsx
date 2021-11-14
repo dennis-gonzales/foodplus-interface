@@ -18,7 +18,7 @@ import {
 import { selectActive } from '../../../store/slices/categoriesSlice';
 
 import LottieContentView from '../../common/LottieContentView';
-import ProductList from '../../components/organisms/ProductList';
+import MerchantProductList from '../../components/organisms/MerchantProductList';
 
 type ProductListContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -56,7 +56,7 @@ const ProductListContainer: React.FC = () => {
   }
 
   return (
-    <ProductList
+    <MerchantProductList
       products={products}
       onProductPressed={product => {
         dispatch(selectProduct(product));

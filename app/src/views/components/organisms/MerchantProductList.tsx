@@ -2,10 +2,10 @@ import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import Product from '../../../core/types/Product';
-import ProductItem from '../molecules/ProductItem';
+import MerchantProductItem from '../molecules/MerchantProductItem';
 
 type ProductListProps = Omit<
-  React.ComponentPropsWithoutRef<typeof ProductItem>,
+  React.ComponentPropsWithoutRef<typeof MerchantProductItem>,
   'product'
 > & {
   products: Product[];
@@ -22,7 +22,7 @@ const ProductList: React.FC<ProductListProps> = ({
   const renderItem = React.useCallback(
     ({ item }: { item: Product }) => (
       <View style={styles.product}>
-        <ProductItem product={item} {...productItemProps} />
+        <MerchantProductItem product={item} {...productItemProps} />
       </View>
     ),
     []

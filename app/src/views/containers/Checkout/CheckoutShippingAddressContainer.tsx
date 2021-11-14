@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/core';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 import { ScreenParamList } from '../../../core/configs/routes';
 
-import AddressCard from '../../components/molecules/AddressCard';
+import ShippingAddressCard from '../../components/molecules/ShippingAddressCard';
 
 type AddressCardContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -15,7 +15,7 @@ const AddressCardContainer: React.FC = () => {
 
   return (
     <View style={styles.card}>
-      <AddressCard />
+      <ShippingAddressCard />
     </View>
   );
 };

@@ -3,7 +3,8 @@ type ScreenParamList = {
   Cart: undefined;
   Checkout: undefined;
   DeliveryStatus: undefined;
-  Listings: undefined;
+  MerchantListings: undefined;
+  Merchants: undefined;
   ListingDetails: undefined;
   MyFavourites: undefined;
   MyOrders: undefined;
@@ -15,6 +16,7 @@ type ScreenParamList = {
 type NavigatorParamList = {
   Main: undefined;
   BottomTabs: undefined;
+  Home: undefined;
 };
 
 export { ScreenParamList, NavigatorParamList };

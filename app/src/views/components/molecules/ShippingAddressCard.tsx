@@ -10,9 +10,9 @@ import {
 } from 'react-native-paper';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-interface AddressCardProps {}
+interface ShippingAddressCardProps {}
 
-const AddressCard: React.FC<AddressCardProps> = ({}) => {
+const ShippingAddressCard: React.FC<ShippingAddressCardProps> = ({}) => {
   const [showFilterMenu, setShowFilterMenu] = React.useState<boolean>(false);
 
   return (
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddressCard;
+export default ShippingAddressCard;

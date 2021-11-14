@@ -4,9 +4,9 @@ import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { ScreenParamList } from '../../core/configs/routes';
-import AddressCardContainer from '../containers/Checkout/AddressCardContainer';
+import CheckoutShippingAddressContainer from '../containers/Checkout/CheckoutShippingAddressContainer';
 import CheckoutCartListContainer from '../containers/Checkout/CheckoutCartListContainer';
-import CheckoutActionContainer from '../containers/Checkout/ChekoutActionContainer';
+import CheckoutActionContainer from '../containers/Checkout/CheckoutActionContainer';
 
 interface CheckoutScreenProps {
   route: RouteProp<ScreenParamList, 'Checkout'>;
@@ -16,7 +16,7 @@ interface CheckoutScreenProps {
 const CheckoutScreen: React.FC<CheckoutScreenProps> = ({ route, navigation }) => {
   return (
     <>
-      <AddressCardContainer />
+      <CheckoutShippingAddressContainer />
       <CheckoutCartListContainer />
       <CheckoutActionContainer />
     </>

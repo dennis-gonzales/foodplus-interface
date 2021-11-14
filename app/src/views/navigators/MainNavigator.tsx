@@ -1,7 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
 import { ScreenParamList, NavigatorParamList } from '../../core/configs/routes';
 
 import BottomTabsNavigator from './BottomTabsNavigator';
@@ -13,7 +12,9 @@ import OrderSuccessScreen from '../screens/OrderSuccessScreen';
 import PaymentScreen from '../screens/PaymentScreen';
 
 const MainNavigator: React.FC = () => {
-  const Stack = createNativeStackNavigator<ScreenParamList & NavigatorParamList>();
+  const Stack = createNativeStackNavigator<
+    ScreenParamList & NavigatorParamList
+  >();
 
   return (
     <Stack.Navigator initialRouteName="BottomTabs">
