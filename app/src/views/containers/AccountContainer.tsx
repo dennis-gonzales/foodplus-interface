@@ -21,11 +21,10 @@ const AccountContainer: React.FC = () => {
 
       <List.Item
         onPress={() => {
-          if (item.dispatch) {
-            dispatch(item.dispatch()); 
-          }
-          if (item.targetScreen) {
-            navigation.navigate(item.targetScreen);
+          if (typeof item.action === 'function') {
+            item.action(dispatch);
+          } else if (typeof item.action === 'string') {
+            navigation.navigate(item.action);
           }
         }}
         disabled={item.disabled}

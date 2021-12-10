@@ -1,4 +1,4 @@
-import { Action, ActionCreator } from "@reduxjs/toolkit";
+import { AppDispatch } from "../../../store";
 import { ScreenParamList } from "../../configs/routes";
 
 type Icon = {
@@ -12,8 +12,7 @@ interface MenuItem {
   header?: string;
   description?: string;
   icon: Icon;
-  targetScreen?: keyof ScreenParamList;
-  dispatch?: ActionCreator<any>;
+  action?: keyof ScreenParamList | ((dispatcher: AppDispatch) => void);
   disabled?: boolean;
 }
 

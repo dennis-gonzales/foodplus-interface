@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, BackHandler, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationProp, RouteProp } from '@react-navigation/core';
 import { Headline, Subheading, Button } from 'react-native-paper';
 

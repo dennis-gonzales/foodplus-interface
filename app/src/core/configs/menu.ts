@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { logout } from '../../store/slices/userSlice';
 import MenuItem from '../interfaces/ui/MenuItem';
 
@@ -10,7 +11,7 @@ const menuItem: MenuItem[] = [
       size: 40,
       src: 'food',
     },
-    targetScreen: 'MyOrders',
+    action: 'MyOrders',
   },
   {
     name: 'My Favourites',
@@ -19,7 +20,7 @@ const menuItem: MenuItem[] = [
       size: 35,
       src: 'heart-outline',
     },
-    targetScreen: 'MyFavourites',
+    action: 'MyFavourites',
   },
   {
     header: 'Other',
@@ -45,7 +46,23 @@ const menuItem: MenuItem[] = [
       size: 35,
       src: 'logout',
     },
-    dispatch: logout,
+    action: dispatcher => {
+      Alert.alert(
+        'Logout',
+        'Are you sure you want to logout?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => dispatcher(logout()),
+          },
+        ],
+        { cancelable: false }
+      );
+    },
   },
 ];
 
