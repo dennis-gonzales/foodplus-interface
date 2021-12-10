@@ -9,7 +9,6 @@ const SafeView: React.FC<ScreenProps> = props => {
   return (
     <SafeAreaView {...props} style={[styles.screen, props.style]}>
       <KeyboardAwareScrollView
-        style={{ height: '100%' }}
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: 'space-around',

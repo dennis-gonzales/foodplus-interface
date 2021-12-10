@@ -1,13 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ScreenParamList, NavigatorParamList } from '../../core/configs/routes';
+import { ScreenParamList } from '../../core/configs/routes';
 import SignInScreen from '../screens/SignInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 
 const AuthNavigator: React.FC = () => {
-  const Stack = createNativeStackNavigator<
-    ScreenParamList
-  >();
+  const Stack = createNativeStackNavigator<ScreenParamList>();
 
   return (
     <Stack.Navigator
@@ -17,11 +16,8 @@ const AuthNavigator: React.FC = () => {
       }}
     >
       <Stack.Screen name="SignIn" component={SignInScreen} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
 
-      {/* <Stack.Screen
-        name="SignUp"
-        component={SignUpScreen}
-      /> */}
     </Stack.Navigator>
   );
 };

@@ -18,10 +18,10 @@ import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 import SafeView from '../../common/SafeView';
 
 
-type SignInContainerProps = NavigationProp<ScreenParamList, any>;
+type SignUpContainerProps = NavigationProp<ScreenParamList, any>;
 
-const SignInContainer: React.FC = () => {
-  const navigation = useNavigation<SignInContainerProps>();
+const SignUpContainer: React.FC = () => {
+  const navigation = useNavigation<SignUpContainerProps>();
   const dispatch = useAppDispatch();
 
   return (
@@ -29,11 +29,11 @@ const SignInContainer: React.FC = () => {
       <View style={styles.headerContainer}>
         <Avatar.Text label="FP" size={96} />
         <View style={styles.centered}>
-          <Title style={styles.title}>Login to Foodplus</Title>
+          <Title style={styles.title}>Register to Foodplus</Title>
           <View style={styles.dontHaveAnAccount}>
-            <Paragraph>Don't have an account? </Paragraph>
-            <TouchableRipple onPress={() => navigation.navigate("SignUp")}>
-              <Text style={styles.signUp}>Sign Up</Text>
+            <Paragraph>Already have an account? </Paragraph>
+            <TouchableRipple onPress={() => navigation.goBack()}>
+              <Text style={styles.signUp}>Log Up</Text>
             </TouchableRipple>
           </View>
         </View>
@@ -85,6 +85,17 @@ const SignInContainer: React.FC = () => {
 
         <View>
           <Text style={styles.contentText}>Password:</Text>
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            secureTextEntry
+            textContentType="password"
+          />
+        </View>
+
+        <View>
+          <Text style={styles.contentText}>Confirm Password:</Text>
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
@@ -175,4 +186,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInContainer;
+export default SignUpContainer;
