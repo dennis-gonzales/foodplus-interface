@@ -49,7 +49,7 @@ const initialState: UserState = {
     },
   },
   isLoading: false,
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 export const userSlice = createSlice({

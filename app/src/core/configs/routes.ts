@@ -6,6 +6,8 @@ type ScreenParamList = {
   MerchantListings: undefined;
   Merchants: undefined;
   ListingDetails: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
   MyFavourites: undefined;
   MyOrders: undefined;
   OrderSuccess: undefined;
@@ -14,6 +16,7 @@ type ScreenParamList = {
 };
 
 type NavigatorParamList = {
+  Auth: undefined;
   Main: undefined;
   BottomTabs: undefined;
   Home: undefined;
