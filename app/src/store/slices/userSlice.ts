@@ -22,8 +22,17 @@ interface UserRequest {
 export const login = createAsyncThunk<User, Required<UserRequest>>(
   'user/login',
   async ({ username, password }) => {
-    const response = await axios.post('/api/login', { username, password });
-    return response.data;
+    // const response = await axios.post('/api/login', { username, password });
+    // return response.data;
+
+    return {
+      firstName: 'John',
+      lastName: 'Doe',
+      session: {
+        authentication: '',
+        otp: 12345,
+      },
+    };
   }
 );
 
@@ -58,7 +67,7 @@ export const userSlice = createSlice({
       state.isLoggedIn = false;
       state.error = payload.message;
     },
-    logout: (state) => {
+    logout: state => {
       state.user = {
         firstName: '',
         lastName: '',
@@ -68,7 +77,20 @@ export const userSlice = createSlice({
         },
       };
       state.isLoggedIn = false;
-    }
+    },
+  },
+  extraReducers: builder => {
+    builder.addCase(login.pending, (user, action) => {
+      user.isLoading = true;
+    });
+    builder.addCase(login.fulfilled, (user, { payload }) => {
+      user.isLoading = false;
+      user.isLoggedIn = true;
+    });
+    builder.addCase(login.rejected, (user, { error }) => {
+      user.error = error.message;
+      user.isLoading = false;
+    });
   },
 });
 

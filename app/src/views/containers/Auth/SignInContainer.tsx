@@ -16,6 +16,7 @@ import {
 import { ScreenParamList } from '../../../core/configs/routes';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 import SafeView from '../../common/SafeView';
+import { login } from '../../../store/slices/userSlice';
 
 
 type SignInContainerProps = NavigationProp<ScreenParamList, any>;
@@ -95,7 +96,7 @@ const SignInContainer: React.FC = () => {
         </View>
       </View>
       <Button
-        onPress={() => {}}
+        onPress={() => dispatch(login({ username: '', password: '' }))}	
         contentStyle={styles.buttonContent}
         style={styles.button}
         mode="contained"

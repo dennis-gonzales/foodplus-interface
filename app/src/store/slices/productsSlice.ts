@@ -5,25 +5,20 @@ import _ from 'lodash';
 
 import { RootState } from '..';
 import Product from '../../core/types/Product';
-import { selectIsLoggedIn } from './userSlice';
 
 export const loadProducts = createAsyncThunk<
   Product[],
   Partial<{ category: string }>,
   { state: RootState }
->('products/get', async ({ category }, { getState }) => {
-  if (selectIsLoggedIn(getState())) {
-    try {
-      let uri = `https://fakestoreapi.com/products`;
-      if (category && category !== 'All') uri += `/category/${category}`;
-      const response = await axios.get(uri);
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
+>('products/get', async ({ category }) => {
+  try {
+    let uri = `https://fakestoreapi.com/products`;
+    if (category && category !== 'All') uri += `/category/${category}`;
+    const response = await axios.get(uri);
+    return response.data;
+  } catch (err) {
+    throw err;
   }
-
-  throw 'You are not logged in!';
 });
 
 export interface ProductsState {
