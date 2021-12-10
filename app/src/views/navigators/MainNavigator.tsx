@@ -43,14 +43,6 @@ const MainNavigator: React.FC = () => {
       />
 
       <Stack.Screen
-        name="MyOrders"
-        component={MyOrdersScreen}
-        options={{
-          title: 'My Orders',
-        }}
-      />
-
-      <Stack.Screen
         name="MyFavourites"
         component={MyFavouritesScreen}
         options={{
