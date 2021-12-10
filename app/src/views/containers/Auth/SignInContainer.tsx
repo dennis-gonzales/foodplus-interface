@@ -23,10 +23,9 @@ type SignInContainerProps = NavigationProp<ScreenParamList, any>;
 const SignInContainer: React.FC = () => {
   const navigation = useNavigation<SignInContainerProps>();
   const dispatch = useAppDispatch();
-  
 
   return (
-    <SafeView style={styles.container}>
+    <SafeView style={styles.screen}>
       <View style={styles.headerContainer}>
         <Avatar.Text label="FP" size={96} />
         <View style={styles.centered}>
@@ -75,12 +74,24 @@ const SignInContainer: React.FC = () => {
       <View style={styles.contentContainer}>
         <View style={styles.centered}>
           <Text>Email</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            style={styles.input}
+            textContentType="emailAddress"
+          />
         </View>
 
         <View style={styles.centered}>
           <Text>Password</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            secureTextEntry
+            textContentType="password"
+          />
         </View>
       </View>
       <Button
@@ -106,12 +117,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  container: {
-    padding: 16,
-  },
   contentContainer: {
-    justifyContent: 'center',
     height: 300,
+    justifyContent: 'center',
   },
   dontHaveAnAccount: {
     flexDirection: 'row',
@@ -126,8 +134,9 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: 'whitesmoke',
     padding: 20,
-    marginHorizontal: 16,
+    margin: 16,
     alignSelf: 'stretch',
+    fontSize: 16,
   },
   orContainer: {
     flexDirection: 'row',
@@ -144,6 +153,9 @@ const styles = StyleSheet.create({
   orText: {
     width: 40,
     textAlign: 'center',
+  },
+  screen: {
+    padding: 16,
   },
   signUp: {
     color: 'tomato',
