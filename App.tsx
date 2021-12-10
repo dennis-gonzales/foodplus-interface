@@ -15,13 +15,11 @@ import AppLoading from 'expo-app-loading';
 import Toast from 'react-native-toast-message';
 
 import { store } from './app/src/store';
-import { selectIsLoggedIn } from './app/src/store/slices/userSlice';
 import { appTheme, navigationTheme } from './app/src/core/configs/theme';
 import fontConfig from './app/src/core/configs/fonts';
 
-import MainNavigator from './app/src/views/navigators/MainNavigator';
 import OfflineNotice from './app/src/views/common/OfflineNotice';
-import AuthNavigator from './app/src/views/navigators/AuthNavigator';
+import NavigatorsMediator from './app/src/views/navigators/NavigatorsMediator';
 
 const App: React.FC = () => {
   const netInfo = useNetInfo();
@@ -50,11 +48,7 @@ const App: React.FC = () => {
         {noInternet && <OfflineNotice />}
         <StatusBar style="auto" />
         <NavigationContainer theme={navigationTheme}>
-          {selectIsLoggedIn(store.getState()) ? (
-            <MainNavigator />
-          ) : (
-            <AuthNavigator />
-          )}
+          <NavigatorsMediator />
         </NavigationContainer>
         <Toast topOffset={noInternet ? 100 : 40} />
       </PaperProvider>

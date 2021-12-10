@@ -27,11 +27,6 @@ export const login = createAsyncThunk<User, Required<UserRequest>>(
   }
 );
 
-export const logout = createAsyncThunk('user/logout', async () => {
-  const response = await axios.post('/api/logout');
-  return response.data;
-});
-
 export interface UserState {
   user: User;
   isLoading: boolean;
@@ -49,7 +44,7 @@ const initialState: UserState = {
     },
   },
   isLoading: false,
-  isLoggedIn: false,
+  isLoggedIn: true,
 };
 
 export const userSlice = createSlice({
@@ -63,42 +58,21 @@ export const userSlice = createSlice({
       state.isLoggedIn = false;
       state.error = payload.message;
     },
-  },
-  extraReducers: builder => {
-    builder.addCase(login.pending, (state, _) => {
-      state.isLoading = true;
-      state.error = undefined;
-    });
-
-    builder.addCase(login.fulfilled, (state, { payload }) => {
-      state.isLoading = false;
-      state.isLoggedIn = true;
-      state.user = payload;
-    });
-
-    builder.addCase(login.rejected, (state, { error }) => {
-      state.isLoading = false;
-      state.error = error.message;
-    });
-
-    builder.addCase(logout.pending, (state, _) => {
-      state.isLoading = true;
-      state.error = undefined;
-    });
-
-    builder.addCase(logout.fulfilled, (state, _) => {
+    logout: (state) => {
+      state.user = {
+        firstName: '',
+        lastName: '',
+        session: {
+          authentication: '',
+          otp: 0,
+        },
+      };
       state.isLoggedIn = false;
-      state.user = initialState.user;
-    });
-
-    builder.addCase(logout.rejected, (state, { error }) => {
-      state.isLoading = false;
-      state.error = error.message;
-    });
+    }
   },
 });
 
-export const { setFirstname, unregistered } = userSlice.actions;
+export const { setFirstname, unregistered, logout } = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectUser = (state: RootState) => state.session.user.user;

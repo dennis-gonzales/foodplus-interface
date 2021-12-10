@@ -1,3 +1,4 @@
+import { Action, ActionCreator } from "@reduxjs/toolkit";
 import { ScreenParamList } from "../../configs/routes";
 
 type Icon = {
@@ -7,11 +8,12 @@ type Icon = {
 }
 
 interface MenuItem {
-  readonly name: string;
-  readonly header?: string;
-  readonly description?: string;
-  readonly icon: Icon;
+  name: string;
+  header?: string;
+  description?: string;
+  icon: Icon;
   targetScreen?: keyof ScreenParamList;
+  dispatch?: ActionCreator<any>;
   disabled?: boolean;
 }
 

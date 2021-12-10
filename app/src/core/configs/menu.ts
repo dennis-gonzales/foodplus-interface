@@ -1,3 +1,4 @@
+import { logout } from '../../store/slices/userSlice';
 import MenuItem from '../interfaces/ui/MenuItem';
 
 const menuItem: MenuItem[] = [
@@ -44,6 +45,7 @@ const menuItem: MenuItem[] = [
       size: 35,
       src: 'logout',
     },
+    dispatch: logout,
   },
 ];
 
