@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, BackHandler, StyleSheet, View } from 'react-native';
 import { NavigationProp, RouteProp } from '@react-navigation/core';
 import { Headline, Subheading, Button } from 'react-native-paper';
 
 import LottieView from 'lottie-react-native';
 
 import { ScreenParamList } from '../../core/configs/routes';
+import useBackHandler from '../../core/hooks/useBackhandler';
 
 interface OrderSuccessScreenProps {
   route: RouteProp<ScreenParamList, 'OrderSuccess'>;
@@ -16,6 +17,11 @@ const OrderSuccessScreen: React.FC<OrderSuccessScreenProps> = ({
   route,
   navigation,
 }) => {
+
+  useBackHandler(() => {
+    navigation.navigate('Merchants');
+    return true;
+  });
 
   return (
     <View style={styles.screen}>
