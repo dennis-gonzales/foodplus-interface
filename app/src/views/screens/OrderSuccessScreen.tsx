@@ -19,8 +19,7 @@ const OrderSuccessScreen: React.FC<OrderSuccessScreenProps> = ({
 }) => {
 
   useBackHandler(() => {
-    navigation.navigate('Merchants');
-    return true;
+    return true; 
   });
 
   return (
@@ -41,17 +40,17 @@ const OrderSuccessScreen: React.FC<OrderSuccessScreenProps> = ({
       <View>
         <Button
           mode="contained"
-          style={styles.buttons}
-          contentStyle={styles.buttonsContent}
-          onPress={() => {}}
+          style={styles.button}
+          contentStyle={styles.buttonsConten}
+          onPress={() => navigation.navigate('MyOrders')}
         >
-          Track Order
+          View Order
         </Button>
 
         <Button
           mode="text"
-          style={styles.buttons}
-          contentStyle={styles.buttonsContent}
+          style={styles.button}
+          contentStyle={styles.buttonsConten}
           onPress={() => navigation.navigate('Merchants')}
         >
           Continue Shopping
@@ -65,11 +64,12 @@ const styles = StyleSheet.create({
   animation: {
     height: 300,
   },
-  buttons: {
+  button: {
     borderRadius: 20,
     minWidth: 300,
+    marginBottom: 10,
   },
-  buttonsContent: {
+  buttonsConten: {
     paddingVertical: 10,
     paddingHorizontal: 20,
   },

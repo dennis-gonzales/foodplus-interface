@@ -21,7 +21,7 @@ const PaymentActionContainer: React.FC = () => {
       <View style={styles.rightAction}>
         <Button
           onPress={() => navigation.navigate('OrderSuccess')}
-          color="darkslateblue"
+          style={styles.button}
           contentStyle={{
             paddingVertical: 5,
           }}
@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  button: {
+    borderRadius: 20,
   },
   leftAction: {
     flex: 1,
