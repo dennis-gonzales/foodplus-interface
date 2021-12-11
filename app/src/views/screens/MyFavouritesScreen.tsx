@@ -23,6 +23,10 @@ const MyFavouritesScreen: React.FC<MyFavouritesScreenProps> = ({ route, navigati
           <Button
             icon="cart"
             mode="contained"
+            style={styles.button}
+            contentStyle={{
+              paddingVertical: 5,
+            }}
             onPress={() => navigation.navigate('Merchants')}
           >
             Find My Favourite
@@ -35,6 +39,9 @@ const MyFavouritesScreen: React.FC<MyFavouritesScreenProps> = ({ route, navigati
 };
 
 const styles = StyleSheet.create({
+  button: {
+    borderRadius: 20,
+  },
   lottieContainer: {
     justifyContent: 'center',
   },

@@ -32,6 +32,10 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
             <Button
               icon="cart"
               mode="contained"
+              style={styles.button}
+              contentStyle={{
+                paddingVertical: 5,
+              }}
               onPress={() => navigation.navigate('Merchants')}
             >
               Shop Now
@@ -55,6 +59,9 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+  },
+  button: {
+    borderRadius: 20,
   },
   lottieContainer: {
     justifyContent: 'center',

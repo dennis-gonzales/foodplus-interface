@@ -35,6 +35,10 @@ const OrdersListContainer: React.FC = () => {
             <Button
               icon="cart"
               mode="contained"
+              style={styles.button}
+              contentStyle={{
+                paddingVertical: 5,
+              }}
               onPress={() =>
                 navigation.navigate(cart.length > 0 ? 'Cart' : 'Merchants')
               }
@@ -57,6 +61,9 @@ const OrdersListContainer: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    borderRadius: 20,
+  },
   lottieContainer: {
     justifyContent: 'center',
   },
