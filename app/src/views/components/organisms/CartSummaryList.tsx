@@ -35,12 +35,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 10,
   },
-  productsContainer: {
-    padding: 5,
-  },
-  productWrapper: {
-    justifyContent: 'space-evenly',
-  },
 });
 
 export default CartSummaryList;
