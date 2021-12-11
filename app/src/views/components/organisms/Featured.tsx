@@ -1,35 +1,28 @@
-import React from 'react'
-import { FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import {
+  FlatList,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Button, Title } from 'react-native-paper';
+
+import Merchant from '../../../core/types/Merchant';
 import MerchantPopularItem from '../molecules/MerchantPopularItem';
 
-const products: any[] = [
+const sampleMerchantList: Merchant[] = [
   {
-    id: 1,
-    title: 'Product A',
-    price: 1.99,
-    image: 'https://picsum.photos/400',
+    name: 'McDonalds',
+    logo: 'https://www.freepnglogos.com/uploads/mcdonalds-png-logo/mcdonalds-png-logo-picture-3.png',
   },
   {
-    id: 2,
-    title: 'Product B',
-    priceBeforeDiscount: 1.75,
-    price: 1.45,
-    image: 'https://picsum.photos/500',
+    name: 'Burger King',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Burger_King_2020.svg/1200px-Burger_King_2020.svg.png',
   },
   {
-    id: 3,
-    title: 'Product C',
-    priceBeforeDiscount: 1.5,
-    price: 1.25,
-    image: 'https://picsum.photos/600',
-  },
-  {
-    id: 4,
-    title: 'Product D',
-    priceBeforeDiscount: 1.25,
-    price: 1.0,
-    image: 'https://picsum.photos/700',
+    name: 'KFC',
+    logo: 'https://corporate.kfc.com.ph/wp-content/themes/kfc/assets/images/logo.png',
   },
 ];
 
@@ -60,28 +53,25 @@ const Featured: React.FC = () => {
         </ImageBackground>
       </View>
 
-      <Title style={{ marginLeft: 20, marginTop: 20 }}>Popular Today</Title>
+      <Title style={styles.title}>Popular Today</Title>
 
       <FlatList
-        data={products}
-        keyExtractor={item => item.title}
+        data={sampleMerchantList}
+        keyExtractor={item => item.name}
         horizontal
         contentContainerStyle={styles.productContainer}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <View style={styles.product}>
-            <MerchantPopularItem
-              product={item}
-              onPress={() => {}}
-            />
+            <MerchantPopularItem merchant={item} onPress={() => {}} />
           </View>
         )}
       />
 
-      <Title style={{ marginLeft: 20, marginTop: 20 }}>Browse for more</Title>
+      <Title style={styles.title}>Browse for more</Title>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   imageContainer: {
@@ -96,6 +86,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: 20,
   },
+  title: {
+    marginLeft: 20,
+    marginTop: 20,
+  },
   product: {
     width: 250,
     marginVertical: 10,
@@ -107,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Featured
+export default Featured;
