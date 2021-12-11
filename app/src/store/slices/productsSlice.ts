@@ -46,6 +46,83 @@ const testProducts: Product[] = [
       rate: 4.5,
     },
   },
+  {
+    id: 883,
+    title: 'Brazo Sundae',
+    price: 38,
+    image:
+      'https://d1r3vc4fck3z1b.cloudfront.net/images/1636301973_mobile_alacarte_F8cg5etf.png',
+    category: 'Dessert',
+    description: 'Brazo Sundae',
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
+  {
+    id: 881,
+    title: 'Ube Pastillas Sundae',
+    price: 38.0,
+    image:
+      'https://d1r3vc4fck3z1b.cloudfront.net/images/1636301663_mobile_alacarte_FTeTPUiT.png',
+    category: 'Dessert',
+    description: 'Ube Pastillas Sundae',
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
+  {
+    id: 779,
+    title: "Medium Fries N' McFloat Combo",
+    price: 79.0,
+    image:
+      'https://d1r3vc4fck3z1b.cloudfront.net/images/1633400233_mobile_variace_CDlR7DRY.png',
+    category: 'Fries',
+    description: "Medium Fries N' McFloat Combo",
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
+  {
+    id: 925,
+    title: 'Spicy Chicken McDo Good for 10',
+    price: 580.0,
+    image:
+      'https://d1r3vc4fck3z1b.cloudfront.net/images/1638319809_web_variance_qgSUanh4.png',
+    category: 'Chicken',
+    description: 'Spicy Chicken McDo Good for 10',
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
+  {
+    id: 604,
+    title: 'Sausage McMuffin Meal',
+    price: 124.0000,
+    image:
+      'https://d1r3vc4fck3z1b.cloudfront.net/images/1631351799_web_variance_fhLqtrJk.png',
+    category: 'Sausage',
+    description: 'Sausage McMuffin Meal',
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
+  {
+    id: 605,
+    title: "Egg McMuffin Meal",
+    price: 135.0000,
+    image: "https://d1r3vc4fck3z1b.cloudfront.net/images/1631353059_web_variance_ZvfFRZby.png",
+    category: 'Egg',
+    description: "Egg McMuffin Meal",
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
 ];
 
 export const loadProducts = createAsyncThunk<
@@ -119,8 +196,8 @@ export const productsSlice = createSlice({
       products.isLoading = true;
     });
     builder.addCase(loadProducts.fulfilled, (products, { payload }) => {
-      products.list = payload.slice(0, 5);
-      products.filterableList = payload.slice(0, 5);
+      products.list = payload;
+      products.filterableList = payload;
       products.isLoading = false;
     });
     builder.addCase(loadProducts.rejected, (products, { error }) => {

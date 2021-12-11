@@ -15,18 +15,20 @@ export const loadCategories = createAsyncThunk<
   undefined,
   { state: RootState }
 >('categories/get', async (action, { getState }) => {
-  if (selectIsLoggedIn(getState())) {
-    try {
-      const response = await axios.get(
-        `https://fakestoreapi.com/products/categories`
-      );
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
-  }
+  // if (selectIsLoggedIn(getState())) {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://fakestoreapi.com/products/categories`
+  //     );
+  //     return response.data;
+  //   } catch (err) {
+  //     throw err;
+  //   }
+  // }
 
-  throw 'You are not logged in!';
+  // throw 'You are not logged in!';
+
+  return ['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Family Size' ];
 });
 
 export interface CategoriesState {
