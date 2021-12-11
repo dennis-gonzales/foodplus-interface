@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
 import {
@@ -8,21 +8,29 @@ import {
   IconButton,
   Paragraph,
   Text,
+  TextInput,
   Title,
   TouchableRipple,
 } from 'react-native-paper';
+import validator from 'validator';
 
 
 import { ScreenParamList } from '../../../core/configs/routes';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 import SafeView from '../../common/SafeView';
+import colors from '../../../core/constants/colors';
 
+const minPasswordLength = 6;
 
 type SignUpContainerProps = NavigationProp<ScreenParamList, any>;
 
 const SignUpContainer: React.FC = () => {
   const navigation = useNavigation<SignUpContainerProps>();
   const dispatch = useAppDispatch();
+
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
+  const [secureTextEntry, setSecureTextEntry] = React.useState<boolean>(true);
 
   return (
     <SafeView style={styles.screen}>
@@ -72,46 +80,69 @@ const SignUpContainer: React.FC = () => {
       </View>
 
       <View style={styles.contentContainer}>
-        <View>
-          <Text style={styles.contentText}>Email:</Text>
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="email-address"
-            style={styles.input}
-            textContentType="emailAddress"
-          />
-        </View>
+        <TextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          error={email.length > 0 && !validator.isEmail(email)}
+          label={
+            email.length > 0 && !validator.isEmail(email)
+              ? 'Invalid Email'
+              : 'Email Address'
+          }
+          left={
+            <TextInput.Icon
+              name="email"
+              color={colors.colorPrimaryYellowDark}
+            />
+          }
+          mode="outlined"
+          outlineColor="lightgray"
+          theme={{ roundness: 20 }}
+          keyboardType="email-address"
+          style={styles.input}
+          textContentType="emailAddress"
+          onChangeText={text => setEmail(text)}
+          value={email}
+        />
 
-        <View>
-          <Text style={styles.contentText}>Password:</Text>
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            style={styles.input}
-            secureTextEntry
-            textContentType="password"
-          />
-        </View>
-
-        <View>
-          <Text style={styles.contentText}>Confirm Password:</Text>
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            style={styles.input}
-            secureTextEntry
-            textContentType="password"
-          />
-        </View>
+        <TextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          error={password.length > 0 && password.length < minPasswordLength}
+          label={
+            password.length > 0 && password.length < minPasswordLength
+              ? `Password must be at least ${minPasswordLength} characters`
+              : 'New Password'
+          }
+          left={
+            <TextInput.Icon name="lock" color={colors.colorPrimaryYellowDark} />
+          }
+          right={
+            <TextInput.Icon
+              name={secureTextEntry ? 'eye-off' : 'eye'}
+              onPress={() => setSecureTextEntry(!secureTextEntry)}
+            />
+          }
+          mode="outlined"
+          outlineColor="lightgray"
+          theme={{ roundness: 20 }}
+          style={styles.input}
+          secureTextEntry={secureTextEntry}
+          textContentType="password"
+          onChangeText={text => setPassword(text)}
+          value={password}
+        />
       </View>
       <Button
         onPress={() => {}}
         contentStyle={styles.buttonContent}
+        disabled={
+          !validator.isEmail(email) || password.length < minPasswordLength
+        }
         style={styles.button}
         mode="contained"
       >
-        Login
+        Register
       </Button>
     </SafeView>
   );
@@ -120,6 +151,7 @@ const SignUpContainer: React.FC = () => {
 const styles = StyleSheet.create({
   button: {
     borderRadius: 15,
+    marginHorizontal: 20,
   },
   buttonContent: {
     paddingVertical: 10,
@@ -129,8 +161,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   contentContainer: {
-    height: 350,
     justifyContent: 'center',
+    margin: 10,
   },
   contentText: {
     fontWeight: 'bold',
@@ -148,8 +180,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: 'whitesmoke',
-    padding: 20,
-    margin: 16,
+    margin: 10,
     alignSelf: 'stretch',
     fontSize: 16,
   },
@@ -170,9 +201,7 @@ const styles = StyleSheet.create({
     width: 40,
     textAlign: 'center',
   },
-  screen: {
-    padding: 16,
-  },
+  screen: {},
   signUp: {
     color: 'tomato',
     fontWeight: 'bold',

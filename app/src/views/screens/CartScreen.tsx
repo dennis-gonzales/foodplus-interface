@@ -54,7 +54,6 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   root: {
-    marginTop: 10,
     flex: 1,
   },
   lottieContainer: {
