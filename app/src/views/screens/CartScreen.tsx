@@ -7,10 +7,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ScreenParamList } from '../../core/configs/routes';
 import { useAppSelector } from '../../core/hooks/storeApi';
 
-import { selectProducts } from '../../store/slices/cartSlice';
+import { selectCartProducts } from '../../store/slices/cartSlice';
 
 import LottieContentView from '../common/LottieContentView';
-import CartActionContainer from '../containers/Cart/CartActionContainer';
 import CartListContainer from '../containers/Cart/CartListContainer';
 import CartPriceSummaryContainer from '../containers/Cart/CartPriceSummaryContainer';
 
@@ -21,7 +20,7 @@ interface CartScreenProps {
 
 const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
 
-  const items = useAppSelector(selectProducts);
+  const items = useAppSelector(selectCartProducts);
 
   if (items.length === 0) {
     return (
@@ -47,7 +46,6 @@ const CartScreen: React.FC<CartScreenProps> = ({ route, navigation }) => {
 
   return (
     <View style={styles.root}>
-      <CartActionContainer />
       <CartListContainer />
       <CartPriceSummaryContainer />
     </View>

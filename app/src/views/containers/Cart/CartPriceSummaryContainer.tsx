@@ -7,8 +7,8 @@ import { ScreenParamList } from '../../../core/configs/routes';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 
 import {
-  selectCheckedProducts,
-  selectCheckedProductsTotalPrice,
+  selectCartTotalPrice,
+  selectCartProducts,
 } from '../../../store/slices/cartSlice';
 
 import CartPriceSummary from '../../components/molecules/CartPriceSummary';
@@ -19,8 +19,8 @@ const CartPriceSummaryContainer: React.FC = () => {
   const navigation = useNavigation<CartPriceSummaryContainerProps>();
   const dispatch = useAppDispatch();
 
-  const checkedProducts = useAppSelector(selectCheckedProducts);
-  const selectedItemsPrice = useAppSelector(selectCheckedProductsTotalPrice);
+  const checkedProducts = useAppSelector(selectCartProducts);
+  const selectedItemsPrice = useAppSelector(selectCartTotalPrice);
 
   const handlePress = () => {
     if (checkedProducts.length === 0) {

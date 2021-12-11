@@ -1,6 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Avatar, Checkbox, Divider, IconButton, List, Subheading } from 'react-native-paper';
+import { StyleSheet, Image, View } from 'react-native';
+import {
+  Avatar,
+  Divider,
+  IconButton,
+  List,
+  Subheading,
+} from 'react-native-paper';
 
 import { appTheme } from '../../../core/configs/theme';
 import CartItem from '../../../core/types/CartItem';
@@ -8,32 +14,31 @@ import Product from '../../../core/types/Product';
 
 interface CartListItemProps {
   item: CartItem;
-  status: 'checked' | 'unchecked' | 'indeterminate';
   onItemPressed: (item: CartItem) => void;
-  toggleStatus: (item: CartItem) => void;
   decreaseQuantity: (product: Product) => void;
   increaseQuantity: (product: Product) => void;
 }
 
 const CartListItem: React.FC<CartListItemProps> = ({
   item,
-  status,
   onItemPressed,
-  toggleStatus,
   decreaseQuantity,
   increaseQuantity,
 }) => {
   return (
     <>
       <List.Item
-        onPress={() => toggleStatus(item)}
+        onPress={() => {}}
         title={item.product.title}
         description={item.product.description}
         style={styles.listItem}
         left={props => (
           <View style={styles.listLeftProps}>
-            <Checkbox status={status} onPress={() => toggleStatus(item)} />
-            <Avatar.Image {...props} source={{ uri: item.product.image }} />
+            <Image
+              {...props}
+              style={styles.productImage}
+              source={{ uri: item.product.image }}
+            />
           </View>
         )}
         right={props => (
@@ -120,7 +125,11 @@ const styles = StyleSheet.create({
   price: {
     fontWeight: 'bold',
     marginLeft: 10,
-  }
+  },
+  productImage: {
+    width: 128,
+    height: 128,
+  },
 });
 
 export default CartListItem;

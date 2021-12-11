@@ -10,13 +10,11 @@ import Product from '../../core/types/Product';
 
 export interface CartState {
   items: CartItem[];
-  allStatus: 'checked' | 'unchecked' | 'indeterminate';
   error?: string;
 }
 
 const initialState: CartState = {
   items: [],
-  allStatus: 'unchecked',
 };
 
 export const cartSlice = createSlice({
@@ -24,25 +22,10 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     clearCart: state => {
-      const hasChecked = state.items.some(item => item.status === 'checked');
-
-      if (hasChecked) {
-        state.items = _.filter(
-          state.items,
-          items => items.status !== 'checked'
-        );
-        state.allStatus = 'unchecked';
-
-        Toast.show({
-          type: 'success',
-          text1: 'Selected products removed from cart',
-        });
-      } else {
-        Toast.show({
-          type: 'info',
-          text1: 'Please select a product to remove',
-        });
-      }
+      Toast.show({
+        type: 'info',
+        text1: 'Items in cart cleared',
+      });
     },
     decreaseQuantity: (state, { payload }: PayloadAction<Product>) => {
       const cart = _.find(state.items, cart => cart.product.id === payload.id);
@@ -60,8 +43,6 @@ export const cartSlice = createSlice({
           text2: _.truncate(payload.title, { length: 100 }),
         });
 
-        const allChecked = state.items.every(item => item.status === 'checked');
-        state.allStatus = allChecked ? 'checked' : 'unchecked';
       } else {
         Toast.show({
           type: 'success',
@@ -88,9 +69,7 @@ export const cartSlice = createSlice({
           quantity: 1,
           timestamp: new Date().toLocaleString(),
           price: payload.price,
-          status: 'unchecked',
         });
-        state.allStatus = 'unchecked';
 
         Toast.show({
           type: 'success',
@@ -99,21 +78,6 @@ export const cartSlice = createSlice({
         });
       }
     },
-    toggleProductStatus: (state, { payload }: PayloadAction<CartItem>) => {
-      const cart = _.find(
-        state.items,
-        cart => cart.product.id === payload.product.id
-      );
-      if (!cart) return;
-
-      cart.status = cart.status === 'checked' ? 'unchecked' : 'checked';
-      const allChecked = state.items.every(item => item.status === 'checked');
-      state.allStatus = allChecked ? 'checked' : 'unchecked';
-    },
-    toggleAllStatus: state => {
-      state.allStatus = state.allStatus === 'checked' ? 'unchecked' : 'checked';
-      state.items.map(cart => (cart.status = state.allStatus));
-    },
   },
 });
 
@@ -121,21 +85,11 @@ export const {
   clearCart,
   decreaseQuantity,
   increaseQuantity,
-  toggleProductStatus,
-  toggleAllStatus,
 } = cartSlice.actions;
 export default cartSlice.reducer;
 
-export const selectProducts = (state: RootState) => state.session.cart.items;
+export const selectCartProducts = (state: RootState) => state.session.cart.items;
 
-export const selectAllStatus = (state: RootState) =>
-  state.session.cart.allStatus;
-
-export const selectCheckedProducts = createSelector([selectProducts], items =>
-  _.filter(items, cart => cart.status === 'checked')
-);
-
-export const selectCheckedProductsTotalPrice = createSelector(
-  [selectCheckedProducts],
-  items => _.sumBy(items, cart => cart.price)
+export const selectCartTotalPrice = createSelector([selectCartProducts], items =>
+  _.sumBy(items, cart => cart.price)
 );

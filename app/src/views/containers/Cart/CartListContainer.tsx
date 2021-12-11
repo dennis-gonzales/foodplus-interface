@@ -9,8 +9,7 @@ import CartItem from '../../../core/types/CartItem';
 import {
   decreaseQuantity,
   increaseQuantity,
-  selectProducts,
-  toggleProductStatus,
+  selectCartProducts,
 } from '../../../store/slices/cartSlice';
 import { selectProduct } from '../../../store/slices/productsSlice';
 
@@ -21,7 +20,7 @@ type CartListContainerProps = NavigationProp<ScreenParamList, any>;
 const CartListContainer: React.FC = () => {
   const navigation = useNavigation<CartListContainerProps>();
   const dispatch = useAppDispatch();
-  const items = useAppSelector(selectProducts);
+  const items = useAppSelector(selectCartProducts);
 
   const handlePress = (item: CartItem) => {
     dispatch(selectProduct(item.product));
@@ -33,7 +32,6 @@ const CartListContainer: React.FC = () => {
       items={items}
       increaseQuantity={product => dispatch(increaseQuantity(product))}
       decreaseQuantity={product => dispatch(decreaseQuantity(product))}
-      toggleStatus={item => dispatch(toggleProductStatus(item))}
       onItemPressed={handlePress}
     />
   );

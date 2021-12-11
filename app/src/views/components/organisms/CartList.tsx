@@ -6,16 +6,15 @@ import CartListItem from '../molecules/CartListItem';
 
 type CartListProps = Omit<
   React.ComponentPropsWithoutRef<typeof CartListItem>,
-  'item' | 'status'
+  'item'
 > & {
   items: CartItem[];
 };
 
 const CartList: React.FC<CartListProps> = ({ items, ...cartListProps }) => {
-  console.log('cart list - render');
 
   const renderItem = ({ item }: { item: CartItem }) => (
-    <CartListItem item={item} status={item.status} {...cartListProps} />
+    <CartListItem item={item} {...cartListProps} />
   );
 
   return (

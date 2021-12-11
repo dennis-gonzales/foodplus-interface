@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 import CartItem from '../../../core/types/CartItem';
 
 import {
-  selectProducts,
+  selectCartProducts,
 } from '../../../store/slices/cartSlice';
 import { selectProduct } from '../../../store/slices/productsSlice';
 
@@ -18,7 +18,7 @@ type CheckoutCartListContainerProps = NavigationProp<ScreenParamList, any>;
 const CheckoutCartListContainer: React.FC = () => {
   const navigation = useNavigation<CheckoutCartListContainerProps>();
   const dispatch = useAppDispatch();
-  const items = useAppSelector(selectProducts);
+  const items = useAppSelector(selectCartProducts);
 
   const handlePress = (item: CartItem) => {
     dispatch(selectProduct(item.product));

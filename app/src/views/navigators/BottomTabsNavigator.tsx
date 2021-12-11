@@ -3,7 +3,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 import { NavigatorParamList, ScreenParamList } from '../../core/configs/routes';
-import { selectProducts } from '../../store/slices/cartSlice';
+import { selectCartProducts } from '../../store/slices/cartSlice';
 import { useAppSelector } from '../../core/hooks/storeApi';
 
 import HomeNavigator from './HomeNavigator';
@@ -13,7 +13,7 @@ import MyOrdersScreen from '../screens/MyOrdersScreen';
 
 const BottomTabsNavigator: React.FC = () => {
 
-  const cartCount = useAppSelector(selectProducts);
+  const cartCount = useAppSelector(selectCartProducts);
 
   const Tab = createMaterialBottomTabNavigator<
     ScreenParamList & NavigatorParamList
