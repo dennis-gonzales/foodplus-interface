@@ -7,36 +7,24 @@ import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 import { ScreenParamList } from '../../../core/configs/routes';
 import Featured from '../../components/organisms/Featured';
 import Merchant from '../../../core/types/Merchant';
+import { loadMerchants, selectMerchants } from '../../../store/slices/merchantsSlice';
 
 type MerchantListContainerProps = NavigationProp<ScreenParamList, any>;
 
-const sampleMerchantList: Merchant[] = [
-  {
-    name: 'McDonalds',
-    description:
-      "McDonald’s serves the world some of its favorite food like the Big Mac, Big n' Tasty, Quarter Pounder with Cheese, Cheeseburger, French Fries, Egg McMuffin, Apple Pie and Sundae. This is what we are famous for, globally and locally.",
-    logo: 'https://www.freepnglogos.com/uploads/mcdonalds-png-logo/mcdonalds-png-logo-picture-3.png',
-  },
-  {
-    name: 'Burger King',
-    description:
-      'Every day, more than 11 million guests visit Burger King restaurants around the world. And they do so because our restaurants are known for serving high-quality, great-tasting, and affordable food.',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Burger_King_2020.svg/1200px-Burger_King_2020.svg.png',
-  },
-  {
-    name: 'KFC',
-    description: 'Kentucky Fried Chicken owes its delicious history to Harland David Sanders, its founder who is fondly referred to as “The Colonel”. Upon perfection of the Original Recipe that makes use of 11 secret herbs and spices, Colonel Sanders has brought the ultimate delight of chicken lovers to the world.',
-    logo: 'https://corporate.kfc.com.ph/wp-content/themes/kfc/assets/images/logo.png',
-  },
-];
 
 const MerchantListContainer: React.FC = () => {
   const navigation = useNavigation<MerchantListContainerProps>();
   const dispatch = useAppDispatch();
 
+  React.useEffect(() => {
+    dispatch(loadMerchants());
+  }, []);
+
+  const merchants = useAppSelector(selectMerchants);
+
   return (
     <FlatList
-      data={sampleMerchantList}
+      data={merchants}
       keyExtractor={x => x.name}
       renderItem={({ item }) => (
         <View
@@ -73,7 +61,7 @@ const MerchantListContainer: React.FC = () => {
           </Card>
         </View>
       )}
-      ListHeaderComponent={Featured}
+      ListHeaderComponent={<Featured onPress={() => navigation.navigate('MerchantListings')} />}
     />
   );
 };

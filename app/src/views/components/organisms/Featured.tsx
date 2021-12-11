@@ -6,27 +6,16 @@ import {
   Text,
   View,
 } from 'react-native';
-import { Button, Title } from 'react-native-paper';
+import { Button, Divider, Title } from 'react-native-paper';
+import { useAppSelector } from '../../../core/hooks/storeApi';
+import { selectFeaturedMerchants } from '../../../store/slices/merchantsSlice';
 
-import Merchant from '../../../core/types/Merchant';
 import MerchantPopularItem from '../molecules/MerchantPopularItem';
 
-const sampleMerchantList: Merchant[] = [
-  {
-    name: 'McDonalds',
-    logo: 'https://www.freepnglogos.com/uploads/mcdonalds-png-logo/mcdonalds-png-logo-picture-3.png',
-  },
-  {
-    name: 'Burger King',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Burger_King_2020.svg/1200px-Burger_King_2020.svg.png',
-  },
-  {
-    name: 'KFC',
-    logo: 'https://corporate.kfc.com.ph/wp-content/themes/kfc/assets/images/logo.png',
-  },
-];
+const Featured: React.FC<{ onPress: () => void }> = ({ onPress }) => {
 
-const Featured: React.FC = () => {
+  const featuredMerchants = useAppSelector(selectFeaturedMerchants);
+
   return (
     <>
       <View style={styles.imageContainer}>
@@ -45,7 +34,7 @@ const Featured: React.FC = () => {
             labelStyle={{
               fontWeight: 'bold',
             }}
-            onPress={() => {}}
+            onPress={onPress}
             mode="contained"
           >
             Let's Go!
@@ -56,7 +45,7 @@ const Featured: React.FC = () => {
       <Title style={styles.title}>Popular Today</Title>
 
       <FlatList
-        data={sampleMerchantList}
+        data={featuredMerchants}
         keyExtractor={item => item.name}
         horizontal
         contentContainerStyle={styles.productContainer}
@@ -67,6 +56,8 @@ const Featured: React.FC = () => {
           </View>
         )}
       />
+
+      <Divider />
 
       <Title style={styles.title}>Browse for more</Title>
     </>
