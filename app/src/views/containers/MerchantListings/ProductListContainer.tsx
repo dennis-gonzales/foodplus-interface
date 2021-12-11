@@ -34,7 +34,7 @@ const ProductListContainer: React.FC = () => {
     const loadProductAndFilter = async () => {
       await dispatch(
         loadProducts({
-          category,
+          merchantId: "1",
         })
       );
       if (!validator.isEmpty(searchTerm)) {

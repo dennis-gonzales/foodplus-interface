@@ -6,16 +6,60 @@ import _ from 'lodash';
 import { RootState } from '..';
 import Product from '../../core/types/Product';
 
+const testProducts: Product[] = [
+  {
+    id: 860,
+    title: '6-pc. Chicken McShare Box',
+    price: 330,
+    image:
+      'https://d1r3vc4fck3z1b.cloudfront.net/images/1634788068_web_variance_sicuUZRQ.png',
+    category: 'Chicken',
+    description: 'Chicken McShare Box',
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
+  {
+    id: 861,
+    title: 'Breakfast Sandwich Duo',
+    price: 249,
+    image:
+      'https://d1r3vc4fck3z1b.cloudfront.net/images/1635123439_mobile_variance_u68wjYea.png',
+    category: 'Breakfast',
+    description: 'Breakfast Sandwich Duo',
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
+  {
+    id: 862,
+    title: 'Breakfast Rice Bowl Duo',
+    price: 289,
+    image:
+      'https://d1r3vc4fck3z1b.cloudfront.net/images/1635123731_mobile_variance_jrkXSV9m.png',
+    category: 'Breakfast',
+    description: 'Breakfast Rice Bowl Duo',
+    rating: {
+      count: 451,
+      rate: 4.5,
+    },
+  },
+];
+
 export const loadProducts = createAsyncThunk<
   Product[],
-  Partial<{ category: string }>,
+  { merchantId: string; category?: string },
   { state: RootState }
->('products/get', async ({ category }) => {
+>('products/get', async () => {
   try {
-    let uri = `https://fakestoreapi.com/products`;
-    if (category && category !== 'All') uri += `/category/${category}`;
-    const response = await axios.get(uri);
-    return response.data;
+    // let uri = `https://fakestoreapi.com/products`;
+    // // if (category && category !== 'All') uri += `/category/${category}`;
+    // const response = await axios.get(uri);
+    // return response.data;
+
+    return testProducts;
   } catch (err) {
     throw err;
   }
@@ -75,8 +119,8 @@ export const productsSlice = createSlice({
       products.isLoading = true;
     });
     builder.addCase(loadProducts.fulfilled, (products, { payload }) => {
-      products.list = payload;
-      products.filterableList = payload;
+      products.list = payload.slice(0, 5);
+      products.filterableList = payload.slice(0, 5);
       products.isLoading = false;
     });
     builder.addCase(loadProducts.rejected, (products, { error }) => {
@@ -86,7 +130,8 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { filterProducts, selectProduct, setSearchTerm } = productsSlice.actions;
+export const { filterProducts, selectProduct, setSearchTerm } =
+  productsSlice.actions;
 export default productsSlice.reducer;
 
 export const selectProducts = (state: RootState) =>

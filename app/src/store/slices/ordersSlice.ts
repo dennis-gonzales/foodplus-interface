@@ -12,9 +12,11 @@ export const loadOrders = createAsyncThunk<
   { state: RootState }
 >('orders/get', async () => {
   try {
-    let uri = `https://fakestoreapi.com/orders`;
-    const response = await axios.get(uri);
-    return response.data;
+    // let uri = `https://fakestoreapi.com/orders`;
+    // const response = await axios.get(uri);
+    // return response.data;
+
+    return [];
   } catch (err) {
     throw err;
   }

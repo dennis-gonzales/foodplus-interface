@@ -55,15 +55,14 @@ const ProductList: React.FC<ProductListProps> = ({
 
 const styles = StyleSheet.create({
   product: {
-    flex: 1,
-    marginVertical: 5,
-    marginHorizontal: 5,
+    flex: 0.5,
+    margin: 2,
   },
   productsContainer: {
     padding: 5,
   },
   productWrapper: {
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import {
   Caption,
   Card,
@@ -22,7 +22,7 @@ const MerchantProductItem: React.FC<MerchantProductItemProps> = ({
   onAddToCartPressed,
   onProductPressed,
 }) => {
-  const { id, title, price, image, category, description, rating } = product;
+  const { title, price, image } = product;
 
   return (
     <Card
@@ -30,56 +30,52 @@ const MerchantProductItem: React.FC<MerchantProductItemProps> = ({
       style={styles.card}
       onPress={() => onProductPressed(product)}
     >
-      <Card.Content style={styles.cardTopContent}>
-        <IconButton
-          color={appTheme.colors.primary}
-          style={{ backgroundColor: appTheme.colors.background, elevation: 2 }}
-          icon="heart-outline"
-          size={24}
-          onPress={() => {}}
-        />
-      </Card.Content>
-
-      <Card.Cover
-        defaultSource={require('../../../../assets/adaptive-icon.png')}
-        style={styles.cardCover}
-        source={{ uri: image }}
-      />
-
-      <Card.Content style={styles.cardBottomContent}>
-        <Subheading numberOfLines={2}>{title}</Subheading>
-      </Card.Content>
-
-      <Card.Content style={styles.cardActions}>
-        <View style={styles.cardActionContent}>
-          <View style={{ flexDirection: 'row' }}>
-            <Caption>{price - 1}</Caption>
-            <Paragraph style={{ color: appTheme.colors.primary }}>
-              {price}
-            </Paragraph>
-          </View>
-
+      <View style={{ flex: 1, justifyContent: 'space-around' }}>
+        <Card.Content style={styles.cardTopContent}>
           <IconButton
-            style={{ backgroundColor: appTheme.colors.primary }}
-            color={appTheme.colors.text}
-            icon="plus"
-            onPress={() => onAddToCartPressed(product)}
-            size={20}
+            color={appTheme.colors.primary}
+            style={{
+              backgroundColor: appTheme.colors.background,
+              elevation: 2,
+            }}
+            icon="heart-outline"
+            size={24}
+            onPress={() => {}}
           />
-        </View>
-      </Card.Content>
+        </Card.Content>
+
+        <Image style={styles.cardCover} source={{ uri: image }} />
+
+        <Card.Content style={styles.cardBottomContent}>
+          <Subheading numberOfLines={2}>{title}</Subheading>
+        </Card.Content>
+
+        <Card.Content>
+          <View style={styles.cardActionContent}>
+            <Paragraph
+              numberOfLines={1}
+              style={{ color: appTheme.colors.primary }}
+            >
+              {price.toFixed(2)} Php
+            </Paragraph>
+
+            <IconButton
+              style={{ backgroundColor: appTheme.colors.primary }}
+              color={appTheme.colors.text}
+              icon="plus"
+              onPress={() => onAddToCartPressed(product)}
+              size={20}
+            />
+          </View>
+        </Card.Content>
+      </View>
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    margin: 0,
-    height: 260,
-  },
-  cardActions: {
-    alignSelf: 'center',
-    width: '100%',
+    height: 240,
   },
   cardActionContent: {
     flexDirection: 'row',
@@ -91,7 +87,6 @@ const styles = StyleSheet.create({
   },
   cardCover: {
     alignSelf: 'center',
-    borderRadius: 180,
     width: 120,
     height: 120,
     marginVertical: 10,
