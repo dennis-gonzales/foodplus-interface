@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Dialog, Divider, Subheading } from 'react-native-paper';
+import { Caption, Divider, Subheading } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
 
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
@@ -21,10 +21,14 @@ const PaymentMethodsContainer: React.FC = () => {
       <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
         <RadioButton.Item label="Cash On Delivery" value="COD" />
         <Divider />
-        <RadioButton.Item label="Credit Card" value="CC" />
+        <RadioButton.Item disabled label="Credit Card" value="CC" />
         <Divider />
-        <RadioButton.Item label="GCash" value="GCASH" />
+        <RadioButton.Item disabled label="GCash" value="GCASH" />
       </RadioButton.Group>
+
+      <Caption style={{ marginLeft: 20 }}>
+        COD is the only available payment method at the moment.
+      </Caption>
     </View>
   );
 };
@@ -37,7 +41,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
     fontWeight: 'bold',
-  },  
+  },
 });
 
 export default PaymentMethodsContainer;
