@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
 
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
@@ -7,14 +7,10 @@ import { ScreenParamList } from '../../../core/configs/routes';
 import { loadOrders, selectOrders } from '../../../store/slices/ordersSlice';
 import LottieContentView from '../../common/LottieContentView';
 import { Button, Title } from 'react-native-paper';
-import MerchantProductList from '../../components/organisms/MerchantProductList';
 import { selectProduct } from '../../../store/slices/productsSlice';
-import {
-  increaseQuantity,
-  selectCartProducts,
-} from '../../../store/slices/cartSlice';
-import CartList from '../../components/organisms/CartList';
-import CartItem from '../../../core/types/CartItem';
+import { selectCartProducts } from '../../../store/slices/cartSlice';
+import OrdersList from '../../components/organisms/OrdersList';
+import Product from '../../../core/types/Product';
 
 type OrdersListContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -23,7 +19,7 @@ const OrdersListContainer: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const cart = useAppSelector(selectCartProducts);
-  const orders = [];
+  const orders = useAppSelector(selectOrders);
 
   React.useEffect(() => {
     dispatch(loadOrders());
@@ -39,9 +35,11 @@ const OrdersListContainer: React.FC = () => {
             <Button
               icon="cart"
               mode="contained"
-              onPress={() => navigation.navigate(cart.length > 0 ? 'Cart' : 'Merchants')}
+              onPress={() =>
+                navigation.navigate(cart.length > 0 ? 'Cart' : 'Merchants')
+              }
             >
-              {cart.length > 0 ? 'Checkout Now': 'Shop Now'}
+              {cart.length > 0 ? 'Checkout Now' : 'Shop Now'}
             </Button>
           </>
         }
@@ -50,19 +48,12 @@ const OrdersListContainer: React.FC = () => {
     );
   }
 
-  const handlePress = (item: CartItem) => {
-    dispatch(selectProduct(item.product));
+  const handlePress = (product: Product) => {
+    dispatch(selectProduct(product));
     navigation.navigate('ListingDetails');
   };
 
-  return (
-    <CartList
-      items={cart}
-      increaseQuantity={product => dispatch(increaseQuantity(product))}
-      decreaseQuantity={product => {}}
-      onItemPressed={handlePress}
-    />
-  );
+  return <OrdersList orders={orders} onItemPressed={handlePress} />;
 };
 
 const styles = StyleSheet.create({
