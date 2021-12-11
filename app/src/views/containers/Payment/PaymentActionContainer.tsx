@@ -5,6 +5,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../../core/configs/routes';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
+import { clearCart, selectCartTotalPrice } from '../../../store/slices/cartSlice';
 
 type PaymentActionContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -12,15 +13,24 @@ const PaymentActionContainer: React.FC = () => {
   const navigation = useNavigation<PaymentActionContainerProps>();
   const dispatch = useAppDispatch();
 
+const cartTotalPrice = useAppSelector(selectCartTotalPrice);
+
+  const handlePayment = () => {
+    dispatch(clearCart({ afterPayment: true }));
+    navigation.navigate('OrderSuccess');
+  }
+
   return (
     <View style={styles.actions}>
       <View style={styles.leftAction}>
         <Text>Total Payable:</Text>
-        <Subheading>7,000 PHP</Subheading>
+        <Subheading style={styles.payable} numberOfLines={2}>
+          {cartTotalPrice} PHP
+        </Subheading>
       </View>
       <View style={styles.rightAction}>
         <Button
-          onPress={() => navigation.navigate('OrderSuccess')}
+          onPress={handlePayment}
           style={styles.button}
           contentStyle={{
             paddingVertical: 5,
@@ -47,6 +57,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  payable: {
+    fontWeight: 'bold',
   },
   rightAction: {
     flex: 1,

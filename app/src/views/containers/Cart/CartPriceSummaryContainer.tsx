@@ -20,7 +20,7 @@ const CartPriceSummaryContainer: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const checkedProducts = useAppSelector(selectCartProducts);
-  const selectedItemsPrice = useAppSelector(selectCartTotalPrice);
+  const cartTotalPrice = useAppSelector(selectCartTotalPrice);
 
   const handlePress = () => {
     if (checkedProducts.length === 0) {
@@ -36,7 +36,7 @@ const CartPriceSummaryContainer: React.FC = () => {
 
   return (
     <CartPriceSummary
-      totalPrice={selectedItemsPrice}
+      totalPrice={cartTotalPrice}
       onCheckoutPressed={handlePress}
     />
   );

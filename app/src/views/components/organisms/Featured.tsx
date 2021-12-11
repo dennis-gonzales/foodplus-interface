@@ -3,10 +3,9 @@ import {
   FlatList,
   ImageBackground,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
-import { Button, Divider, Title } from 'react-native-paper';
+import { Button, Divider, Subheading, Title } from 'react-native-paper';
 import { useAppSelector } from '../../../core/hooks/storeApi';
 import { selectFeaturedMerchants } from '../../../store/slices/merchantsSlice';
 
@@ -59,7 +58,7 @@ const Featured: React.FC<{ onPress: () => void }> = ({ onPress }) => {
 
       <Divider />
 
-      <Title style={styles.title}>Browse for more</Title>
+      <Subheading style={styles.title}>Browse for more</Subheading>
     </>
   );
 };

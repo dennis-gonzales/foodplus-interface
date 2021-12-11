@@ -5,6 +5,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { ScreenParamList } from '../../../core/configs/routes';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
+import { selectCartTotalPrice } from '../../../store/slices/cartSlice';
 
 type CheckoutActionContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -12,11 +13,15 @@ const CheckoutActionContainer: React.FC = () => {
   const navigation = useNavigation<CheckoutActionContainerProps>();
   const dispatch = useAppDispatch();
 
+  const cartTotalPrice = useAppSelector(selectCartTotalPrice);
+
   return (
     <View style={styles.actions}>
       <View style={styles.leftAction}>
         <Text>Total Payable:</Text>
-        <Subheading>7,000 PHP</Subheading>
+        <Subheading style={styles.payable} numberOfLines={2}>
+          {cartTotalPrice} PHP
+        </Subheading>
       </View>
       <View style={styles.rightAction}>
         <Button
@@ -47,6 +52,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  payable: {
+    fontWeight: 'bold',
   },
   rightAction: {
     flex: 1,

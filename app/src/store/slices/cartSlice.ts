@@ -21,10 +21,14 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    clearCart: state => {
+    clearCart: (state, { payload: { afterPayment } }: PayloadAction<{ afterPayment?: boolean }>) => {
+      state.items = [];
+      
       Toast.show({
-        type: 'info',
-        text1: 'Items in cart cleared',
+        type: afterPayment ? 'success' : 'info',
+        text1: afterPayment
+          ? "We're proccessing your order"
+          : 'Items in cart cleared',
       });
     },
     decreaseQuantity: (state, { payload }: PayloadAction<Product>) => {
