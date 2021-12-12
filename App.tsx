@@ -13,6 +13,7 @@ import {
 } from '@expo-google-fonts/ubuntu';
 import AppLoading from 'expo-app-loading';
 import Toast from 'react-native-toast-message';
+import numbro from 'numbro';
 
 import { store } from './app/src/store';
 import { appTheme, navigationTheme } from './app/src/core/configs/theme';
@@ -37,6 +38,8 @@ const App: React.FC = () => {
 
   const noInternet =
     netInfo.type !== 'unknown' && netInfo.isInternetReachable === false;
+
+  numbro.setLanguage('en-US');
 
   if (!fontsLoaded) {
     return <AppLoading />;

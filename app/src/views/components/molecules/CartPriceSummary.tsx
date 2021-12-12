@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Subheading, Title } from 'react-native-paper';
 import { appTheme } from '../../../core/configs/theme';
+import { numberWithCommas } from '../../../core/helpers/number';
 
 interface CartPriceSummaryProps {
   totalPrice: number;
@@ -16,7 +17,7 @@ const CartPriceSummary: React.FC<CartPriceSummaryProps> = ({
     <View style={styles.footer}>
       <View style={styles.centerFullyAligned}>
         <Subheading>Total</Subheading>
-        <Title>PHP {totalPrice.toFixed(2)}</Title>
+        <Title>PHP {numberWithCommas(totalPrice)}</Title>
       </View>
 
       <Button

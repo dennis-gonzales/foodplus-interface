@@ -6,6 +6,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { ScreenParamList } from '../../../core/configs/routes';
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 import { selectCartTotalPrice } from '../../../store/slices/cartSlice';
+import { numberWithCommas } from '../../../core/helpers/number';
 
 type CheckoutActionContainerProps = NavigationProp<ScreenParamList, any>;
 
@@ -20,7 +21,7 @@ const CheckoutActionContainer: React.FC = () => {
       <View style={styles.leftAction}>
         <Text>Total Payable:</Text>
         <Subheading style={styles.payable} numberOfLines={2}>
-          {cartTotalPrice} PHP
+          {numberWithCommas(cartTotalPrice)} PHP
         </Subheading>
       </View>
       <View style={styles.rightAction}>
