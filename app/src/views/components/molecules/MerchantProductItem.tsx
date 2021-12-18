@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
-  Caption,
   Card,
   IconButton,
   Paragraph,
   Subheading,
 } from 'react-native-paper';
+import { Image } from 'react-native-expo-image-cache';
 
 import { appTheme } from '../../../core/configs/theme';
 import Product from '../../../core/types/Product';
@@ -44,7 +44,12 @@ const MerchantProductItem: React.FC<MerchantProductItemProps> = ({
           />
         </Card.Content>
 
-        <Image style={styles.cardCover} source={{ uri: image }} />
+        <Image
+          style={styles.cardCover}
+          tint="light"
+          preview={require('../../../../assets/fp-banner.png')}
+          uri={image}
+        />
 
         <Card.Content style={styles.cardBottomContent}>
           <Subheading numberOfLines={2}>{title}</Subheading>
@@ -89,6 +94,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 120,
     height: 120,
+    borderWidth: 1,
+    borderColor: 'whitesmoke',
+    resizeMode: 'contain',
     marginVertical: 10,
   },
   cardTopContent: {

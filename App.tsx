@@ -22,6 +22,8 @@ import fontConfig from './app/src/core/configs/fonts';
 import OfflineNotice from './app/src/views/common/OfflineNotice';
 import NavigatorsMediator from './app/src/views/navigators/NavigatorsMediator';
 
+numbro.setLanguage('en-US');
+
 const App: React.FC = () => {
   const netInfo = useNetInfo();
 
@@ -39,7 +41,6 @@ const App: React.FC = () => {
   const noInternet =
     netInfo.type !== 'unknown' && netInfo.isInternetReachable === false;
 
-  numbro.setLanguage('en-US');
 
   if (!fontsLoaded) {
     return <AppLoading />;

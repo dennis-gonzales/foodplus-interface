@@ -1,12 +1,12 @@
 import React from 'react';
-import { FlatList, Image, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { Caption, Card, Divider, Subheading, Text } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/core';
+import { Image } from 'react-native-expo-image-cache';
 
 import { useAppDispatch, useAppSelector } from '../../../core/hooks/storeApi';
 import { ScreenParamList } from '../../../core/configs/routes';
 import Featured from '../../components/organisms/Featured';
-import Merchant from '../../../core/types/Merchant';
 import { loadMerchants, selectMerchants } from '../../../store/slices/merchantsSlice';
 
 type MerchantListContainerProps = NavigationProp<ScreenParamList, any>;
@@ -45,7 +45,9 @@ const MerchantListContainer: React.FC = () => {
             <View style={styles.middleContent}>
               <Image
                 style={styles.productImage}
-                source={{ uri: item.logo }}
+                tint="light"
+                preview={require('../../../../assets/fp-banner.png')}
+                uri={item.logo}
               />
 
               <View style={styles.middleContentText}>
@@ -61,7 +63,9 @@ const MerchantListContainer: React.FC = () => {
           </Card>
         </View>
       )}
-      ListHeaderComponent={<Featured onPress={() => navigation.navigate('MerchantListings')} />}
+      ListHeaderComponent={
+        <Featured onPress={() => navigation.navigate('MerchantListings')} />
+      }
     />
   );
 };

@@ -7,40 +7,42 @@ import _ from 'lodash';
 import { RootState } from '..';
 import Merchant from '../../core/types/Merchant';
 
+const testMerchants = [
+  {
+    name: 'McDonalds',
+    description:
+      "McDonald’s serves the world some of its favorite food like the Big Mac, Big n' Tasty, Quarter Pounder with Cheese, Cheeseburger, French Fries, Egg McMuffin, Apple Pie and Sundae. This is what we are famous for, globally and locally.",
+    logo: 'https://www.freepnglogos.com/uploads/mcdonalds-png-logo/mcdonalds-png-logo-picture-3.png',
+    featured: true,
+  },
+  {
+    name: 'Burger King',
+    description:
+      'Every day, more than 11 million guests visit Burger King restaurants around the world. And they do so because our restaurants are known for serving high-quality, great-tasting, and affordable food.',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Burger_King_2020.svg/1200px-Burger_King_2020.svg.png',
+    featured: true,
+  },
+  {
+    name: 'KFC',
+    description:
+      'Kentucky Fried Chicken owes its delicious history to Harland David Sanders, its founder who is fondly referred to as “The Colonel”. Upon perfection of the Original Recipe that makes use of 11 secret herbs and spices, Colonel Sanders has brought the ultimate delight of chicken lovers to the world.',
+    logo: 'https://corporate.kfc.com.ph/wp-content/themes/kfc/assets/images/logo.png',
+    featured: true,
+  },
+  {
+    name: 'Pizza Hut',
+    description:
+      'One day in 1958, two enterprising college students, Frank and Dan Carney, borrowed $600 from their mom and opened a small pizza restaurant in their hometown in Wichita, Kansas.',
+    logo: 'https://www.seekpng.com/png/detail/122-1229840_pizza-hut-delivery-pizza-hut-make-it-great.pnghttps://image.pngaaa.com/74/2699074-middle.png',
+  },
+];
+
 export const loadMerchants = createAsyncThunk<
   Merchant[],
   void,
   { state: RootState }
 >('merchants/get', async () => {
-  return [
-    {
-      name: 'McDonalds',
-      description:
-        "McDonald’s serves the world some of its favorite food like the Big Mac, Big n' Tasty, Quarter Pounder with Cheese, Cheeseburger, French Fries, Egg McMuffin, Apple Pie and Sundae. This is what we are famous for, globally and locally.",
-      logo: 'https://www.freepnglogos.com/uploads/mcdonalds-png-logo/mcdonalds-png-logo-picture-3.png',
-      featured: true,
-    },
-    {
-      name: 'Burger King',
-      description:
-        'Every day, more than 11 million guests visit Burger King restaurants around the world. And they do so because our restaurants are known for serving high-quality, great-tasting, and affordable food.',
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Burger_King_2020.svg/1200px-Burger_King_2020.svg.png',
-      featured: true,
-    },
-    {
-      name: 'KFC',
-      description:
-        'Kentucky Fried Chicken owes its delicious history to Harland David Sanders, its founder who is fondly referred to as “The Colonel”. Upon perfection of the Original Recipe that makes use of 11 secret herbs and spices, Colonel Sanders has brought the ultimate delight of chicken lovers to the world.',
-      logo: 'https://corporate.kfc.com.ph/wp-content/themes/kfc/assets/images/logo.png',
-      featured: true,
-    },
-    {
-      name: 'Pizza Hut',
-      description:
-        'One day in 1958, two enterprising college students, Frank and Dan Carney, borrowed $600 from their mom and opened a small pizza restaurant in their hometown in Wichita, Kansas.',
-      logo: 'https://www.seekpng.com/png/detail/122-1229840_pizza-hut-delivery-pizza-hut-make-it-great.pnghttps://image.pngaaa.com/74/2699074-middle.png',
-    },
-  ];
+  return testMerchants;
 });
 
 export interface MerchantsState {

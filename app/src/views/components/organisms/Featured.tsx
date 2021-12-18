@@ -9,7 +9,7 @@ import { Button, Divider, Subheading, Title } from 'react-native-paper';
 import { useAppSelector } from '../../../core/hooks/storeApi';
 import { selectFeaturedMerchants } from '../../../store/slices/merchantsSlice';
 
-import MerchantPopularItem from '../molecules/MerchantPopularItem';
+import HorizontalCategoryList from './HorizontalCategoryList';
 
 const Featured: React.FC<{ onPress: () => void }> = ({ onPress }) => {
 
@@ -41,9 +41,15 @@ const Featured: React.FC<{ onPress: () => void }> = ({ onPress }) => {
         </ImageBackground>
       </View>
 
-      <Title style={styles.title}>Popular Today</Title>
+      <Title style={styles.title}>Popular</Title>
 
-      <FlatList
+      <HorizontalCategoryList
+        activeCategory="All"
+        categories={['All', 'Test']}
+        onCategoryPressed={() => {}}
+      />
+
+      {/* <FlatList
         data={featuredMerchants}
         keyExtractor={item => item.name}
         horizontal
@@ -54,7 +60,7 @@ const Featured: React.FC<{ onPress: () => void }> = ({ onPress }) => {
             <MerchantPopularItem merchant={item} onPress={() => {}} />
           </View>
         )}
-      />
+      /> */}
 
       <Divider />
 
