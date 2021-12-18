@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Avatar, Button, Caption, Paragraph, Title } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
+import { Image } from 'react-native-expo-image-cache';
 
 import { ScreenParamList } from '../../../src/core/configs/routes';
 import { appTheme } from '../../../src/core/configs/theme';
@@ -46,7 +47,11 @@ const ListingDetailsContainer: React.FC = () => {
         >
           &lt; RETURN
         </Button>
-        <Image style={styles.image} source={{ uri: image }} />
+        <Image
+          style={styles.image}
+          preview={require('../../../assets/fp-banner.png')}
+          uri={image}
+        />
       </View>
 
       <View style={styles.product}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   Avatar,
   Divider,
@@ -7,6 +7,7 @@ import {
   List,
   Subheading,
 } from 'react-native-paper';
+import { Image } from 'react-native-expo-image-cache';
 
 import { appTheme } from '../../../core/configs/theme';
 import CartItem from '../../../core/types/CartItem';
@@ -37,7 +38,8 @@ const CartListItem: React.FC<CartListItemProps> = ({
             <Image
               {...props}
               style={styles.productImage}
-              source={{ uri: item.product.image }}
+              preview={require('../../../../assets/fp-banner.png')}
+              uri={item.product.image}
             />
           </View>
         )}

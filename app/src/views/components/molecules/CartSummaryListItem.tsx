@@ -1,14 +1,14 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   Caption,
   Card,
   Divider,
-  Paragraph,
   Subheading,
   Text,
   Title,
 } from 'react-native-paper';
+import { Image } from 'react-native-expo-image-cache';
 
 import CartItem from '../../../core/types/CartItem';
 
@@ -33,7 +33,11 @@ const ProductItem: React.FC<ProductItemProps> = ({ item, onItemPressed }) => {
       <Divider />
 
       <View style={styles.middleContent}>
-        <Image style={styles.productImage} source={{ uri: image }} />
+        <Image
+          style={styles.productImage}
+          preview={require('../../../../assets/fp-banner.png')}
+          uri={image}
+        />
 
         <View style={styles.middleContentText}>
           <Subheading style={styles.boldText} numberOfLines={2}>

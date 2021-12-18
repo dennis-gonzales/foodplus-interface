@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   Divider,
   IconButton,
   List,
   Subheading,
 } from 'react-native-paper';
+import { Image } from 'react-native-expo-image-cache';
 
 import { appTheme } from '../../../core/configs/theme';
 import Product from '../../../core/types/Product';
@@ -31,7 +32,8 @@ const OrderListItem: React.FC<OrderListItemProps> = ({
             <Image
               {...props}
               style={styles.productImage}
-              source={{ uri: product.image }}
+              preview={require('../../../../assets/fp-banner.png')}
+              uri={product.image}
             />
           </View>
         )}
