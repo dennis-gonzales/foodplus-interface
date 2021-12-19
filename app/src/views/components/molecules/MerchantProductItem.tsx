@@ -10,6 +10,7 @@ import { Image } from 'react-native-expo-image-cache';
 
 import { appTheme } from '../../../core/configs/theme';
 import Product from '../../../core/types/Product';
+import { numberWithCommas } from '../../../core/helpers/number';
 
 interface MerchantProductItemProps {
   product: Product;
@@ -61,7 +62,7 @@ const MerchantProductItem: React.FC<MerchantProductItemProps> = ({
               numberOfLines={1}
               style={{ color: appTheme.colors.primary }}
             >
-              {price.toFixed(2)} Php
+              {numberWithCommas(price)} Php
             </Paragraph>
 
             <IconButton
@@ -81,6 +82,9 @@ const MerchantProductItem: React.FC<MerchantProductItemProps> = ({
 const styles = StyleSheet.create({
   card: {
     height: 240,
+    borderRadius: 10,
+    marginTop: 5,
+    marginHorizontal: 5,
   },
   cardActionContent: {
     flexDirection: 'row',
